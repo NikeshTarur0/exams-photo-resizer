@@ -1,6 +1,6 @@
 {
-  "name": "Indian Exam Photo & Signature Resizer",
-  "short_name": "Exam Resizer",
+  "name": "Exams Photo Resizer",
+  "short_name": "Exams Resizer",
   "description": "Instantly crop, resize and compress photos and signatures for UPSC, SSC, IBPS, NEET, JEE",
   "start_url": "./index.html",
   "display": "standalone",

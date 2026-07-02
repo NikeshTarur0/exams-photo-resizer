@@ -739,3 +739,37 @@ input[type="range"] {
     from { transform: translateX(100%); opacity: 0; }
     to { transform: translateX(0); opacity: 1; }
 }
+
+/* ============================================================================
+   AdSense Responsive Banner Slots
+   ============================================================================ */
+.ad-slot-wrapper {
+    margin: 24px 0;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed var(--card-border);
+    border-radius: var(--radius-md);
+    text-align: center;
+    overflow: hidden;
+}
+
+.ad-banner-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    display: block;
+}
+
+.ad-content {
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    font-size: 12px;
+}
+

@@ -1,25 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exams Photo Resizer | One-Click Fast Compressor (UPSC, SSC, IBPS, NEET)</title>
-    <meta name="description" content="Instantly crop, resize and compress photos and signatures for UPSC, SSC, IBPS, NEET, JEE, and Bank exams to exact pixel & KB specs online for free.">
-    <meta name="keywords" content="photo resizer in kb, ssc photo resizer, upsc photo size converter, neet photo resizer, ibps signature crop, photo compressor to 20kb 50kb online">
-    
+    <meta name="description"
+        content="Instantly crop, resize and compress photos and signatures for UPSC, SSC, IBPS, NEET, JEE, and Bank exams to exact pixel & KB specs online for free.">
+    <meta name="keywords"
+        content="photo resizer in kb, ssc photo resizer, upsc photo size converter, neet photo resizer, ibps signature crop, photo compressor to 20kb 50kb online">
+
     <!-- Open Graph & Social Meta Tags -->
     <meta property="og:title" content="Exams Photo Resizer | Free Indian Competitive Exam Image Compressor">
-    <meta property="og:description" content="1-Click Online Passport Photo & Signature Resizer for SSC, UPSC, IBPS, NEET, and JEE exams. Guaranteed 20-50 KB compliance.">
+    <meta property="og:description"
+        content="1-Click Online Passport Photo & Signature Resizer for SSC, UPSC, IBPS, NEET, and JEE exams. Guaranteed 20-50 KB compliance.">
     <meta property="og:type" content="website">
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Web App Manifest -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#10b981">
@@ -52,6 +58,7 @@
     }
     </script>
 </head>
+
 <body>
     <!-- Background Animated Glow Effects -->
     <div class="glow-bg glow-1"></div>
@@ -77,21 +84,20 @@
             </div>
         </header>
 
-        <!-- Google AdSense Header Responsive Banner Slot -->
+        <!-- Responsive Header Banner Ad Slot -->
         <div class="ad-slot-wrapper">
-            <span class="ad-banner-label">Advertisement</span>
+            <span class="ad-banner-label">Sponsored Advertisement</span>
             <div class="ad-content">
-                <!-- Replace with AdSense Unit Code when approved -->
-                <!--
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-                     data-ad-slot="1234567890"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
-                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-                -->
-                <p><i class="fa-solid fa-rectangle-ad"></i> Sponsored Links / Ad Banner Slot</p>
+                <!-- Mobile-Responsive Normal Ad Banner Card -->
+                <a href="https://testbook.com/" target="_blank" class="normal-ad-card">
+                    <div class="normal-ad-info">
+                        <div class="normal-ad-title">
+                            <i class="fa-solid fa-fire" style="color: #f59e0b;"></i> SSC CGL & Railway 2026 Test Pass
+                        </div>
+                        <div class="normal-ad-desc">Get 700+ Free Mock Tests, Speed Drills & Solved Previous Papers.</div>
+                    </div>
+                    <span class="normal-ad-btn"><i class="fa-solid fa-bolt"></i> Claim Free Offer</span>
+                </a>
             </div>
         </div>
 
@@ -102,7 +108,7 @@
                     <label for="examSelect" class="section-label">
                         <i class="fa-solid fa-building-columns"></i> Step 1: Select Target Competitive Exam
                     </label>
-                    
+
                     <div class="custom-select-wrapper">
                         <select id="examSelect" class="exam-dropdown">
                             <option value="" disabled selected>-- Select Exam (e.g. SSC CGL, UPSC, IBPS) --</option>
@@ -128,9 +134,12 @@
                             <i class="fa-solid fa-user-tie"></i> Photo Specs
                         </div>
                         <div class="spec-body">
-                            <div class="spec-item"><span class="label">Dimensions:</span> <strong id="specPhotoDim">350 x 450 px</strong></div>
-                            <div class="spec-item"><span class="label">File Size:</span> <strong id="specPhotoSize" class="highlight-badge">20 KB - 50 KB</strong></div>
-                            <div class="spec-item"><span class="label">Background:</span> <span id="specPhotoBg">White / Light Plain</span></div>
+                            <div class="spec-item"><span class="label">Dimensions:</span> <strong id="specPhotoDim">350
+                                    x 450 px</strong></div>
+                            <div class="spec-item"><span class="label">File Size:</span> <strong id="specPhotoSize"
+                                    class="highlight-badge">20 KB - 50 KB</strong></div>
+                            <div class="spec-item"><span class="label">Background:</span> <span id="specPhotoBg">White /
+                                    Light Plain</span></div>
                         </div>
                     </div>
                     <div class="spec-card sig-spec">
@@ -138,9 +147,12 @@
                             <i class="fa-solid fa-signature"></i> Signature Specs
                         </div>
                         <div class="spec-body">
-                            <div class="spec-item"><span class="label">Dimensions:</span> <strong id="specSigDim">280 x 140 px</strong></div>
-                            <div class="spec-item"><span class="label">File Size:</span> <strong id="specSigSize" class="highlight-badge">10 KB - 20 KB</strong></div>
-                            <div class="spec-item"><span class="label">Ink Rule:</span> <span id="specSigInk">Black ink on white paper</span></div>
+                            <div class="spec-item"><span class="label">Dimensions:</span> <strong id="specSigDim">280 x
+                                    140 px</strong></div>
+                            <div class="spec-item"><span class="label">File Size:</span> <strong id="specSigSize"
+                                    class="highlight-badge">10 KB - 20 KB</strong></div>
+                            <div class="spec-item"><span class="label">Ink Rule:</span> <span id="specSigInk">Black ink
+                                    on white paper</span></div>
                         </div>
                     </div>
                 </div>
@@ -165,10 +177,12 @@
                     <!-- Upload Dropzone & Controls -->
                     <div class="card glass-card">
                         <h3><i class="fa-solid fa-cloud-arrow-up"></i> Upload Passport Photo</h3>
-                        <p class="card-desc">Drag and drop your original photograph or select a file from your computer.</p>
-                        
+                        <p class="card-desc">Drag and drop your original photograph or select a file from your computer.
+                        </p>
+
                         <div class="dropzone" id="photoDropzone">
-                            <input type="file" id="photoFileInput" accept="image/jpeg,image/png,image/webp" class="file-input">
+                            <input type="file" id="photoFileInput" accept="image/jpeg,image/png,image/webp"
+                                class="file-input">
                             <div class="dropzone-content">
                                 <div class="upload-icon-circle">
                                     <i class="fa-solid fa-camera-retro"></i>
@@ -198,11 +212,12 @@
                     <!-- Live Canvas & Compression Meter -->
                     <div class="card glass-card preview-card">
                         <h3><i class="fa-solid fa-sliders"></i> Real-Time Resized Preview</h3>
-                        
+
                         <div class="canvas-wrapper">
                             <canvas id="photoCanvas" class="hidden-canvas"></canvas>
                             <div class="preview-stage" id="photoPreviewStage">
-                                <span class="placeholder-text"><i class="fa-solid fa-image"></i> Preview will appear after selecting a photo</span>
+                                <span class="placeholder-text"><i class="fa-solid fa-image"></i> Preview will appear
+                                    after selecting a photo</span>
                             </div>
                         </div>
 
@@ -211,7 +226,8 @@
                             <div class="meter-info">
                                 <span class="meter-label">Output Size:</span>
                                 <strong id="photoCurrentSize" class="size-val">0 KB</strong>
-                                <span id="photoStatusBadge" class="status-badge status-valid"><i class="fa-solid fa-circle-check"></i> Compliant</span>
+                                <span id="photoStatusBadge" class="status-badge status-valid"><i
+                                        class="fa-solid fa-circle-check"></i> Compliant</span>
                             </div>
                             <div class="progress-bar-bg">
                                 <div id="photoSizeProgress" class="progress-fill" style="width: 50%;"></div>
@@ -226,7 +242,8 @@
                             <button id="downloadPhotoBtn" class="btn btn-primary btn-glow">
                                 <i class="fa-solid fa-download"></i> Download Photo (JPG)
                             </button>
-                            <button id="serverFallbackPhotoBtn" class="btn btn-outline" title="Use Python server fallback if browser sizing fails">
+                            <button id="serverFallbackPhotoBtn" class="btn btn-outline"
+                                title="Use Python server fallback if browser sizing fails">
                                 <i class="fa-brands fa-python"></i> Python Deep Compress
                             </button>
                         </div>
@@ -240,10 +257,12 @@
                     <!-- Upload Dropzone & Controls -->
                     <div class="card glass-card">
                         <h3><i class="fa-solid fa-cloud-arrow-up"></i> Upload Signature</h3>
-                        <p class="card-desc">Ensure your signature is written clearly in black/blue ink on white paper.</p>
-                        
+                        <p class="card-desc">Ensure your signature is written clearly in black/blue ink on white paper.
+                        </p>
+
                         <div class="dropzone" id="sigDropzone">
-                            <input type="file" id="sigFileInput" accept="image/jpeg,image/png,image/webp" class="file-input">
+                            <input type="file" id="sigFileInput" accept="image/jpeg,image/png,image/webp"
+                                class="file-input">
                             <div class="dropzone-content">
                                 <div class="upload-icon-circle alt-color">
                                     <i class="fa-solid fa-pen-fancy"></i>
@@ -273,11 +292,12 @@
                     <!-- Live Canvas & Compression Meter -->
                     <div class="card glass-card preview-card">
                         <h3><i class="fa-solid fa-sliders"></i> Resized Signature Preview</h3>
-                        
+
                         <div class="canvas-wrapper sig-canvas-wrapper">
                             <canvas id="sigCanvas" class="hidden-canvas"></canvas>
                             <div class="preview-stage" id="sigPreviewStage">
-                                <span class="placeholder-text"><i class="fa-solid fa-pen-nib"></i> Preview will appear after selecting a signature</span>
+                                <span class="placeholder-text"><i class="fa-solid fa-pen-nib"></i> Preview will appear
+                                    after selecting a signature</span>
                             </div>
                         </div>
 
@@ -286,7 +306,8 @@
                             <div class="meter-info">
                                 <span class="meter-label">Output Size:</span>
                                 <strong id="sigCurrentSize" class="size-val">0 KB</strong>
-                                <span id="sigStatusBadge" class="status-badge status-valid"><i class="fa-solid fa-circle-check"></i> Compliant</span>
+                                <span id="sigStatusBadge" class="status-badge status-valid"><i
+                                        class="fa-solid fa-circle-check"></i> Compliant</span>
                             </div>
                             <div class="progress-bar-bg">
                                 <div id="sigSizeProgress" class="progress-fill" style="width: 50%;"></div>
@@ -301,7 +322,8 @@
                             <button id="downloadSigBtn" class="btn btn-primary btn-glow">
                                 <i class="fa-solid fa-download"></i> Download Signature (JPG)
                             </button>
-                            <button id="serverFallbackSigBtn" class="btn btn-outline" title="Use Python server fallback if browser sizing fails">
+                            <button id="serverFallbackSigBtn" class="btn btn-outline"
+                                title="Use Python server fallback if browser sizing fails">
                                 <i class="fa-brands fa-python"></i> Python Deep Compress
                             </button>
                         </div>
@@ -337,40 +359,68 @@
 
         <!-- Comprehensive Exam Photo Resizing Guide & FAQ Section (SEO & AdSense Quality) -->
         <section class="seo-guide-section glass-panel" style="margin-top: 30px; line-height: 1.8;">
-            <h2 style="font-family: var(--font-heading); color: var(--accent-primary); font-size: 20px; margin-bottom: 12px;">
+            <h2
+                style="font-family: var(--font-heading); color: var(--accent-primary); font-size: 20px; margin-bottom: 12px;">
                 <i class="fa-solid fa-circle-question"></i> Frequently Asked Questions & Exam Guidelines
             </h2>
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 14px; color: var(--text-secondary);">
-                <div>
-                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">How do I resize a photo to 20 KB - 50 KB for SSC CGL / CHSL?</h3>
-                    <p style="margin-bottom: 14px;">Select <strong>SSC CGL / CHSL</strong> from the dropdown menu, drag and drop your photo into the passport workspace, adjust zoom if necessary, and click download. Our engine automatically adjusts JPEG compression quality to keep the final file between 20 KB and 50 KB.</p>
 
-                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">What are the photo requirements for UPSC Civil Services IAS?</h3>
-                    <p style="margin-bottom: 14px;">UPSC requires passport photos to be between <strong>20 KB and 300 KB</strong> with minimum 350x350 pixel dimensions. The photo must be clear with a light or white background, showing 3/4th face view.</p>
+            <div
+                style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 14px; color: var(--text-secondary);">
+                <div>
+                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">How do I resize a photo
+                        to 20 KB - 50 KB for SSC CGL / CHSL?</h3>
+                    <p style="margin-bottom: 14px;">Select <strong>SSC CGL / CHSL</strong> from the dropdown menu, drag
+                        and drop your photo into the passport workspace, adjust zoom if necessary, and click download.
+                        Our engine automatically adjusts JPEG compression quality to keep the final file between 20 KB
+                        and 50 KB.</p>
+
+                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">What are the photo
+                        requirements for UPSC Civil Services IAS?</h3>
+                    <p style="margin-bottom: 14px;">UPSC requires passport photos to be between <strong>20 KB and 300
+                            KB</strong> with minimum 350x350 pixel dimensions. The photo must be clear with a light or
+                        white background, showing 3/4th face view.</p>
                 </div>
 
                 <div>
-                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">Is my photo stored on any external server?</h3>
-                    <p style="margin-bottom: 14px;">No. Your privacy is 100% guaranteed. All image cropping, scaling, and file compression take place locally on your own device browser using modern HTML5 Canvas technology.</p>
+                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">Is my photo stored on
+                        any external server?</h3>
+                    <p style="margin-bottom: 14px;">No. Your privacy is 100% guaranteed. All image cropping, scaling,
+                        and file compression take place locally on your own device browser using modern HTML5 Canvas
+                        technology.</p>
 
-                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">Why do online exam portals reject uploaded photos?</h3>
-                    <p style="margin-bottom: 14px;">Most rejections occur due to incorrect aspect ratio (distorted faces), dark backgrounds, or exceeding strict file size bounds (e.g., photo > 50 KB). Our real-time compliance meter alerts you before downloading.</p>
+                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">Why do online exam
+                        portals reject uploaded photos?</h3>
+                    <p style="margin-bottom: 14px;">Most rejections occur due to incorrect aspect ratio (distorted
+                        faces), dark backgrounds, or exceeding strict file size bounds (e.g., photo > 50 KB). Our
+                        real-time compliance meter alerts you before downloading.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Google AdSense Bottom Banner Slot -->
+        <!-- Responsive Bottom Banner Ad Slot -->
         <div class="ad-slot-wrapper">
-            <span class="ad-banner-label">Sponsored Links</span>
+            <span class="ad-banner-label">Sponsored Recommended Resources</span>
             <div class="ad-content">
-                <p><i class="fa-solid fa-rectangle-ad"></i> Bottom Banner Ad Unit</p>
+                <!-- Mobile-Responsive Normal Ad Banner Card 2 -->
+                <a href="https://www.amazon.in/" target="_blank" class="normal-ad-card" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(245, 158, 11, 0.1)); border-color: var(--accent-secondary);">
+                    <div class="normal-ad-info">
+                        <div class="normal-ad-title">
+                            <i class="fa-solid fa-book-open" style="color: var(--accent-secondary);"></i> UPSC IAS & State PSC Prep Solved Books
+                        </div>
+                        <div class="normal-ad-desc">Top-rated NCERT Digest, General Studies Papers & Solved CSAT Kits.</div>
+                    </div>
+                    <span class="normal-ad-btn" style="background: var(--accent-secondary);"><i class="fa-solid fa-bag-shopping"></i> View Amazon Offer</span>
+                </a>
             </div>
         </div>
 
         <!-- Footer -->
         <footer class="main-footer">
-            <p>© 2026 Exams Photo Resizer • <a href="index.html" style="color: var(--accent-primary);">Home</a> | <a href="about.html" style="color: var(--accent-primary);">About Us</a> | <a href="privacy.html" style="color: var(--accent-primary);">Privacy Policy</a> | <a href="terms.html" style="color: var(--accent-primary);">Terms of Service</a> | <a href="contact.html" style="color: var(--accent-primary);">Contact Us</a></p>
+            <p>© 2026 Exams Photo Resizer • <a href="index.html" style="color: var(--accent-primary);">Home</a> | <a
+                    href="about.html" style="color: var(--accent-primary);">About Us</a> | <a href="privacy.html"
+                    style="color: var(--accent-primary);">Privacy Policy</a> | <a href="terms.html"
+                    style="color: var(--accent-primary);">Terms of Service</a> | <a href="contact.html"
+                    style="color: var(--accent-primary);">Contact Us</a></p>
         </footer>
     </div>
 
@@ -379,4 +429,5 @@
 
     <script src="app.js"></script>
 </body>
+
 </html>

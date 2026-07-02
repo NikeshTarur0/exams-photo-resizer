@@ -1,0 +1,4 @@
+-- ============================================================================
+-- NOTE: This file has been consolidated into `database.sql`.
+-- Please use `database.sql` to manage all database schema and data in one file.
+-- ============================================================================

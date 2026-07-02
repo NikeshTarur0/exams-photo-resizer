@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Exam Photo & Signature Resizer | One-Click Fast Compressor</title>
+    <meta name="description" content="Instantly crop, resize and compress photos and signatures for UPSC, SSC, IBPS, NEET, JEE, and Bank exams to exact pixel & KB specs.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#10b981">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Animated Glow Effects -->
+    <div class="glow-bg glow-1"></div>
+    <div class="glow-bg glow-2"></div>
+
+    <div class="app-container">
+        <!-- Header / Navbar -->
+        <header class="main-header">
+            <div class="logo-area">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-crop-simple"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Resizer<span class="badge-india">🇮🇳 Exam Specs</span></h1>
+                    <p class="tagline">UPSC • SSC • IBPS • NTA NEET & JEE Photo & Signature Studio</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button id="themeToggleBtn" class="btn-icon" title="Toggle Light/Dark Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <a href="#presets" class="nav-link"><i class="fa-solid fa-list-check"></i> Specs Guide</a>
+            </div>
+        </header>
+
+        <!-- Hero & Exam Selection Bar -->
+        <section class="selection-hero">
+            <div class="hero-card glass-panel">
+                <div class="hero-content">
+                    <label for="examSelect" class="section-label">
+                        <i class="fa-solid fa-building-columns"></i> Step 1: Select Target Competitive Exam
+                    </label>
+                    
+                    <div class="custom-select-wrapper">
+                        <select id="examSelect" class="exam-dropdown">
+                            <option value="" disabled selected>-- Select Exam (e.g. SSC CGL, UPSC, IBPS) --</option>
+                            <!-- Options populated dynamically by JS -->
+                        </select>
+                        <i class="fa-solid fa-chevron-down select-arrow"></i>
+                    </div>
+
+                    <div class="category-pills" id="categoryPills">
+                        <button class="pill active" data-cat="all">All Exams</button>
+                        <button class="pill" data-cat="Government Job">Government (SSC/RRB)</button>
+                        <button class="pill" data-cat="Civil Services">UPSC</button>
+                        <button class="pill" data-cat="Banking">Banking (IBPS/SBI)</button>
+                        <button class="pill" data-cat="Medical Entrance">NEET</button>
+                        <button class="pill" data-cat="Engineering Entrance">JEE / GATE</button>
+                    </div>
+                </div>
+
+                <!-- Live Exam Target Rules Summary Banner -->
+                <div class="spec-banner" id="specBanner">
+                    <div class="spec-card photo-spec">
+                        <div class="spec-header">
+                            <i class="fa-solid fa-user-tie"></i> Photo Specs
+                        </div>
+                        <div class="spec-body">
+                            <div class="spec-item"><span class="label">Dimensions:</span> <strong id="specPhotoDim">350 x 450 px</strong></div>
+                            <div class="spec-item"><span class="label">File Size:</span> <strong id="specPhotoSize" class="highlight-badge">20 KB - 50 KB</strong></div>
+                            <div class="spec-item"><span class="label">Background:</span> <span id="specPhotoBg">White / Light Plain</span></div>
+                        </div>
+                    </div>
+                    <div class="spec-card sig-spec">
+                        <div class="spec-header">
+                            <i class="fa-solid fa-signature"></i> Signature Specs
+                        </div>
+                        <div class="spec-body">
+                            <div class="spec-item"><span class="label">Dimensions:</span> <strong id="specSigDim">280 x 140 px</strong></div>
+                            <div class="spec-item"><span class="label">File Size:</span> <strong id="specSigSize" class="highlight-badge">10 KB - 20 KB</strong></div>
+                            <div class="spec-item"><span class="label">Ink Rule:</span> <span id="specSigInk">Black ink on white paper</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Workspace: Dual Dropzone Tabs (Photo & Signature) -->
+        <main class="workspace">
+            <!-- Tabs Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-btn active" id="tabPhotoBtn" onclick="switchTab('photo')">
+                    <i class="fa-solid fa-image"></i> Passport Photograph
+                </button>
+                <button class="tab-btn" id="tabSigBtn" onclick="switchTab('signature')">
+                    <i class="fa-solid fa-pen-nib"></i> Signature Upload
+                </button>
+            </div>
+
+            <!-- TAB 1: PHOTO WORKSPACE -->
+            <div class="tab-pane active" id="panePhoto">
+                <div class="grid-layout">
+                    <!-- Upload Dropzone & Controls -->
+                    <div class="card glass-card">
+                        <h3><i class="fa-solid fa-cloud-arrow-up"></i> Upload Passport Photo</h3>
+                        <p class="card-desc">Drag and drop your original photograph or select a file from your computer.</p>
+                        
+                        <div class="dropzone" id="photoDropzone">
+                            <input type="file" id="photoFileInput" accept="image/jpeg,image/png,image/webp" class="file-input">
+                            <div class="dropzone-content">
+                                <div class="upload-icon-circle">
+                                    <i class="fa-solid fa-camera-retro"></i>
+                                </div>
+                                <h4>Drop Photo Here or <span class="browse-link">Browse</span></h4>
+                                <p class="help-text">Supports JPG, PNG, WEBP (Auto-converted to official JPG)</p>
+                            </div>
+                        </div>
+
+                        <!-- Fine Tuning Controls -->
+                        <div class="control-panel" id="photoControlPanel" style="display: none;">
+                            <div class="control-group">
+                                <label><i class="fa-solid fa-magnifying-glass-plus"></i> Zoom & Crop Alignment</label>
+                                <input type="range" id="photoZoomRange" min="0.5" max="2.5" step="0.02" value="1">
+                            </div>
+                            <div class="control-group-inline">
+                                <button class="btn btn-secondary btn-sm" onclick="rotateImage('photo', -90)">
+                                    <i class="fa-solid fa-rotate-left"></i> Rotate 90°
+                                </button>
+                                <button class="btn btn-secondary btn-sm" onclick="resetControls('photo')">
+                                    <i class="fa-solid fa-arrows-rotate"></i> Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Canvas & Compression Meter -->
+                    <div class="card glass-card preview-card">
+                        <h3><i class="fa-solid fa-sliders"></i> Real-Time Resized Preview</h3>
+                        
+                        <div class="canvas-wrapper">
+                            <canvas id="photoCanvas" class="hidden-canvas"></canvas>
+                            <div class="preview-stage" id="photoPreviewStage">
+                                <span class="placeholder-text"><i class="fa-solid fa-image"></i> Preview will appear after selecting a photo</span>
+                            </div>
+                        </div>
+
+                        <!-- Realtime Compliance Badge -->
+                        <div class="compliance-meter" id="photoComplianceMeter" style="display: none;">
+                            <div class="meter-info">
+                                <span class="meter-label">Output Size:</span>
+                                <strong id="photoCurrentSize" class="size-val">0 KB</strong>
+                                <span id="photoStatusBadge" class="status-badge status-valid"><i class="fa-solid fa-circle-check"></i> Compliant</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div id="photoSizeProgress" class="progress-fill" style="width: 50%;"></div>
+                            </div>
+                            <div class="meter-target-range">
+                                Target: <span id="photoTargetRangeText">20 KB - 50 KB</span>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="action-bar" id="photoActionBar" style="display: none;">
+                            <button id="downloadPhotoBtn" class="btn btn-primary btn-glow">
+                                <i class="fa-solid fa-download"></i> Download Photo (JPG)
+                            </button>
+                            <button id="serverFallbackPhotoBtn" class="btn btn-outline" title="Use Python server fallback if browser sizing fails">
+                                <i class="fa-brands fa-python"></i> Python Deep Compress
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: SIGNATURE WORKSPACE -->
+            <div class="tab-pane" id="paneSignature">
+                <div class="grid-layout">
+                    <!-- Upload Dropzone & Controls -->
+                    <div class="card glass-card">
+                        <h3><i class="fa-solid fa-cloud-arrow-up"></i> Upload Signature</h3>
+                        <p class="card-desc">Ensure your signature is written clearly in black/blue ink on white paper.</p>
+                        
+                        <div class="dropzone" id="sigDropzone">
+                            <input type="file" id="sigFileInput" accept="image/jpeg,image/png,image/webp" class="file-input">
+                            <div class="dropzone-content">
+                                <div class="upload-icon-circle alt-color">
+                                    <i class="fa-solid fa-pen-fancy"></i>
+                                </div>
+                                <h4>Drop Signature Here or <span class="browse-link">Browse</span></h4>
+                                <p class="help-text">Supports JPG, PNG, WEBP (Auto-cropped & converted)</p>
+                            </div>
+                        </div>
+
+                        <!-- Fine Tuning Controls -->
+                        <div class="control-panel" id="sigControlPanel" style="display: none;">
+                            <div class="control-group">
+                                <label><i class="fa-solid fa-magnifying-glass-plus"></i> Zoom & Alignment</label>
+                                <input type="range" id="sigZoomRange" min="0.5" max="2.5" step="0.02" value="1">
+                            </div>
+                            <div class="control-group-inline">
+                                <button class="btn btn-secondary btn-sm" onclick="rotateImage('signature', -90)">
+                                    <i class="fa-solid fa-rotate-left"></i> Rotate 90°
+                                </button>
+                                <button class="btn btn-secondary btn-sm" onclick="resetControls('signature')">
+                                    <i class="fa-solid fa-arrows-rotate"></i> Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Canvas & Compression Meter -->
+                    <div class="card glass-card preview-card">
+                        <h3><i class="fa-solid fa-sliders"></i> Resized Signature Preview</h3>
+                        
+                        <div class="canvas-wrapper sig-canvas-wrapper">
+                            <canvas id="sigCanvas" class="hidden-canvas"></canvas>
+                            <div class="preview-stage" id="sigPreviewStage">
+                                <span class="placeholder-text"><i class="fa-solid fa-pen-nib"></i> Preview will appear after selecting a signature</span>
+                            </div>
+                        </div>
+
+                        <!-- Realtime Compliance Badge -->
+                        <div class="compliance-meter" id="sigComplianceMeter" style="display: none;">
+                            <div class="meter-info">
+                                <span class="meter-label">Output Size:</span>
+                                <strong id="sigCurrentSize" class="size-val">0 KB</strong>
+                                <span id="sigStatusBadge" class="status-badge status-valid"><i class="fa-solid fa-circle-check"></i> Compliant</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div id="sigSizeProgress" class="progress-fill" style="width: 50%;"></div>
+                            </div>
+                            <div class="meter-target-range">
+                                Target: <span id="sigTargetRangeText">10 KB - 20 KB</span>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="action-bar" id="sigActionBar" style="display: none;">
+                            <button id="downloadSigBtn" class="btn btn-primary btn-glow">
+                                <i class="fa-solid fa-download"></i> Download Signature (JPG)
+                            </button>
+                            <button id="serverFallbackSigBtn" class="btn btn-outline" title="Use Python server fallback if browser sizing fails">
+                                <i class="fa-brands fa-python"></i> Python Deep Compress
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Quick Reference Table Section -->
+        <section class="table-section glass-panel" id="presets">
+            <div class="table-header">
+                <h2><i class="fa-solid fa-table-list"></i> Official Exam Dimension Standards Reference</h2>
+                <p>Verify official Indian recruitment agency guidelines for photographs and digital signatures.</p>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Exam Code</th>
+                            <th>Examination Name</th>
+                            <th>Photo Size (Pixels)</th>
+                            <th>Photo File Limit</th>
+                            <th>Sig Size (Pixels)</th>
+                            <th>Sig File Limit</th>
+                        </tr>
+                    </thead>
+                    <tbody id="referenceTableBody">
+                        <!-- Loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <p>© 2026 Indian Exam Photo & Signature Resizer • Built with HTML5 Canvas, PHP API & Python Pillow</p>
+        </footer>
+    </div>
+
+    <!-- Notification Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

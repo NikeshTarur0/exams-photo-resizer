@@ -1,0 +1,16 @@
+{
+  "name": "Indian Exam Photo & Signature Resizer",
+  "short_name": "Exam Resizer",
+  "description": "Instantly crop, resize and compress photos and signatures for UPSC, SSC, IBPS, NEET, JEE",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b0f19",
+  "theme_color": "#10b981",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

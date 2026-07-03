@@ -884,6 +884,39 @@ input[type="range"] {
     }
 }
 
+/* Custom Dimensions Input Grid */
+.custom-inputs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+}
+
+.custom-field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.custom-input {
+    width: 100%;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    outline: none;
+    transition: var(--transition-fast);
+}
+
+.custom-input:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+}
+
 /* ============================================================================
    IMAGE UTILITY SUITE STYLING (Tool Suite Nav, Tool Views, Controls & PDF Grid)
    ============================================================================ */

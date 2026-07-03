@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exams Photo Resizer & Image Utility Suite | Compress, Resize, Crop, BG Remover & PDF to JPG</title>
     <meta name="description"
-        content="Free online All-in-One Image Utility: Exam Photo & Signature Resizer, Background Remover, Image Compressor (to 20KB/50KB), PNG to JPG Converter, Image Cropper, and PDF to Image Converter.">
+        content="Free online All-in-One Image Utility: SSC, UPSC, Bank, NEET & Nepal Lok Sewa Aayog Photo Resizer, Background Remover, Image Compressor (to 20KB/50KB/200KB), PNG to JPG Converter, Image Cropper, and PDF to Image.">
     <meta name="keywords"
-        content="photo resizer in kb, ssc photo resizer, upsc photo size converter, background remover, image compressor online, png to jpg converter, crop images, pdf to image converter">
+        content="photo resizer in kb, ssc photo resizer, nepal lok sewa photo resizer, mecee photo converter, ioe photo resizer, upsc photo size converter, background remover, image compressor online, png to jpg converter">
 
     <!-- Open Graph & Social Meta Tags -->
     <meta property="og:title" content="Exams Photo Resizer & Online Image Utility Suite">
@@ -131,13 +131,55 @@
                             <i class="fa-solid fa-chevron-down select-arrow"></i>
                         </div>
 
-                        <div class="category-pills" id="categoryPills">
-                            <button class="pill active" data-cat="all">All Exams</button>
-                            <button class="pill" data-cat="Government Job">Government (SSC/RRB)</button>
-                            <button class="pill" data-cat="Civil Services">UPSC</button>
-                            <button class="pill" data-cat="Banking">Banking (IBPS/SBI)</button>
-                            <button class="pill" data-cat="Medical Entrance">NEET</button>
-                            <button class="pill" data-cat="Engineering Entrance">JEE / GATE</button>
+                        <!-- Country Filter Selector -->
+                        <div style="margin-bottom: 12px;">
+                            <span style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent-primary); display: block; margin-bottom: 6px;">
+                                <i class="fa-solid fa-earth-asia"></i> 1. Choose Country:
+                            </span>
+                            <div class="category-pills" id="countryPills">
+                                <button class="pill active" data-country="all">🌐 All Countries</button>
+                                <button class="pill" data-country="India">🇮🇳 India Exams</button>
+                                <button class="pill" data-country="Nepal">🇳🇵 Nepal Exams</button>
+                                <button class="pill" data-country="USA">🇺🇸 USA & Global</button>
+                            </div>
+                        </div>
+
+                        <!-- Category Filter Selector -->
+                        <div>
+                            <span style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-secondary); display: block; margin-bottom: 6px;">
+                                <i class="fa-solid fa-filter"></i> 2. Filter by Category:
+                            </span>
+                            <div class="category-pills" id="categoryPills">
+                                <button class="pill active" data-cat="all">All Categories</button>
+                                <button class="pill" data-cat="Government Job">Government Jobs</button>
+                                <button class="pill" data-cat="Civil Services">Civil Services / PSC</button>
+                                <button class="pill" data-cat="Banking">Banking Exams</button>
+                                <button class="pill" data-cat="Medical Entrance">Medical Entrance</button>
+                                <button class="pill" data-cat="Engineering Entrance">Engineering Entrance</button>
+                            </div>
+                        </div>
+
+                        <!-- Custom Dimensions & Target KB Panel -->
+                        <div id="customExamPanel" class="glass-card" style="display: none; margin-top: 16px; padding: 16px;">
+                            <h4 style="font-size: 14px; margin-bottom: 12px; color: var(--accent-primary);"><i class="fa-solid fa-sliders"></i> Custom Image Resizer Settings (Pixels & KB Target)</h4>
+                            <div class="custom-inputs-grid">
+                                <div class="custom-field">
+                                    <label>Photo Width (px)</label>
+                                    <input type="number" id="customPhotoW" class="custom-input" value="350" oninput="updateCustomSpecs()">
+                                </div>
+                                <div class="custom-field">
+                                    <label>Photo Height (px)</label>
+                                    <input type="number" id="customPhotoH" class="custom-input" value="450" oninput="updateCustomSpecs()">
+                                </div>
+                                <div class="custom-field">
+                                    <label>Min Size (KB)</label>
+                                    <input type="number" id="customMinKb" class="custom-input" value="20" oninput="updateCustomSpecs()">
+                                </div>
+                                <div class="custom-field">
+                                    <label>Max Size (KB)</label>
+                                    <input type="number" id="customMaxKb" class="custom-input" value="100" oninput="updateCustomSpecs()">
+                                </div>
+                            </div>
                         </div>
                     </div>
 

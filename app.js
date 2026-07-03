@@ -8,6 +8,7 @@ const state = {
     exams: [],
     selectedExam: null,
     activeCategory: 'all',
+    activeCountry: 'all',
     activeTab: 'photo', // 'photo' or 'signature'
     currentMainTool: 'exam-studio',
     images: {
@@ -24,45 +25,136 @@ const state = {
 // Built-in JavaScript Exam Standards Fallback
 const defaultExamPresets = [
     {
-        id: 1, code: 'ssc_cgl', name: 'SSC Combined Graduate Level (CGL)', conducting_body: 'Staff Selection Commission', category: 'Government Job',
+        id: 1, code: 'ssc_cgl', name: 'SSC Combined Graduate Level (CGL)', conducting_body: 'Staff Selection Commission', category: 'Government Job', country: 'India',
         requirements: {
             photo: { min_width_px: 350, max_width_px: 450, min_height_px: 450, max_height_px: 550, target_width: 350, target_height: 450, aspect_ratio: '3.5:4.5', min_kb: 20, max_kb: 50, bg_color: 'Light / White Background', dpi: 200 },
             signature: { min_width_px: 280, max_width_px: 400, min_height_px: 140, max_height_px: 200, target_width: 280, target_height: 140, aspect_ratio: '4.0:2.0', min_kb: 10, max_kb: 20, bg_color: 'Black ink on white paper', dpi: 200 }
         }
     },
     {
-        id: 2, code: 'ssc_chsl', name: 'SSC Combined Higher Secondary Level (CHSL)', conducting_body: 'Staff Selection Commission', category: 'Government Job',
+        id: 2, code: 'ssc_chsl', name: 'SSC Combined Higher Secondary Level (CHSL)', conducting_body: 'Staff Selection Commission', category: 'Government Job', country: 'India',
         requirements: {
             photo: { min_width_px: 350, max_width_px: 450, min_height_px: 450, max_height_px: 550, target_width: 350, target_height: 450, aspect_ratio: '3.5:4.5', min_kb: 20, max_kb: 50, bg_color: 'Plain light background', dpi: 200 },
             signature: { min_width_px: 280, max_width_px: 400, min_height_px: 140, max_height_px: 200, target_width: 280, target_height: 140, aspect_ratio: '4.0:2.0', min_kb: 10, max_kb: 20, bg_color: 'White paper', dpi: 200 }
         }
     },
     {
-        id: 3, code: 'upsc_cse', name: 'UPSC Civil Services Examination (IAS/IPS)', conducting_body: 'Union Public Service Commission', category: 'Civil Services',
+        id: 3, code: 'ssc_gd', name: 'SSC GD Constable Exam', conducting_body: 'Staff Selection Commission', category: 'Government Job', country: 'India',
+        requirements: {
+            photo: { min_width_px: 350, max_width_px: 450, min_height_px: 450, max_height_px: 550, target_width: 350, target_height: 450, aspect_ratio: '3.5:4.5', min_kb: 20, max_kb: 50, bg_color: 'Light background with date', dpi: 200 },
+            signature: { min_width_px: 280, max_width_px: 400, min_height_px: 140, max_height_px: 200, target_width: 280, target_height: 140, aspect_ratio: '4.0:2.0', min_kb: 10, max_kb: 20, bg_color: 'Black ink', dpi: 200 }
+        }
+    },
+    {
+        id: 4, code: 'upsc_cse', name: 'UPSC Civil Services Examination (IAS/IPS)', conducting_body: 'Union Public Service Commission', category: 'Civil Services', country: 'India',
         requirements: {
             photo: { min_width_px: 350, max_width_px: 1000, min_height_px: 350, max_height_px: 1000, target_width: 500, target_height: 500, aspect_ratio: '1:1', min_kb: 20, max_kb: 300, bg_color: 'White / Plain background', dpi: 300 },
             signature: { min_width_px: 350, max_width_px: 1000, min_height_px: 350, max_height_px: 1000, target_width: 500, target_height: 500, aspect_ratio: '1:1', min_kb: 20, max_kb: 300, bg_color: 'White background', dpi: 300 }
         }
     },
     {
-        id: 4, code: 'ibps_po', name: 'IBPS Probationary Officer (PO / MT)', conducting_body: 'Institute of Banking Personnel Selection', category: 'Banking',
+        id: 5, code: 'ibps_po', name: 'IBPS Probationary Officer (PO / Clerk)', conducting_body: 'Institute of Banking Personnel Selection', category: 'Banking', country: 'India',
         requirements: {
             photo: { min_width_px: 200, max_width_px: 250, min_height_px: 230, max_height_px: 270, target_width: 200, target_height: 230, aspect_ratio: '4.5:3.5', min_kb: 20, max_kb: 50, bg_color: 'Light colored', dpi: 200 },
             signature: { min_width_px: 140, max_width_px: 200, min_height_px: 60, max_height_px: 100, target_width: 140, target_height: 60, aspect_ratio: '2.3:1', min_kb: 10, max_kb: 20, bg_color: 'White paper with Black ink', dpi: 200 }
         }
     },
     {
-        id: 5, code: 'nta_neet', name: 'NTA NEET (UG) Medical Entrance', conducting_body: 'National Testing Agency', category: 'Medical Entrance',
+        id: 6, code: 'sbi_po', name: 'SBI PO & Junior Associate Clerk', conducting_body: 'State Bank of India', category: 'Banking', country: 'India',
+        requirements: {
+            photo: { min_width_px: 200, max_width_px: 250, min_height_px: 230, max_height_px: 270, target_width: 200, target_height: 230, aspect_ratio: '4.5:3.5', min_kb: 20, max_kb: 50, bg_color: 'Light background', dpi: 200 },
+            signature: { min_width_px: 140, max_width_px: 200, min_height_px: 60, max_height_px: 100, target_width: 140, target_height: 60, aspect_ratio: '2.3:1', min_kb: 10, max_kb: 20, bg_color: 'Black ink', dpi: 200 }
+        }
+    },
+    {
+        id: 7, code: 'rrb_ntpc', name: 'Railway RRB NTPC & Group D Recruitment', conducting_body: 'Railway Recruitment Control Board', category: 'Government Job', country: 'India',
+        requirements: {
+            photo: { min_width_px: 320, max_width_px: 400, min_height_px: 400, max_height_px: 500, target_width: 320, target_height: 400, aspect_ratio: '3.5:4.5', min_kb: 20, max_kb: 50, bg_color: 'White background', dpi: 200 },
+            signature: { min_width_px: 250, max_width_px: 350, min_height_px: 100, max_height_px: 150, target_width: 250, target_height: 100, aspect_ratio: '2.5:1.0', min_kb: 10, max_kb: 20, bg_color: 'Black ink', dpi: 200 }
+        }
+    },
+    {
+        id: 8, code: 'nta_neet', name: 'NTA NEET (UG) Medical Entrance', conducting_body: 'National Testing Agency', category: 'Medical Entrance', country: 'India',
         requirements: {
             photo: { min_width_px: 350, max_width_px: 600, min_height_px: 450, max_height_px: 800, target_width: 400, target_height: 520, aspect_ratio: '3.5:4.5', min_kb: 10, max_kb: 200, bg_color: 'White background (80% face)', dpi: 300 },
             signature: { min_width_px: 280, max_width_px: 500, min_height_px: 100, max_height_px: 250, target_width: 350, target_height: 150, aspect_ratio: '3.5:1.5', min_kb: 4, max_kb: 30, bg_color: 'White sheet with Black ink', dpi: 300 }
         }
     },
     {
-        id: 6, code: 'nta_jee', name: 'NTA JEE Main Engineering Entrance', conducting_body: 'National Testing Agency', category: 'Engineering Entrance',
+        id: 9, code: 'nta_jee', name: 'NTA JEE Main Engineering Entrance', conducting_body: 'National Testing Agency', category: 'Engineering Entrance', country: 'India',
         requirements: {
             photo: { min_width_px: 350, max_width_px: 600, min_height_px: 450, max_height_px: 800, target_width: 400, target_height: 520, aspect_ratio: '3.5:4.5', min_kb: 10, max_kb: 200, bg_color: 'White background', dpi: 300 },
             signature: { min_width_px: 280, max_width_px: 500, min_height_px: 100, max_height_px: 250, target_width: 350, target_height: 150, aspect_ratio: '3.5:1.5', min_kb: 4, max_kb: 30, bg_color: 'White sheet with Black ink', dpi: 300 }
+        }
+    },
+    {
+        id: 10, code: 'gate_exam', name: 'GATE Engineering Entrance (IITs)', conducting_body: 'Indian Institutes of Technology', category: 'Engineering Entrance', country: 'India',
+        requirements: {
+            photo: { min_width_px: 240, max_width_px: 520, min_height_px: 320, max_height_px: 680, target_width: 350, target_height: 460, aspect_ratio: '3.5:4.5', min_kb: 5, max_kb: 200, bg_color: 'White background', dpi: 200 },
+            signature: { min_width_px: 280, max_width_px: 560, min_height_px: 80, max_height_px: 160, target_width: 280, target_height: 100, aspect_ratio: '2.8:1', min_kb: 5, max_kb: 200, bg_color: 'Dark blue or black ink', dpi: 200 }
+        }
+    },
+    {
+        id: 11, code: 'cat_exam', name: 'CAT Management Entrance (IIMs)', conducting_body: 'Indian Institutes of Management', category: 'Management Entrance', country: 'India',
+        requirements: {
+            photo: { min_width_px: 350, max_width_px: 500, min_height_px: 450, max_height_px: 600, target_width: 350, target_height: 450, aspect_ratio: '3.5:4.5', min_kb: 20, max_kb: 80, bg_color: 'White background', dpi: 200 },
+            signature: { min_width_px: 280, max_width_px: 400, min_height_px: 100, max_height_px: 150, target_width: 280, target_height: 100, aspect_ratio: '2.8:1', min_kb: 20, max_kb: 80, bg_color: 'White background', dpi: 200 }
+        }
+    },
+    {
+        id: 12, code: 'cuet_ug', name: 'NTA CUET (UG & PG) Entrance Exam', conducting_body: 'National Testing Agency', category: 'University Entrance', country: 'India',
+        requirements: {
+            photo: { min_width_px: 350, max_width_px: 600, min_height_px: 450, max_height_px: 800, target_width: 400, target_height: 520, aspect_ratio: '3.5:4.5', min_kb: 10, max_kb: 200, bg_color: 'White background', dpi: 300 },
+            signature: { min_width_px: 280, max_width_px: 500, min_height_px: 100, max_height_px: 250, target_width: 350, target_height: 150, aspect_ratio: '3.5:1.5', min_kb: 4, max_kb: 30, bg_color: 'Black ink', dpi: 300 }
+        }
+    },
+    {
+        id: 13, code: 'afcat', name: 'AFCAT & CDS Defence Exam', conducting_body: 'Indian Air Force / UPSC', category: 'Defence Exam', country: 'India',
+        requirements: {
+            photo: { min_width_px: 350, max_width_px: 500, min_height_px: 450, max_height_px: 600, target_width: 350, target_height: 450, aspect_ratio: '3.5:4.5', min_kb: 10, max_kb: 50, bg_color: 'Light background', dpi: 200 },
+            signature: { min_width_px: 280, max_width_px: 400, min_height_px: 100, max_height_px: 150, target_width: 280, target_height: 100, aspect_ratio: '2.8:1', min_kb: 10, max_kb: 50, bg_color: 'White paper', dpi: 200 }
+        }
+    },
+    {
+        id: 14, code: 'nepal_psc', name: 'Nepal Lok Sewa Aayog (Public Service Commission Nepal)', conducting_body: 'Lok Sewa Aayog Nepal 🇳🇵', category: 'Government Job', country: 'Nepal',
+        requirements: {
+            photo: { min_width_px: 350, max_width_px: 450, min_height_px: 450, max_height_px: 550, target_width: 350, target_height: 450, aspect_ratio: '3.5:4.5', min_kb: 20, max_kb: 200, bg_color: 'Plain white background (PP size)', dpi: 300 },
+            signature: { min_width_px: 300, max_width_px: 500, min_height_px: 150, max_height_px: 250, target_width: 300, target_height: 150, aspect_ratio: '2:1', min_kb: 10, max_kb: 100, bg_color: 'Black ink on white paper', dpi: 300 }
+        }
+    },
+    {
+        id: 15, code: 'nepal_mecee', name: 'Nepal MECEE Medical Entrance Exam', conducting_body: 'Medical Education Commission Nepal 🇳🇵', category: 'Medical Entrance', country: 'Nepal',
+        requirements: {
+            photo: { min_width_px: 350, max_width_px: 450, min_height_px: 450, max_height_px: 550, target_width: 350, target_height: 450, aspect_ratio: '3.5:4.5', min_kb: 20, max_kb: 200, bg_color: 'White background (MRP specs)', dpi: 300 },
+            signature: { min_width_px: 300, max_width_px: 450, min_height_px: 150, max_height_px: 200, target_width: 300, target_height: 150, aspect_ratio: '2:1', min_kb: 10, max_kb: 50, bg_color: 'Black ink', dpi: 300 }
+        }
+    },
+    {
+        id: 16, code: 'nepal_ioe', name: 'Nepal IOE Engineering Entrance (Tribhuvan University)', conducting_body: 'Institute of Engineering Nepal 🇳🇵', category: 'Engineering Entrance', country: 'Nepal',
+        requirements: {
+            photo: { min_width_px: 300, max_width_px: 400, min_height_px: 360, max_height_px: 480, target_width: 300, target_height: 360, aspect_ratio: '3:3.6', min_kb: 10, max_kb: 50, bg_color: 'Light background', dpi: 200 },
+            signature: { min_width_px: 300, max_width_px: 400, min_height_px: 150, max_height_px: 200, target_width: 300, target_height: 150, aspect_ratio: '2:1', min_kb: 5, max_kb: 20, bg_color: 'Black ink on white paper', dpi: 200 }
+        }
+    },
+    {
+        id: 17, code: 'nepal_eps_topik', name: 'Nepal EPS-TOPIK (Korea Work Visa Exam)', conducting_body: 'HRD Korea / Ministry of Labour Nepal 🇳🇵', category: 'Government Job', country: 'Nepal',
+        requirements: {
+            photo: { min_width_px: 350, max_width_px: 600, min_height_px: 450, max_height_px: 600, target_width: 600, target_height: 600, aspect_ratio: '1:1', min_kb: 10, max_kb: 100, bg_color: 'White background', dpi: 300 },
+            signature: { min_width_px: 300, max_width_px: 500, min_height_px: 150, max_height_px: 250, target_width: 300, target_height: 150, aspect_ratio: '2:1', min_kb: 5, max_kb: 50, bg_color: 'White paper', dpi: 300 }
+        }
+    },
+    {
+        id: 18, code: 'usa_dv_lottery', name: 'US Green Card DV Lottery & US Visa Photo 🇺🇸', conducting_body: 'US Department of State', category: 'Global Visa', country: 'USA',
+        requirements: {
+            photo: { min_width_px: 600, max_width_px: 1200, min_height_px: 600, max_height_px: 1200, target_width: 600, target_height: 600, aspect_ratio: '1:1', min_kb: 10, max_kb: 240, bg_color: 'Plain white / off-white background', dpi: 300 },
+            signature: { min_width_px: 300, max_width_px: 600, min_height_px: 150, max_height_px: 300, target_width: 300, target_height: 150, aspect_ratio: '2:1', min_kb: 10, max_kb: 100, bg_color: 'Black ink', dpi: 300 }
+        }
+    },
+    {
+        id: 99, code: 'custom', name: '📐 Custom Image Resizer (Custom Width, Height & KB)', conducting_body: 'Freeform Custom Resizing Utility', category: 'Custom Preset', country: 'all',
+        requirements: {
+            photo: { min_width_px: 350, max_width_px: 1000, min_height_px: 450, max_height_px: 1000, target_width: 350, target_height: 450, aspect_ratio: 'Custom', min_kb: 20, max_kb: 100, bg_color: 'User preference', dpi: 300 },
+            signature: { min_width_px: 280, max_width_px: 1000, min_height_px: 140, max_height_px: 1000, target_width: 280, target_height: 140, aspect_ratio: 'Custom', min_kb: 10, max_kb: 50, bg_color: 'User preference', dpi: 300 }
         }
     }
 ];
@@ -114,9 +206,11 @@ function populateDropdown() {
     const select = document.getElementById('examSelect');
     select.innerHTML = '<option value="" disabled>-- Select Exam (e.g. SSC CGL, UPSC, IBPS) --</option>';
 
-    const filtered = state.activeCategory === 'all' 
-        ? state.exams 
-        : state.exams.filter(e => e.category === state.activeCategory);
+    const filtered = state.exams.filter(e => {
+        const matchCountry = (state.activeCountry === 'all' || e.country === 'all' || e.country === state.activeCountry);
+        const matchCat = (state.activeCategory === 'all' || e.category === state.activeCategory);
+        return matchCountry && matchCat;
+    });
 
     filtered.forEach(exam => {
         const opt = document.createElement('option');
@@ -131,13 +225,66 @@ function populateDropdown() {
     }
 }
 
+// Setup Event Listeners for Exam Dropzone & Controls
+function setupEventListeners() {
+    document.getElementById('examSelect').addEventListener('change', (e) => selectExam(e.target.value));
+
+    // Country Pills Selector Listener
+    document.querySelectorAll('#countryPills .pill').forEach(pill => {
+        pill.addEventListener('click', (e) => {
+            document.querySelectorAll('#countryPills .pill').forEach(p => p.classList.remove('active'));
+            e.target.classList.add('active');
+            state.activeCountry = e.target.dataset.country;
+            populateDropdown();
+            showToast(`Showing ${e.target.textContent.trim()} presets`, 'info');
+        });
+    });
+
+    // Category Pills Selector Listener
+    document.querySelectorAll('#categoryPills .pill').forEach(pill => {
+        pill.addEventListener('click', (e) => {
+            document.querySelectorAll('#categoryPills .pill').forEach(p => p.classList.remove('active'));
+            e.target.classList.add('active');
+            state.activeCategory = e.target.dataset.cat;
+            populateDropdown();
+        });
+    });
+
 // Select an Exam preset
 function selectExam(code) {
     state.selectedExam = state.exams.find(e => e.code === code);
     if (!state.selectedExam) return;
 
+    const isCustom = code === 'custom';
+    const customPanel = document.getElementById('customExamPanel');
+    if (customPanel) customPanel.style.display = isCustom ? 'block' : 'none';
+
+    if (isCustom) updateCustomSpecs();
+
     updateSpecBanner();
     highlightTableRows();
+
+    if (state.images.photo.original) processCanvas('photo');
+    if (state.images.signature.original) processCanvas('signature');
+}
+
+// Live Custom Dimensions & KB Target Updater
+function updateCustomSpecs() {
+    if (!state.selectedExam || state.selectedExam.code !== 'custom') return;
+
+    const w = parseInt(document.getElementById('customPhotoW').value) || 350;
+    const h = parseInt(document.getElementById('customPhotoH').value) || 450;
+    const minKb = parseInt(document.getElementById('customMinKb').value) || 20;
+    const maxKb = parseInt(document.getElementById('customMaxKb').value) || 100;
+
+    state.selectedExam.requirements.photo.target_width = w;
+    state.selectedExam.requirements.photo.min_width_px = w;
+    state.selectedExam.requirements.photo.target_height = h;
+    state.selectedExam.requirements.photo.min_height_px = h;
+    state.selectedExam.requirements.photo.min_kb = minKb;
+    state.selectedExam.requirements.photo.max_kb = maxKb;
+
+    updateSpecBanner();
 
     if (state.images.photo.original) processCanvas('photo');
     if (state.images.signature.original) processCanvas('signature');

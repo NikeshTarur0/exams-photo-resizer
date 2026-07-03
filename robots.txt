@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://exams-photo.netlify.app/sitemap.xml
+Sitemap: https://exams-photo-resizer.vercel.app/sitemap.xml

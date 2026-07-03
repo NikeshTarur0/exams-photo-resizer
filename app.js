@@ -204,7 +204,9 @@ async function fetchExamsData() {
 // Populate Exam Selection Dropdown
 function populateDropdown() {
     const select = document.getElementById('examSelect');
-    select.innerHTML = '<option value="" disabled>-- Select Exam (e.g. SSC CGL, UPSC, IBPS) --</option>';
+    if (!select) return;
+
+    select.innerHTML = '<option value="" disabled>-- Select Exam / Specification --</option>';
 
     const filtered = state.exams.filter(e => {
         const matchCountry = (state.activeCountry === 'all' || e.country === 'all' || e.country === state.activeCountry);
@@ -222,33 +224,10 @@ function populateDropdown() {
     if (filtered.length > 0) {
         select.value = filtered[0].code;
         selectExam(filtered[0].code);
+    } else {
+        showToast('No exam presets found matching your filter selection', 'info');
     }
 }
-
-// Setup Event Listeners for Exam Dropzone & Controls
-function setupEventListeners() {
-    document.getElementById('examSelect').addEventListener('change', (e) => selectExam(e.target.value));
-
-    // Country Pills Selector Listener
-    document.querySelectorAll('#countryPills .pill').forEach(pill => {
-        pill.addEventListener('click', (e) => {
-            document.querySelectorAll('#countryPills .pill').forEach(p => p.classList.remove('active'));
-            e.target.classList.add('active');
-            state.activeCountry = e.target.dataset.country;
-            populateDropdown();
-            showToast(`Showing ${e.target.textContent.trim()} presets`, 'info');
-        });
-    });
-
-    // Category Pills Selector Listener
-    document.querySelectorAll('#categoryPills .pill').forEach(pill => {
-        pill.addEventListener('click', (e) => {
-            document.querySelectorAll('#categoryPills .pill').forEach(p => p.classList.remove('active'));
-            e.target.classList.add('active');
-            state.activeCategory = e.target.dataset.cat;
-            populateDropdown();
-        });
-    });
 
 // Select an Exam preset
 function selectExam(code) {
@@ -310,13 +289,28 @@ function updateSpecBanner() {
 
 // Setup Event Listeners for Exam Dropzone & Controls
 function setupEventListeners() {
-    document.getElementById('examSelect').addEventListener('change', (e) => selectExam(e.target.value));
+    const examSelect = document.getElementById('examSelect');
+    if (examSelect) {
+        examSelect.addEventListener('change', (e) => selectExam(e.target.value));
+    }
 
+    // Country Pills Selector Listener
+    document.querySelectorAll('#countryPills .pill').forEach(pill => {
+        pill.addEventListener('click', (e) => {
+            document.querySelectorAll('#countryPills .pill').forEach(p => p.classList.remove('active'));
+            e.currentTarget.classList.add('active');
+            state.activeCountry = e.currentTarget.dataset.country;
+            populateDropdown();
+            showToast(`Showing ${e.currentTarget.textContent.trim()} presets`, 'info');
+        });
+    });
+
+    // Category Pills Selector Listener
     document.querySelectorAll('#categoryPills .pill').forEach(pill => {
         pill.addEventListener('click', (e) => {
             document.querySelectorAll('#categoryPills .pill').forEach(p => p.classList.remove('active'));
-            e.target.classList.add('active');
-            state.activeCategory = e.target.dataset.cat;
+            e.currentTarget.classList.add('active');
+            state.activeCategory = e.currentTarget.dataset.cat;
             populateDropdown();
         });
     });
@@ -324,21 +318,33 @@ function setupEventListeners() {
     setupDropzone('photoDropzone', 'photoFileInput', 'photo');
     setupDropzone('sigDropzone', 'sigFileInput', 'signature');
 
-    document.getElementById('photoZoomRange').addEventListener('input', (e) => {
-        state.images.photo.zoom = parseFloat(e.target.value);
-        processCanvas('photo');
-    });
+    const photoZoom = document.getElementById('photoZoomRange');
+    if (photoZoom) {
+        photoZoom.addEventListener('input', (e) => {
+            state.images.photo.zoom = parseFloat(e.target.value);
+            processCanvas('photo');
+        });
+    }
 
-    document.getElementById('sigZoomRange').addEventListener('input', (e) => {
-        state.images.signature.zoom = parseFloat(e.target.value);
-        processCanvas('signature');
-    });
+    const sigZoom = document.getElementById('sigZoomRange');
+    if (sigZoom) {
+        sigZoom.addEventListener('input', (e) => {
+            state.images.signature.zoom = parseFloat(e.target.value);
+            processCanvas('signature');
+        });
+    }
 
-    document.getElementById('downloadPhotoBtn').addEventListener('click', () => downloadImage('photo'));
-    document.getElementById('downloadSigBtn').addEventListener('click', () => downloadImage('signature'));
+    const dlPhoto = document.getElementById('downloadPhotoBtn');
+    if (dlPhoto) dlPhoto.addEventListener('click', () => downloadImage('photo'));
 
-    document.getElementById('serverFallbackPhotoBtn').addEventListener('click', () => triggerServerFallback('photo'));
-    document.getElementById('serverFallbackSigBtn').addEventListener('click', () => triggerServerFallback('signature'));
+    const dlSig = document.getElementById('downloadSigBtn');
+    if (dlSig) dlSig.addEventListener('click', () => downloadImage('signature'));
+
+    const fbPhoto = document.getElementById('serverFallbackPhotoBtn');
+    if (fbPhoto) fbPhoto.addEventListener('click', () => triggerServerFallback('photo'));
+
+    const fbSig = document.getElementById('serverFallbackSigBtn');
+    if (fbSig) fbSig.addEventListener('click', () => triggerServerFallback('signature'));
 }
 
 // Setup Utility Tool Dropzones

@@ -165,6 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchExamsData();
     setupEventListeners();
     setupUtilityToolDropzones();
+    checkWorkspacePanels();
 });
 
 // Suite Navigation Tool Switching
@@ -392,6 +393,7 @@ function switchTab(type) {
     document.getElementById('tabSigBtn').classList.toggle('active', type === 'signature');
     document.getElementById('panePhoto').classList.toggle('active', type === 'photo');
     document.getElementById('paneSignature').classList.toggle('active', type === 'signature');
+    checkWorkspacePanels();
 }
 
 // Drag & Drop Handling for Exam Studio
@@ -504,6 +506,80 @@ function processCanvas(type) {
     const stageId = type === 'photo' ? 'photoPreviewStage' : 'sigPreviewStage';
     document.getElementById(stageId).innerHTML = `<img src="${bestDataUrl}" alt="Resized ${type} Preview">`;
     updateComplianceMeter(type, bestSizeKb, req.min_kb, req.max_kb);
+}
+
+// Ensure control panels & compliance meters are hidden when no image is loaded
+function checkWorkspacePanels() {
+    ['photo', 'signature'].forEach(type => {
+        const hasImg = !!(state.images[type] && state.images[type].original);
+        const ctrl = document.getElementById(type === 'photo' ? 'photoControlPanel' : 'sigControlPanel');
+        const meter = document.getElementById(type === 'photo' ? 'photoComplianceMeter' : 'sigComplianceMeter');
+        const act = document.getElementById(type === 'photo' ? 'photoActionBar' : 'sigActionBar');
+        if (ctrl) ctrl.style.display = hasImg ? 'block' : 'none';
+        if (meter) meter.style.display = hasImg ? 'block' : 'none';
+        if (act) act.style.display = hasImg ? 'flex' : 'none';
+    });
+}
+
+// Estimate Base64 DataURL File Size in KB
+function estimateBase64SizeKb(dataUrl) {
+    if (!dataUrl) return 0;
+    const base64Str = dataUrl.split(',')[1] || '';
+    const bytes = Math.round((base64Str.length * 3) / 4);
+    return Math.round((bytes / 1024) * 10) / 10;
+}
+
+// Update Compliance Meter & Size Status Badge
+function updateComplianceMeter(type, sizeKb, minKb, maxKb) {
+    const sizeEl = document.getElementById(type === 'photo' ? 'photoCurrentSize' : 'sigCurrentSize');
+    const badgeEl = document.getElementById(type === 'photo' ? 'photoStatusBadge' : 'sigStatusBadge');
+    const progressEl = document.getElementById(type === 'photo' ? 'photoSizeProgress' : 'sigSizeProgress');
+    const meterEl = document.getElementById(type === 'photo' ? 'photoComplianceMeter' : 'sigComplianceMeter');
+
+    if (meterEl) meterEl.style.display = 'block';
+    if (sizeEl) sizeEl.textContent = `${sizeKb} KB`;
+
+    const isValid = sizeKb >= minKb && sizeKb <= maxKb;
+    if (badgeEl) {
+        if (isValid) {
+            badgeEl.className = 'status-badge status-valid';
+            badgeEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> Compliant';
+        } else if (sizeKb < minKb) {
+            badgeEl.className = 'status-badge status-invalid';
+            badgeEl.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Below Limit (${sizeKb} KB)`;
+        } else {
+            badgeEl.className = 'status-badge status-invalid';
+            badgeEl.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Exceeds Limit (${sizeKb} KB)`;
+        }
+    }
+
+    if (progressEl) {
+        let pct = 0;
+        if (maxKb > 0) {
+            pct = Math.min(100, Math.max(5, Math.round((sizeKb / maxKb) * 100)));
+        }
+        progressEl.style.width = `${pct}%`;
+        progressEl.style.background = isValid 
+            ? 'linear-gradient(90deg, #10b981, #34d399)' 
+            : 'linear-gradient(90deg, #ef4444, #f87171)';
+    }
+}
+
+// Rotate Image Controls
+function rotateImage(type, deg) {
+    if (!state.images[type].original) return;
+    state.images[type].rotation = (state.images[type].rotation + deg + 360) % 360;
+    processCanvas(type);
+}
+
+// Reset Image Controls
+function resetControls(type) {
+    if (!state.images[type].original) return;
+    state.images[type].zoom = 1;
+    state.images[type].rotation = 0;
+    const zoomInput = document.getElementById(type === 'photo' ? 'photoZoomRange' : 'sigZoomRange');
+    if (zoomInput) zoomInput.value = 1;
+    processCanvas(type);
 }
 
 // 1. TOOL: BACKGROUND REMOVER LOGIC

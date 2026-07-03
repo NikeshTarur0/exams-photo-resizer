@@ -357,6 +357,20 @@ function setupUtilityToolDropzones() {
     setupGenericToolDropzone('cropDropzone', 'cropFileInput', 'crop', handleCropUpload);
     setupGenericToolDropzone('pdfDropzone', 'pdfFileInput', 'pdf', handlePdfUpload);
 
+    const bgThresh = document.getElementById('bgThreshold');
+    if (bgThresh) {
+        bgThresh.addEventListener('input', () => {
+            if (state.images.bg.original) processBgRemoval();
+        });
+    }
+
+    const bgType = document.getElementById('bgTypeSelect');
+    if (bgType) {
+        bgType.addEventListener('change', () => {
+            if (state.images.bg.original) processBgRemoval();
+        });
+    }
+
     document.getElementById('compTargetKb').addEventListener('input', (e) => {
         if (state.images.comp.original) processCompressorTool();
     });
@@ -602,30 +616,95 @@ function processBgRemoval() {
     const img = state.images.bg.original;
     if (!img) return;
 
+    const w = img.width;
+    const h = img.height;
     const canvas = document.createElement('canvas');
-    canvas.width = img.width;
-    canvas.height = img.height;
+    canvas.width = w;
+    canvas.height = h;
     const ctx = canvas.getContext('2d');
 
     ctx.drawImage(img, 0, 0);
-    const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const imgData = ctx.getImageData(0, 0, w, h);
     const data = imgData.data;
 
-    const threshold = parseInt(document.getElementById('bgThreshold').value) || 45;
-    const bgType = document.getElementById('bgTypeSelect').value;
+    const thresholdInput = document.getElementById('bgThreshold');
+    const threshold = thresholdInput ? parseInt(thresholdInput.value) || 25 : 25;
+    const bgType = document.getElementById('bgTypeSelect') ? document.getElementById('bgTypeSelect').value : 'white';
 
-    // Sample corner pixel for background color
-    const cornerR = data[0], cornerG = data[1], cornerB = data[2];
+    // 1. Calculate Average Background Color from Outer Image Borders
+    let totalR = 0, totalG = 0, totalB = 0, count = 0;
 
-    for (let i = 0; i < data.length; i += 4) {
-        const r = data[i], g = data[i + 1], b = data[i + 2];
-        const diff = Math.abs(r - cornerR) + Math.abs(g - cornerG) + Math.abs(b - cornerB);
+    for (let x = 0; x < w; x++) {
+        let idx = (0 * w + x) * 4;
+        totalR += data[idx]; totalG += data[idx + 1]; totalB += data[idx + 2]; count++;
+        idx = ((h - 1) * w + x) * 4;
+        totalR += data[idx]; totalG += data[idx + 1]; totalB += data[idx + 2]; count++;
+    }
+    for (let y = 0; y < h; y++) {
+        let idx = (y * w + 0) * 4;
+        totalR += data[idx]; totalG += data[idx + 1]; totalB += data[idx + 2]; count++;
+        idx = (y * w + (w - 1)) * 4;
+        totalR += data[idx]; totalG += data[idx + 1]; totalB += data[idx + 2]; count++;
+    }
 
-        if (diff < threshold * 3 || (r > 200 && g > 200 && b > 200)) {
+    const bgR = Math.round(totalR / count);
+    const bgG = Math.round(totalG / count);
+    const bgB = Math.round(totalB / count);
+
+    // 2. Perform BFS / Flood-Fill starting ONLY from Outer Border Pixels
+    const visited = new Uint8Array(w * h);
+    const queue = [];
+
+    const isBgPixel = (idx) => {
+        const diff = Math.abs(data[idx] - bgR) + Math.abs(data[idx + 1] - bgG) + Math.abs(data[idx + 2] - bgB);
+        return diff < threshold * 2.5;
+    };
+
+    for (let x = 0; x < w; x++) {
+        let iTop = 0 * w + x;
+        if (isBgPixel(iTop * 4)) { visited[iTop] = 1; queue.push(iTop); }
+        let iBtm = (h - 1) * w + x;
+        if (isBgPixel(iBtm * 4)) { visited[iBtm] = 1; queue.push(iBtm); }
+    }
+    for (let y = 0; y < h; y++) {
+        let iLft = y * w + 0;
+        if (!visited[iLft] && isBgPixel(iLft * 4)) { visited[iLft] = 1; queue.push(iLft); }
+        let iRgt = y * w + (w - 1);
+        if (!visited[iRgt] && isBgPixel(iRgt * 4)) { visited[iRgt] = 1; queue.push(iRgt); }
+    }
+
+    // Process Flood Fill Queue (4-directional spreading)
+    let head = 0;
+    while (head < queue.length) {
+        const p = queue[head++];
+        const px = p % w;
+        const py = Math.floor(p / w);
+
+        const neighbors = [
+            py > 0 ? (py - 1) * w + px : -1,
+            py < h - 1 ? (py + 1) * w + px : -1,
+            px > 0 ? py * w + (px - 1) : -1,
+            px < w - 1 ? py * w + (px + 1) : -1
+        ];
+
+        for (let n of neighbors) {
+            if (n >= 0 && !visited[n]) {
+                if (isBgPixel(n * 4)) {
+                    visited[n] = 1;
+                    queue.push(n);
+                }
+            }
+        }
+    }
+
+    // 3. Replace background pixels ONLY (leaving candidate foreground untouched)
+    for (let i = 0; i < w * h; i++) {
+        if (visited[i]) {
+            const idx = i * 4;
             if (bgType === 'white') {
-                data[i] = 255; data[i + 1] = 255; data[i + 2] = 255; data[i + 3] = 255;
+                data[idx] = 255; data[idx + 1] = 255; data[idx + 2] = 255; data[idx + 3] = 255;
             } else {
-                data[i + 3] = 0; // Transparent
+                data[idx + 3] = 0; // Transparent
             }
         }
     }
@@ -636,7 +715,6 @@ function processBgRemoval() {
     state.images.bg.processedUrl = dataUrl;
 
     document.getElementById('bgPreviewStage').innerHTML = `<img src="${dataUrl}" alt="BG Removed">`;
-    showToast('Background processed successfully!', 'success');
 }
 
 // 2. TOOL: IMAGE COMPRESSOR LOGIC

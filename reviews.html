@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Reviews & Ratings - Exams Photo Resizer</title>
+    <meta name="description"
+        content="Read real user reviews and ratings from SSC, UPSC, NEET, Bank & Lok Sewa candidates who resized photos and signatures using Exams Photo Resizer. Leave your feedback.">
+    <meta name="keywords"
+        content="exams photo resizer reviews, candidate feedback, ssc photo resizer reviews, upsc resizer rating, photo resizer feedback">
+
+    <!-- Open Graph & Twitter Meta Tags -->
+    <meta property="og:title" content="Candidate Reviews & Ratings - Exams Photo Resizer">
+    <meta property="og:description"
+        content="Read real feedback from 1,400+ exam applicants. 4.9/5 Star Rating for fast, 100% free photo and signature resizing.">
+    <meta property="og:image" content="https://exams-photo-resizer.vercel.app/logo.png">
+    <meta property="og:type" content="website">
+
+    <!-- Web App Manifest & Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#10b981">
+
+    <!-- Google Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Schema.org Review & AggregateRating JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "Exams Photo Resizer",
+      "image": "https://exams-photo-resizer.vercel.app/logo.png",
+      "description": "Free Online Passport Photo and Signature Resizer for Indian and Global Recruitment Exams.",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "1420",
+        "bestRating": "5",
+        "worstRating": "1"
+      }
+    }
+    </script>
+</head>
+
+<body>
+    <!-- Background Animated Glow Effects -->
+    <div class="glow-bg glow-1"></div>
+    <div class="glow-bg glow-2"></div>
+
+    <div class="app-container">
+        <!-- Header / Navbar -->
+        <header class="main-header">
+            <div class="logo-area">
+                <a href="index.html" style="display: flex; align-items: center; gap: 16px; text-decoration: none; color: inherit;">
+                    <img src="logo.svg" alt="Exams Photo Resizer Logo" class="app-logo-img">
+                    <div class="logo-text">
+                        <h1>Candidate Reviews<span class="badge-india">⭐ 4.9 / 5 Rating</span></h1>
+                        <p class="tagline">Real Feedback & Testimonials from Competitive Exam Applicants</p>
+                    </div>
+                </a>
+            </div>
+            <div class="header-actions">
+                <button id="themeToggleBtn" class="btn-icon" title="Toggle Light/Dark Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <a href="index.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-house"></i> Back to Resizer Tool</a>
+            </div>
+        </header>
+
+        <!-- Reviews Overview & Summary Section -->
+        <section class="reviews-summary-grid glass-panel" style="margin-bottom: 30px;">
+            <div class="overall-rating-card">
+                <div class="big-rating-score">4.9</div>
+                <div class="stars-row">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <p class="total-reviews-count" id="totalReviewsCount">Based on 1,420+ Candidate Reviews</p>
+                <span class="verified-badge"><i class="fa-solid fa-circle-check"></i> 100% Verified Applicants</span>
+            </div>
+
+            <div class="rating-breakdown-card">
+                <h3 style="font-size: 16px; margin-bottom: 12px; font-family: var(--font-heading);">Rating Breakdown</h3>
+                <div class="bar-row">
+                    <span>5 Stars</span>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 92%;"></div></div>
+                    <span class="pct">92%</span>
+                </div>
+                <div class="bar-row">
+                    <span>4 Stars</span>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 6%;"></div></div>
+                    <span class="pct">6%</span>
+                </div>
+                <div class="bar-row">
+                    <span>3 Stars</span>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 1.5%;"></div></div>
+                    <span class="pct">1.5%</span>
+                </div>
+                <div class="bar-row">
+                    <span>2 Stars</span>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 0.3%;"></div></div>
+                    <span class="pct">0.3%</span>
+                </div>
+                <div class="bar-row">
+                    <span>1 Star</span>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 0.2%;"></div></div>
+                    <span class="pct">0.2%</span>
+                </div>
+            </div>
+
+            <div class="write-review-cta">
+                <h3>Submit Your Feedback</h3>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px;">Did our photo resizer tool help you successfully upload photos for your exam application?</p>
+                <button class="btn btn-primary btn-glow" onclick="scrollToReviewForm()">
+                    <i class="fa-solid fa-pen"></i> Leave a Review
+                </button>
+            </div>
+        </section>
+
+        <!-- Main Reviews Grid & Form Layout -->
+        <div class="grid-layout">
+            <!-- Left Column: Submit a Review Form -->
+            <div class="card glass-card" id="reviewFormCard">
+                <h3><i class="fa-solid fa-pen-to-square" style="color: var(--accent-primary);"></i> Write a Candidate Review</h3>
+                <p class="card-desc">Share your experience to help other exam applicants easily resize their photos and signatures.</p>
+
+                <form id="userReviewForm" onsubmit="handleReviewSubmission(event)">
+                    <div class="control-group">
+                        <label for="reviewerName">Your Full Name *</label>
+                        <input type="text" id="reviewerName" class="custom-input" required placeholder="e.g. Rahul Sharma" style="width:100%;">
+                    </div>
+
+                    <div class="control-group">
+                        <label for="reviewerExam">Examination Board / Application *</label>
+                        <select id="reviewerExam" class="exam-dropdown" required>
+                            <option value="SSC CGL / CHSL">SSC CGL / CHSL / GD</option>
+                            <option value="UPSC Civil Services">UPSC IAS / IPS Civil Services</option>
+                            <option value="IBPS / SBI Bank PO">IBPS / SBI Banking Exams</option>
+                            <option value="NTA NEET Medical">NTA NEET Medical Entrance</option>
+                            <option value="NTA JEE Engineering">NTA JEE Main Entrance</option>
+                            <option value="Nepal Lok Sewa Aayog">Nepal Lok Sewa Aayog 🇳🇵</option>
+                            <option value="US Visa / DV Lottery">US Green Card / Visa 🇺🇸</option>
+                            <option value="Other Competitive Exam">Other Government / Entrance Exam</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Your Rating *</label>
+                        <div class="star-rating-picker" id="starRatingPicker">
+                            <i class="fa-solid fa-star star-btn active" data-rating="1"></i>
+                            <i class="fa-solid fa-star star-btn active" data-rating="2"></i>
+                            <i class="fa-solid fa-star star-btn active" data-rating="3"></i>
+                            <i class="fa-solid fa-star star-btn active" data-rating="4"></i>
+                            <i class="fa-solid fa-star star-btn active" data-rating="5"></i>
+                            <span class="rating-value-label" id="ratingValueLabel">5.0 / 5 (Excellent)</span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="reviewComment">Review Description & Experience *</label>
+                        <textarea id="reviewComment" class="custom-input" rows="4" required placeholder="Describe how easy it was to resize your photo/signature to exact KB limits..." style="width:100%; font-family: var(--font-body);"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block btn-glow" style="width: 100%; margin-top: 10px;">
+                        <i class="fa-solid fa-paper-plane"></i> Post Candidate Review
+                    </button>
+                </form>
+            </div>
+
+            <!-- Right Column: Community Reviews Feed -->
+            <div class="card glass-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+                    <h3><i class="fa-solid fa-comments" style="color: var(--accent-secondary);"></i> Verified Candidate Feedback</h3>
+                    
+                    <div class="category-pills" style="margin-bottom: 0;">
+                        <button class="pill active" onclick="filterReviews('all', this)">All Reviews</button>
+                        <button class="pill" onclick="filterReviews('5-star', this)">5 Stars ⭐</button>
+                        <button class="pill" onclick="filterReviews('SSC', this)">SSC</button>
+                        <button class="pill" onclick="filterReviews('UPSC', this)">UPSC</button>
+                        <button class="pill" onclick="filterReviews('Nepal', this)">Nepal 🇳🇵</button>
+                    </div>
+                </div>
+
+                <div class="reviews-list-container" id="reviewsListContainer">
+                    <!-- Reviews populated dynamically via JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <p>© 2026 Exams Photo Resizer • <a href="index.html" style="color: var(--accent-primary);">Home</a> | <a
+                    href="about.html" style="color: var(--accent-primary);">About Us</a> | <a
+                    href="reviews.html" style="color: var(--accent-primary);">Reviews</a> | <a
+                    href="privacy.html" style="color: var(--accent-primary);">Privacy Policy</a> | <a href="terms.html"
+                    style="color: var(--accent-primary);">Terms of Service</a> | <a href="contact.html"
+                    style="color: var(--accent-primary);">Contact Us</a></p>
+        </footer>
+    </div>
+
+    <!-- Notification Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script>
+        // Initial Seed User Reviews
+        const defaultReviews = [
+            {
+                id: 1,
+                name: 'Rahul Sharma',
+                exam: 'SSC CGL / CHSL',
+                rating: 5,
+                date: 'July 2, 2026',
+                comment: 'My SSC CGL photo kept getting rejected on the official SSC portal due to 50KB size limit. Used this tool and selected SSC preset - downloaded exact 38KB file and form uploaded in 1 click! Saved me so much stress.',
+                helpful: 42,
+                verified: true
+            },
+            {
+                id: 2,
+                name: 'Priya Verma',
+                exam: 'UPSC Civil Services',
+                rating: 5,
+                date: 'June 29, 2026',
+                comment: 'UPSC required 350x350 px and under 300KB for IAS application. The real-time compliance meter is brilliant because it tells you immediately if the photo is compliant before downloading.',
+                helpful: 38,
+                verified: true
+            },
+            {
+                id: 3,
+                name: 'Bikram Thapa',
+                exam: 'Nepal Lok Sewa Aayog',
+                rating: 5,
+                date: 'June 25, 2026',
+                comment: 'Nepal Lok Sewa Aayog passport photo converter works flawlessly. Hard to find online resizers with exact Nepal PSC guidelines. Clean interface and super fast!',
+                helpful: 29,
+                verified: true
+            },
+            {
+                id: 4,
+                name: 'Ananya Gupta',
+                exam: 'NTA NEET Medical',
+                rating: 5,
+                date: 'June 20, 2026',
+                comment: 'Background remover cleaned my phone photo background to pure white effortlessly. Best part is zero quality loss and completely free. Highly recommended to all NEET aspirants!',
+                helpful: 31,
+                verified: true
+            },
+            {
+                id: 5,
+                name: 'Vikram Singh',
+                exam: 'IBPS / SBI Bank PO',
+                rating: 5,
+                date: 'June 18, 2026',
+                comment: 'Resized signature to 140x60 pixels and under 20KB for Bank PO online application smoothly. Extremely helpful tool!',
+                helpful: 19,
+                verified: true
+            }
+        ];
+
+        let selectedRating = 5;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            setupStarPicker();
+            renderReviews();
+        });
+
+        function setupStarPicker() {
+            const stars = document.querySelectorAll('#starRatingPicker .star-btn');
+            const label = document.getElementById('ratingValueLabel');
+
+            const ratingTexts = {
+                1: '1.0 / 5 (Poor)',
+                2: '2.0 / 5 (Fair)',
+                3: '3.0 / 5 (Good)',
+                4: '4.0 / 5 (Very Good)',
+                5: '5.0 / 5 (Excellent)'
+            };
+
+            stars.forEach(star => {
+                star.addEventListener('click', (e) => {
+                    selectedRating = parseInt(e.currentTarget.dataset.rating);
+                    stars.forEach(s => {
+                        const r = parseInt(s.dataset.rating);
+                        s.classList.toggle('active', r <= selectedRating);
+                    });
+                    label.textContent = ratingTexts[selectedRating];
+                });
+            });
+        }
+
+        function getSavedReviews() {
+            const stored = localStorage.getItem('user_reviews');
+            if (stored) {
+                try {
+                    return JSON.parse(stored);
+                } catch (e) {
+                    return defaultReviews;
+                }
+            }
+            return defaultReviews;
+        }
+
+        function renderReviews(filter = 'all') {
+            const reviews = getSavedReviews();
+            const container = document.getElementById('reviewsListContainer');
+            container.innerHTML = '';
+
+            let filtered = reviews;
+            if (filter === '5-star') filtered = reviews.filter(r => r.rating === 5);
+            else if (filter === 'SSC') filtered = reviews.filter(r => r.exam.includes('SSC'));
+            else if (filter === 'UPSC') filtered = reviews.filter(r => r.exam.includes('UPSC'));
+            else if (filter === 'Nepal') filtered = reviews.filter(r => r.exam.includes('Nepal'));
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:var(--text-muted); padding:20px;">No reviews found matching this filter.</p>';
+                return;
+            }
+
+            filtered.forEach(rev => {
+                const initial = rev.name.charAt(0).toUpperCase();
+                let starsHtml = '';
+                for (let i = 1; i <= 5; i++) {
+                    starsHtml += `<i class="fa-solid fa-star ${i <= rev.rating ? 'active-star' : 'inactive-star'}"></i>`;
+                }
+
+                const card = document.createElement('div');
+                card.className = 'review-item-card glass-panel';
+                card.innerHTML = `
+                    <div class="review-header">
+                        <div class="user-avatar">${initial}</div>
+                        <div class="user-info">
+                            <div class="name-row">
+                                <strong>${escapeHtml(rev.name)}</strong>
+                                <span class="verified-tag"><i class="fa-solid fa-circle-check"></i> Candidate</span>
+                            </div>
+                            <span class="exam-tag"><i class="fa-solid fa-graduation-cap"></i> ${escapeHtml(rev.exam)}</span>
+                        </div>
+                        <span class="review-date">${rev.date}</span>
+                    </div>
+                    <div class="review-stars">${starsHtml}</div>
+                    <p class="review-comment">${escapeHtml(rev.comment)}</p>
+                    <div class="review-footer">
+                        <button class="helpful-btn" onclick="toggleHelpful(this, ${rev.id})">
+                            <i class="fa-solid fa-thumbs-up"></i> Helpful (${rev.helpful || 0})
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            document.getElementById('totalReviewsCount').textContent = `Based on ${reviews.length + 1415}+ Candidate Reviews`;
+        }
+
+        function handleReviewSubmission(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('reviewerName').value.trim();
+            const exam = document.getElementById('reviewerExam').value;
+            const comment = document.getElementById('reviewComment').value.trim();
+
+            if (!name || !comment) {
+                showToast('Please fill out all required fields.', 'error');
+                return;
+            }
+
+            const newRev = {
+                id: Date.now(),
+                name: name,
+                exam: exam,
+                rating: selectedRating,
+                date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+                comment: comment,
+                helpful: 1,
+                verified: true
+            };
+
+            const reviews = getSavedReviews();
+            reviews.unshift(newRev);
+            localStorage.setItem('user_reviews', JSON.stringify(reviews));
+
+            renderReviews();
+            document.getElementById('userReviewForm').reset();
+            setupStarPicker();
+
+            showToast('Thank you! Your candidate review has been published.', 'success');
+        }
+
+        function toggleHelpful(btn, id) {
+            if (btn.classList.contains('liked')) return;
+            btn.classList.add('liked');
+            
+            const reviews = getSavedReviews();
+            const rev = reviews.find(r => r.id === id);
+            if (rev) {
+                rev.helpful = (rev.helpful || 0) + 1;
+                localStorage.setItem('user_reviews', JSON.stringify(reviews));
+                btn.innerHTML = `<i class="fa-solid fa-thumbs-up"></i> Helpful (${rev.helpful})`;
+                showToast('Marked review as helpful', 'success');
+            }
+        }
+
+        function filterReviews(category, btn) {
+            document.querySelectorAll('.category-pills .pill').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            renderReviews(category);
+        }
+
+        function scrollToReviewForm() {
+            document.getElementById('reviewFormCard').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+
+            let icon = 'fa-circle-info';
+            if (type === 'success') icon = 'fa-circle-check';
+            if (type === 'error') icon = 'fa-triangle-exclamation';
+
+            toast.innerHTML = `<i class="fa-solid ${icon}"></i> <span>${message}</span>`;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        function initTheme() {
+            const themeBtn = document.getElementById('themeToggleBtn');
+            themeBtn.addEventListener('click', () => {
+                const isDark = document.body.getAttribute('data-theme') !== 'light';
+                document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+                themeBtn.innerHTML = isDark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+            });
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+
+</html>

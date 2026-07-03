@@ -14,11 +14,11 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exams Photo Resizer & Image Utility Suite | Compress, Resize, Crop, BG Remover & PDF to JPG</title>
+    <title>Exams Photo Resizer & 4K Image Upscaler Suite | Compress, Resize, Crop & BG Remover</title>
     <meta name="description"
-        content="Free online All-in-One Image Utility: SSC, UPSC, Bank, NEET & Nepal Lok Sewa Aayog Photo Resizer, Background Remover, Image Compressor (to 20KB/50KB/200KB), PNG to JPG Converter, Image Cropper, and PDF to Image.">
+        content="Free online All-in-One Image Utility: 4K Image Upscaler, SSC, UPSC, Bank, NEET & Nepal Lok Sewa Photo Resizer, Background Remover, Image Compressor (to 20KB/50KB/200KB), PNG to JPG Converter, Image Cropper & PDF to Image.">
     <meta name="keywords"
-        content="photo resizer in kb, ssc photo resizer, nepal lok sewa photo resizer, mecee photo converter, ioe photo resizer, upsc photo size converter, background remover, image compressor online, png to jpg converter">
+        content="4k image upscaler, upscale photo to 4k, hd photo enhancer, photo resizer in kb, ssc photo resizer, nepal lok sewa photo resizer, upsc photo size converter, background remover, image compressor online">
 
     <!-- Open Graph & Social Meta Tags -->
     <meta property="og:title" content="Exams Photo Resizer & Online Image Utility Suite">
@@ -133,6 +133,9 @@
             </button>
             <button class="suite-tab" data-tool="pdf-to-image" onclick="switchMainTool('pdf-to-image')">
                 <i class="fa-solid fa-file-pdf"></i> PDF to Image
+            </button>
+            <button class="suite-tab" data-tool="upscaler" onclick="switchMainTool('upscaler')">
+                <i class="fa-solid fa-expand" style="color: #38bdf8;"></i> 4K Upscaler
             </button>
         </nav>
 
@@ -683,6 +686,64 @@
                         <div class="pdf-pages-grid" id="pdfPagesContainer">
                             <span class="placeholder-text"><i class="fa-solid fa-file-pdf"></i> Upload a PDF file to
                                 preview extracted pages</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOOL VIEW 8: AI 4K ULTRA IMAGE UPSCALER TOOL -->
+        <div id="view-upscaler" class="tool-view" style="display: none;">
+            <div class="utility-card glass-panel">
+                <h2><i class="fa-solid fa-expand" style="color: #38bdf8;"></i> AI 4K Ultra Image Upscaler & Enhancer</h2>
+                <p class="tool-subtitle">Upscale small photos, low-resolution signatures & documents to 4K Ultra HD resolution (up to 3840×2160) with edge sharpening.</p>
+
+                <div class="grid-layout">
+                    <div class="card glass-card">
+                        <h3>Upload Image to Upscale</h3>
+                        <div class="dropzone" id="upscaleDropzone">
+                            <input type="file" id="upscaleFileInput" accept="image/*" class="file-input">
+                            <div class="dropzone-content">
+                                <div class="upload-icon-circle" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                                <h4>Drop Image Here or <span class="browse-link">Browse</span></h4>
+                                <p class="help-text">JPG, PNG, WEBP (Upscale up to 4K UHD)</p>
+                            </div>
+                        </div>
+                        <div class="control-panel" id="upscaleControlPanel" style="display:none;">
+                            <div class="control-group">
+                                <label><i class="fa-solid fa-up-right-and-down-left-from-center"></i> Target Upscale Scale</label>
+                                <select id="upscaleFactorSelect" class="exam-dropdown">
+                                    <option value="2">2x HD Upscale (Double Dimensions)</option>
+                                    <option value="4" selected>4x 4K Ultra HD (3840px Max Width)</option>
+                                    <option value="8">8x Super Resolution (Max Ultra Clarity)</option>
+                                </select>
+                            </div>
+                            <div class="control-group">
+                                <label><i class="fa-solid fa-sliders"></i> Edge Sharpening & Enhancement</label>
+                                <input type="range" id="upscaleSharpen" min="0" max="100" value="40">
+                            </div>
+                            <button class="btn btn-primary btn-block btn-glow" onclick="processUpscalerTool()"><i
+                                    class="fa-solid fa-wand-magic-sparkles"></i> Upscale to 4K Ultra HD</button>
+                        </div>
+                    </div>
+
+                    <div class="card glass-card preview-card">
+                        <h3>4K Upscaled Preview</h3>
+                        <div class="canvas-wrapper">
+                            <div class="preview-stage" id="upscalePreviewStage">
+                                <span class="placeholder-text"><i class="fa-solid fa-expand"></i> 4K Upscaled image preview will appear here</span>
+                            </div>
+                        </div>
+                        <div class="compliance-meter" id="upscaleInfoMeter" style="display: none;">
+                            <div class="meter-info">
+                                <span class="meter-label">Resolution:</span>
+                                <strong id="upscaleResText" class="size-val">3840 x 2160 (4K UHD)</strong>
+                                <span class="status-badge status-valid"><i class="fa-solid fa-circle-check"></i> 4K Enhanced</span>
+                            </div>
+                        </div>
+                        <div class="action-bar" id="upscaleActionBar" style="display:none;">
+                            <button id="downloadUpscaleBtn" class="btn btn-primary btn-glow"
+                                onclick="downloadToolOutput('upscale')"><i class="fa-solid fa-download"></i> Download 4K Ultra HD Image</button>
                         </div>
                     </div>
                 </div>

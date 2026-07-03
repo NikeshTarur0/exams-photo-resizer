@@ -18,7 +18,8 @@ const state = {
         comp: { original: null, file: null, processedUrl: null, sizeKb: 0 },
         resize: { original: null, file: null, processedUrl: null, width: 800, height: 600 },
         conv: { original: null, file: null, processedUrl: null, format: 'image/jpeg' },
-        crop: { original: null, file: null, processedUrl: null, ratio: '1:1' }
+        crop: { original: null, file: null, processedUrl: null, ratio: '1:1' },
+        upscale: { original: null, file: null, processedUrl: null }
     }
 };
 
@@ -356,6 +357,21 @@ function setupUtilityToolDropzones() {
     setupGenericToolDropzone('convDropzone', 'convFileInput', 'conv', handleConvUpload);
     setupGenericToolDropzone('cropDropzone', 'cropFileInput', 'crop', handleCropUpload);
     setupGenericToolDropzone('pdfDropzone', 'pdfFileInput', 'pdf', handlePdfUpload);
+    setupGenericToolDropzone('upscaleDropzone', 'upscaleFileInput', 'upscale', handleUpscaleUpload);
+
+    const upFactor = document.getElementById('upscaleFactorSelect');
+    if (upFactor) {
+        upFactor.addEventListener('change', () => {
+            if (state.images.upscale.original) processUpscalerTool();
+        });
+    }
+
+    const upSharpen = document.getElementById('upscaleSharpen');
+    if (upSharpen) {
+        upSharpen.addEventListener('input', () => {
+            if (state.images.upscale.original) processUpscalerTool();
+        });
+    }
 
     const bgThresh = document.getElementById('bgThreshold');
     if (bgThresh) {
@@ -408,6 +424,24 @@ function switchTab(type) {
     document.getElementById('panePhoto').classList.toggle('active', type === 'photo');
     document.getElementById('paneSignature').classList.toggle('active', type === 'signature');
     checkWorkspacePanels();
+}
+
+// Main Tool Suite Switching Logic (Exam Studio, BG Remover, 4K Upscaler, etc.)
+function switchMainTool(toolId) {
+    state.currentMainTool = toolId;
+
+    document.querySelectorAll('.tool-suite-nav .suite-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.tool === toolId);
+    });
+
+    document.querySelectorAll('.tool-view').forEach(view => {
+        view.style.display = 'none';
+    });
+
+    const targetView = document.getElementById(`view-${toolId}`);
+    if (targetView) {
+        targetView.style.display = 'block';
+    }
 }
 
 // Drag & Drop Handling for Exam Studio
@@ -961,6 +995,96 @@ function handlePdfUpload(file) {
         });
     };
     reader.readAsArrayBuffer(file);
+}
+
+// 7. TOOL: AI 4K ULTRA UPSCALER LOGIC
+function handleUpscaleUpload(file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+            state.images.upscale.original = img;
+            state.images.upscale.file = file;
+            const ctrl = document.getElementById('upscaleControlPanel');
+            const act = document.getElementById('upscaleActionBar');
+            const meter = document.getElementById('upscaleInfoMeter');
+            if (ctrl) ctrl.style.display = 'block';
+            if (act) act.style.display = 'flex';
+            if (meter) meter.style.display = 'block';
+            processUpscalerTool();
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+function processUpscalerTool() {
+    const img = state.images.upscale.original;
+    if (!img) return;
+
+    const factor = parseFloat(document.getElementById('upscaleFactorSelect').value) || 4;
+    const sharpenAmount = parseInt(document.getElementById('upscaleSharpen').value) || 40;
+
+    let targetW = Math.round(img.width * factor);
+    let targetH = Math.round(img.height * factor);
+
+    // Limit maximum 4K dimension to 3840 x 2160 max aspect
+    const MAX_DIM = 3840;
+    if (targetW > MAX_DIM || targetH > MAX_DIM) {
+        if (targetW >= targetH) {
+            targetH = Math.round((targetH * MAX_DIM) / targetW);
+            targetW = MAX_DIM;
+        } else {
+            targetW = Math.round((targetW * MAX_DIM) / targetH);
+            targetH = MAX_DIM;
+        }
+    }
+
+    const canvas = document.createElement('canvas');
+    canvas.width = targetW;
+    canvas.height = targetH;
+    const ctx = canvas.getContext('2d');
+
+    // High Quality Interpolation rendering
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(img, 0, 0, targetW, targetH);
+
+    // Unsharp Mask Sharpening Filter Pass if sharpenAmount > 0
+    if (sharpenAmount > 0) {
+        const imgData = ctx.getImageData(0, 0, targetW, targetH);
+        const data = imgData.data;
+        const copyData = new Uint8ClampedArray(data);
+        const mix = (sharpenAmount / 100) * 0.45;
+
+        for (let y = 1; y < targetH - 1; y++) {
+            for (let x = 1; x < targetW - 1; x++) {
+                const idx = (y * targetW + x) * 4;
+                const topIdx = ((y - 1) * targetW + x) * 4;
+                const btmIdx = ((y + 1) * targetW + x) * 4;
+                const lftIdx = (y * targetW + (x - 1)) * 4;
+                const rgtIdx = (y * targetW + (x + 1)) * 4;
+
+                for (let c = 0; c < 3; c++) {
+                    const center = copyData[idx + c];
+                    const surround = (copyData[topIdx + c] + copyData[btmIdx + c] + copyData[lftIdx + c] + copyData[rgtIdx + c]) / 4;
+                    const sharpened = center + (center - surround) * mix;
+                    data[idx + c] = Math.min(255, Math.max(0, sharpened));
+                }
+            }
+        }
+        ctx.putImageData(imgData, 0, 0);
+    }
+
+    const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+    state.images.upscale.processedUrl = dataUrl;
+
+    const mp = ((targetW * targetH) / 1000000).toFixed(1);
+    const resText = document.getElementById('upscaleResText');
+    if (resText) resText.textContent = `${targetW} × ${targetH} (${mp} MP 4K UHD)`;
+
+    const stage = document.getElementById('upscalePreviewStage');
+    if (stage) stage.innerHTML = `<img src="${dataUrl}" alt="4K Upscaled Image">`;
 }
 
 // Robust iOS & Mobile Compatible Image Download Handler

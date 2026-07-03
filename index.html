@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exams Photo Resizer | One-Click Fast Compressor (UPSC, SSC, IBPS, NEET)</title>
+    <title>Exams Photo Resizer & Image Utility Suite | Compress, Resize, Crop, BG Remover & PDF to JPG</title>
     <meta name="description"
-        content="Instantly crop, resize and compress photos and signatures for UPSC, SSC, IBPS, NEET, JEE, and Bank exams to exact pixel & KB specs online for free.">
+        content="Free online All-in-One Image Utility: Exam Photo & Signature Resizer, Background Remover, Image Compressor (to 20KB/50KB), PNG to JPG Converter, Image Cropper, and PDF to Image Converter.">
     <meta name="keywords"
-        content="photo resizer in kb, ssc photo resizer, upsc photo size converter, neet photo resizer, ibps signature crop, photo compressor to 20kb 50kb online">
+        content="photo resizer in kb, ssc photo resizer, upsc photo size converter, background remover, image compressor online, png to jpg converter, crop images, pdf to image converter">
 
     <!-- Open Graph & Social Meta Tags -->
-    <meta property="og:title" content="Exams Photo Resizer | Free Indian Competitive Exam Image Compressor">
+    <meta property="og:title" content="Exams Photo Resizer & Online Image Utility Suite">
     <meta property="og:description"
-        content="1-Click Online Passport Photo & Signature Resizer for SSC, UPSC, IBPS, NEET, and JEE exams. Guaranteed 20-50 KB compliance.">
+        content="1-Click Online Passport Photo Resizer, BG Remover, KB Compressor, PNG/JPG Converter, Cropper & PDF to Image. 100% Free & Private.">
     <meta property="og:type" content="website">
 
     <!-- Google Fonts -->
@@ -31,17 +31,20 @@
     <meta name="theme-color" content="#10b981">
     <link rel="stylesheet" href="style.css">
 
+    <!-- PDF.js Library for PDF to Image conversion -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
     <!-- Google AdSense Verification & Auto Ads Script -->
     <meta name="google-adsense-account" content="ca-pub-4220855237342333">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4220855237342333"
-            crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
 
-    <!-- Schema.org Structured Data (JSON-LD) for SEO & AdSense Content Quality -->
+    <!-- Schema.org Structured Data (JSON-LD) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Exams Photo Resizer",
+      "name": "Exams Photo Resizer & Image Utility Suite",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "All",
       "offers": {
@@ -49,7 +52,7 @@
         "price": "0",
         "priceCurrency": "INR"
       },
-      "description": "Free online application to resize, crop and compress passport photos and signatures for Indian competitive examinations including SSC, UPSC, IBPS, NTA NEET and JEE."
+      "description": "All-in-one free online image tools: Indian Exam Photo & Signature Resizer, Background Remover, Image Compressor, Format Converter (PNG/JPG), Image Cropper, and PDF to Image."
     }
     </script>
 </head>
@@ -67,8 +70,8 @@
                     <i class="fa-solid fa-crop-simple"></i>
                 </div>
                 <div class="logo-text">
-                    <h1>Exams Photo Resizer<span class="badge-india">🇮🇳 Exam Specs</span></h1>
-                    <p class="tagline">UPSC • SSC • IBPS • NTA NEET & JEE Photo & Signature Studio</p>
+                    <h1>Exams Photo Resizer<span class="badge-india">🇮🇳 Exam & Image Suite</span></h1>
+                    <p class="tagline">All-in-One Image Utility • Resizer • Compressor • BG Remover • PDF to Image</p>
                 </div>
             </div>
             <div class="header-actions">
@@ -79,236 +82,498 @@
             </div>
         </header>
 
-        <!-- Hero & Exam Selection Bar -->
-        <section class="selection-hero">
-            <div class="hero-card glass-panel">
-                <div class="hero-content">
-                    <label for="examSelect" class="section-label">
-                        <i class="fa-solid fa-building-columns"></i> Step 1: Select Target Competitive Exam
-                    </label>
+        <!-- Global Suite Utility Navigation Bar -->
+        <nav class="tool-suite-nav">
+            <button class="suite-tab active" data-tool="exam-studio" onclick="switchMainTool('exam-studio')">
+                <i class="fa-solid fa-graduation-cap"></i> Exam Resizer Studio
+            </button>
+            <button class="suite-tab" data-tool="bg-remover" onclick="switchMainTool('bg-remover')">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> BG Remover
+            </button>
+            <button class="suite-tab" data-tool="compressor" onclick="switchMainTool('compressor')">
+                <i class="fa-solid fa-bolt"></i> Image Compressor
+            </button>
+            <button class="suite-tab" data-tool="resizer" onclick="switchMainTool('resizer')">
+                <i class="fa-solid fa-up-right-and-down-left-from-center"></i> Resize Images
+            </button>
+            <button class="suite-tab" data-tool="converter" onclick="switchMainTool('converter')">
+                <i class="fa-solid fa-right-left"></i> PNG ↔ JPG
+            </button>
+            <button class="suite-tab" data-tool="cropper" onclick="switchMainTool('cropper')">
+                <i class="fa-solid fa-crop"></i> Crop Images
+            </button>
+            <button class="suite-tab" data-tool="pdf-to-image" onclick="switchMainTool('pdf-to-image')">
+                <i class="fa-solid fa-file-pdf"></i> PDF to Image
+            </button>
+        </nav>
 
-                    <div class="custom-select-wrapper">
-                        <select id="examSelect" class="exam-dropdown">
-                            <option value="" disabled selected>-- Select Exam (e.g. SSC CGL, UPSC, IBPS) --</option>
-                            <!-- Options populated dynamically by JS -->
-                        </select>
-                        <i class="fa-solid fa-chevron-down select-arrow"></i>
+        <!-- TOOL VIEW 1: EXAM RESIZER STUDIO (Default View) -->
+        <div id="view-exam-studio" class="tool-view active">
+            <!-- Hero & Exam Selection Bar -->
+            <section class="selection-hero">
+                <div class="hero-card glass-panel">
+                    <div class="hero-content">
+                        <label for="examSelect" class="section-label">
+                            <i class="fa-solid fa-building-columns"></i> Step 1: Select Target Competitive Exam
+                        </label>
+
+                        <div class="custom-select-wrapper">
+                            <select id="examSelect" class="exam-dropdown">
+                                <option value="" disabled selected>-- Select Exam (e.g. SSC CGL, UPSC, IBPS) --</option>
+                                <!-- Options populated dynamically by JS -->
+                            </select>
+                            <i class="fa-solid fa-chevron-down select-arrow"></i>
+                        </div>
+
+                        <div class="category-pills" id="categoryPills">
+                            <button class="pill active" data-cat="all">All Exams</button>
+                            <button class="pill" data-cat="Government Job">Government (SSC/RRB)</button>
+                            <button class="pill" data-cat="Civil Services">UPSC</button>
+                            <button class="pill" data-cat="Banking">Banking (IBPS/SBI)</button>
+                            <button class="pill" data-cat="Medical Entrance">NEET</button>
+                            <button class="pill" data-cat="Engineering Entrance">JEE / GATE</button>
+                        </div>
                     </div>
 
-                    <div class="category-pills" id="categoryPills">
-                        <button class="pill active" data-cat="all">All Exams</button>
-                        <button class="pill" data-cat="Government Job">Government (SSC/RRB)</button>
-                        <button class="pill" data-cat="Civil Services">UPSC</button>
-                        <button class="pill" data-cat="Banking">Banking (IBPS/SBI)</button>
-                        <button class="pill" data-cat="Medical Entrance">NEET</button>
-                        <button class="pill" data-cat="Engineering Entrance">JEE / GATE</button>
+                    <!-- Live Exam Target Rules Summary Banner -->
+                    <div class="spec-banner" id="specBanner">
+                        <div class="spec-card photo-spec">
+                            <div class="spec-header">
+                                <i class="fa-solid fa-user-tie"></i> Photo Specs
+                            </div>
+                            <div class="spec-body">
+                                <div class="spec-item"><span class="label">Dimensions:</span> <strong id="specPhotoDim">350 x 450 px</strong></div>
+                                <div class="spec-item"><span class="label">File Size:</span> <strong id="specPhotoSize" class="highlight-badge">20 KB - 50 KB</strong></div>
+                                <div class="spec-item"><span class="label">Background:</span> <span id="specPhotoBg">White / Light Plain</span></div>
+                            </div>
+                        </div>
+                        <div class="spec-card sig-spec">
+                            <div class="spec-header">
+                                <i class="fa-solid fa-signature"></i> Signature Specs
+                            </div>
+                            <div class="spec-body">
+                                <div class="spec-item"><span class="label">Dimensions:</span> <strong id="specSigDim">280 x 140 px</strong></div>
+                                <div class="spec-item"><span class="label">File Size:</span> <strong id="specSigSize" class="highlight-badge">10 KB - 20 KB</strong></div>
+                                <div class="spec-item"><span class="label">Ink Rule:</span> <span id="specSigInk">Black ink on white paper</span></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </section>
 
-                <!-- Live Exam Target Rules Summary Banner -->
-                <div class="spec-banner" id="specBanner">
-                    <div class="spec-card photo-spec">
-                        <div class="spec-header">
-                            <i class="fa-solid fa-user-tie"></i> Photo Specs
-                        </div>
-                        <div class="spec-body">
-                            <div class="spec-item"><span class="label">Dimensions:</span> <strong id="specPhotoDim">350
-                                    x 450 px</strong></div>
-                            <div class="spec-item"><span class="label">File Size:</span> <strong id="specPhotoSize"
-                                    class="highlight-badge">20 KB - 50 KB</strong></div>
-                            <div class="spec-item"><span class="label">Background:</span> <span id="specPhotoBg">White /
-                                    Light Plain</span></div>
-                        </div>
-                    </div>
-                    <div class="spec-card sig-spec">
-                        <div class="spec-header">
-                            <i class="fa-solid fa-signature"></i> Signature Specs
-                        </div>
-                        <div class="spec-body">
-                            <div class="spec-item"><span class="label">Dimensions:</span> <strong id="specSigDim">280 x
-                                    140 px</strong></div>
-                            <div class="spec-item"><span class="label">File Size:</span> <strong id="specSigSize"
-                                    class="highlight-badge">10 KB - 20 KB</strong></div>
-                            <div class="spec-item"><span class="label">Ink Rule:</span> <span id="specSigInk">Black ink
-                                    on white paper</span></div>
-                        </div>
-                    </div>
+            <!-- Main Workspace: Dual Dropzone Tabs (Photo & Signature) -->
+            <main class="workspace">
+                <div class="tab-navigation">
+                    <button class="tab-btn active" id="tabPhotoBtn" onclick="switchTab('photo')">
+                        <i class="fa-solid fa-image"></i> Passport Photograph
+                    </button>
+                    <button class="tab-btn" id="tabSigBtn" onclick="switchTab('signature')">
+                        <i class="fa-solid fa-pen-nib"></i> Signature Upload
+                    </button>
                 </div>
-            </div>
-        </section>
 
-        <!-- Main Workspace: Dual Dropzone Tabs (Photo & Signature) -->
-        <main class="workspace">
-            <!-- Tabs Navigation -->
-            <div class="tab-navigation">
-                <button class="tab-btn active" id="tabPhotoBtn" onclick="switchTab('photo')">
-                    <i class="fa-solid fa-image"></i> Passport Photograph
-                </button>
-                <button class="tab-btn" id="tabSigBtn" onclick="switchTab('signature')">
-                    <i class="fa-solid fa-pen-nib"></i> Signature Upload
-                </button>
-            </div>
-
-            <!-- TAB 1: PHOTO WORKSPACE -->
-            <div class="tab-pane active" id="panePhoto">
-                <div class="grid-layout">
-                    <!-- Upload Dropzone & Controls -->
-                    <div class="card glass-card">
-                        <h3><i class="fa-solid fa-cloud-arrow-up"></i> Upload Passport Photo</h3>
-                        <p class="card-desc">Drag and drop your original photograph or select a file from your computer.
-                        </p>
-
-                        <div class="dropzone" id="photoDropzone">
-                            <input type="file" id="photoFileInput" accept="image/jpeg,image/png,image/webp"
-                                class="file-input">
-                            <div class="dropzone-content">
-                                <div class="upload-icon-circle">
-                                    <i class="fa-solid fa-camera-retro"></i>
+                <!-- TAB 1: PHOTO WORKSPACE -->
+                <div class="tab-pane active" id="panePhoto">
+                    <div class="grid-layout">
+                        <div class="card glass-card">
+                            <h3><i class="fa-solid fa-cloud-arrow-up"></i> Upload Passport Photo</h3>
+                            <p class="card-desc">Drag and drop your original photograph or select a file from your computer.</p>
+                            <div class="dropzone" id="photoDropzone">
+                                <input type="file" id="photoFileInput" accept="image/jpeg,image/png,image/webp" class="file-input">
+                                <div class="dropzone-content">
+                                    <div class="upload-icon-circle">
+                                        <i class="fa-solid fa-camera-retro"></i>
+                                    </div>
+                                    <h4>Drop Photo Here or <span class="browse-link">Browse</span></h4>
+                                    <p class="help-text">Supports JPG, PNG, WEBP (Auto-converted to official JPG)</p>
                                 </div>
-                                <h4>Drop Photo Here or <span class="browse-link">Browse</span></h4>
-                                <p class="help-text">Supports JPG, PNG, WEBP (Auto-converted to official JPG)</p>
+                            </div>
+                            <div class="control-panel" id="photoControlPanel" style="display: none;">
+                                <div class="control-group">
+                                    <label><i class="fa-solid fa-magnifying-glass-plus"></i> Zoom & Crop Alignment</label>
+                                    <input type="range" id="photoZoomRange" min="0.5" max="2.5" step="0.02" value="1">
+                                </div>
+                                <div class="control-group-inline">
+                                    <button class="btn btn-secondary btn-sm" onclick="rotateImage('photo', -90)">
+                                        <i class="fa-solid fa-rotate-left"></i> Rotate 90°
+                                    </button>
+                                    <button class="btn btn-secondary btn-sm" onclick="resetControls('photo')">
+                                        <i class="fa-solid fa-arrows-rotate"></i> Reset
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Fine Tuning Controls -->
-                        <div class="control-panel" id="photoControlPanel" style="display: none;">
-                            <div class="control-group">
-                                <label><i class="fa-solid fa-magnifying-glass-plus"></i> Zoom & Crop Alignment</label>
-                                <input type="range" id="photoZoomRange" min="0.5" max="2.5" step="0.02" value="1">
+                        <div class="card glass-card preview-card">
+                            <h3><i class="fa-solid fa-sliders"></i> Real-Time Resized Preview</h3>
+                            <div class="canvas-wrapper">
+                                <canvas id="photoCanvas" class="hidden-canvas"></canvas>
+                                <div class="preview-stage" id="photoPreviewStage">
+                                    <span class="placeholder-text"><i class="fa-solid fa-image"></i> Preview will appear after selecting a photo</span>
+                                </div>
                             </div>
-                            <div class="control-group-inline">
-                                <button class="btn btn-secondary btn-sm" onclick="rotateImage('photo', -90)">
-                                    <i class="fa-solid fa-rotate-left"></i> Rotate 90°
+                            <div class="compliance-meter" id="photoComplianceMeter" style="display: none;">
+                                <div class="meter-info">
+                                    <span class="meter-label">Output Size:</span>
+                                    <strong id="photoCurrentSize" class="size-val">0 KB</strong>
+                                    <span id="photoStatusBadge" class="status-badge status-valid"><i class="fa-solid fa-circle-check"></i> Compliant</span>
+                                </div>
+                                <div class="progress-bar-bg">
+                                    <div id="photoSizeProgress" class="progress-fill" style="width: 50%;"></div>
+                                </div>
+                                <div class="meter-target-range">
+                                    Target: <span id="photoTargetRangeText">20 KB - 50 KB</span>
+                                </div>
+                            </div>
+                            <div class="action-bar" id="photoActionBar" style="display: none;">
+                                <button id="downloadPhotoBtn" class="btn btn-primary btn-glow">
+                                    <i class="fa-solid fa-download"></i> Download Photo (JPG)
                                 </button>
-                                <button class="btn btn-secondary btn-sm" onclick="resetControls('photo')">
-                                    <i class="fa-solid fa-arrows-rotate"></i> Reset
+                                <button id="serverFallbackPhotoBtn" class="btn btn-outline" title="Use Python server fallback if browser sizing fails">
+                                    <i class="fa-brands fa-python"></i> Python Deep Compress
                                 </button>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Live Canvas & Compression Meter -->
+                <!-- TAB 2: SIGNATURE WORKSPACE -->
+                <div class="tab-pane" id="paneSignature">
+                    <div class="grid-layout">
+                        <div class="card glass-card">
+                            <h3><i class="fa-solid fa-cloud-arrow-up"></i> Upload Signature</h3>
+                            <p class="card-desc">Ensure your signature is written clearly in black/blue ink on white paper.</p>
+                            <div class="dropzone" id="sigDropzone">
+                                <input type="file" id="sigFileInput" accept="image/jpeg,image/png,image/webp" class="file-input">
+                                <div class="dropzone-content">
+                                    <div class="upload-icon-circle alt-color">
+                                        <i class="fa-solid fa-pen-fancy"></i>
+                                    </div>
+                                    <h4>Drop Signature Here or <span class="browse-link">Browse</span></h4>
+                                    <p class="help-text">Supports JPG, PNG, WEBP (Auto-cropped & converted)</p>
+                                </div>
+                            </div>
+                            <div class="control-panel" id="sigControlPanel" style="display: none;">
+                                <div class="control-group">
+                                    <label><i class="fa-solid fa-magnifying-glass-plus"></i> Zoom & Alignment</label>
+                                    <input type="range" id="sigZoomRange" min="0.5" max="2.5" step="0.02" value="1">
+                                </div>
+                                <div class="control-group-inline">
+                                    <button class="btn btn-secondary btn-sm" onclick="rotateImage('signature', -90)">
+                                        <i class="fa-solid fa-rotate-left"></i> Rotate 90°
+                                    </button>
+                                    <button class="btn btn-secondary btn-sm" onclick="resetControls('signature')">
+                                        <i class="fa-solid fa-arrows-rotate"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card glass-card preview-card">
+                            <h3><i class="fa-solid fa-sliders"></i> Resized Signature Preview</h3>
+                            <div class="canvas-wrapper sig-canvas-wrapper">
+                                <canvas id="sigCanvas" class="hidden-canvas"></canvas>
+                                <div class="preview-stage" id="sigPreviewStage">
+                                    <span class="placeholder-text"><i class="fa-solid fa-pen-nib"></i> Preview will appear after selecting a signature</span>
+                                </div>
+                            </div>
+                            <div class="compliance-meter" id="sigComplianceMeter" style="display: none;">
+                                <div class="meter-info">
+                                    <span class="meter-label">Output Size:</span>
+                                    <strong id="sigCurrentSize" class="size-val">0 KB</strong>
+                                    <span id="sigStatusBadge" class="status-badge status-valid"><i class="fa-solid fa-circle-check"></i> Compliant</span>
+                                </div>
+                                <div class="progress-bar-bg">
+                                    <div id="sigSizeProgress" class="progress-fill" style="width: 50%;"></div>
+                                </div>
+                                <div class="meter-target-range">
+                                    Target: <span id="sigTargetRangeText">10 KB - 20 KB</span>
+                                </div>
+                            </div>
+                            <div class="action-bar" id="sigActionBar" style="display: none;">
+                                <button id="downloadSigBtn" class="btn btn-primary btn-glow">
+                                    <i class="fa-solid fa-download"></i> Download Signature (JPG)
+                                </button>
+                                <button id="serverFallbackSigBtn" class="btn btn-outline" title="Use Python server fallback if browser sizing fails">
+                                    <i class="fa-brands fa-python"></i> Python Deep Compress
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- TOOL VIEW 2: BACKGROUND REMOVER TOOL -->
+        <div id="view-bg-remover" class="tool-view" style="display: none;">
+            <div class="utility-card glass-panel">
+                <h2><i class="fa-solid fa-wand-magic-sparkles"></i> Background Remover & White Paper Cleaner</h2>
+                <p class="tool-subtitle">Remove dark/yellow phone camera backgrounds or convert background to 100% solid white / transparent PNG.</p>
+
+                <div class="grid-layout">
+                    <div class="card glass-card">
+                        <h3>Upload Image to Remove Background</h3>
+                        <div class="dropzone" id="bgDropzone">
+                            <input type="file" id="bgFileInput" accept="image/*" class="file-input">
+                            <div class="dropzone-content">
+                                <div class="upload-icon-circle"><i class="fa-solid fa-wand-magic"></i></div>
+                                <h4>Drop Image Here or <span class="browse-link">Browse</span></h4>
+                                <p class="help-text">JPG, PNG, WEBP (Works locally inside browser)</p>
+                            </div>
+                        </div>
+                        <div class="control-panel" id="bgControlPanel" style="display:none;">
+                            <div class="control-group">
+                                <label><i class="fa-solid fa-sliders"></i> Removal Threshold / Sensitivity</label>
+                                <input type="range" id="bgThreshold" min="10" max="100" value="45">
+                            </div>
+                            <div class="control-group">
+                                <label><i class="fa-solid fa-palette"></i> Output Background</label>
+                                <select id="bgTypeSelect" class="exam-dropdown">
+                                    <option value="white">Pure White (#FFFFFF) - Recommended for Exam Forms</option>
+                                    <option value="transparent">Transparent (PNG)</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary btn-block" onclick="processBgRemoval()"><i class="fa-solid fa-play"></i> Remove Background</button>
+                        </div>
+                    </div>
+
                     <div class="card glass-card preview-card">
-                        <h3><i class="fa-solid fa-sliders"></i> Real-Time Resized Preview</h3>
-
+                        <h3>Result Preview</h3>
                         <div class="canvas-wrapper">
-                            <canvas id="photoCanvas" class="hidden-canvas"></canvas>
-                            <div class="preview-stage" id="photoPreviewStage">
-                                <span class="placeholder-text"><i class="fa-solid fa-image"></i> Preview will appear
-                                    after selecting a photo</span>
+                            <div class="preview-stage" id="bgPreviewStage">
+                                <span class="placeholder-text"><i class="fa-solid fa-wand-magic-sparkles"></i> Processed image preview will appear here</span>
                             </div>
                         </div>
-
-                        <!-- Realtime Compliance Badge -->
-                        <div class="compliance-meter" id="photoComplianceMeter" style="display: none;">
-                            <div class="meter-info">
-                                <span class="meter-label">Output Size:</span>
-                                <strong id="photoCurrentSize" class="size-val">0 KB</strong>
-                                <span id="photoStatusBadge" class="status-badge status-valid"><i
-                                        class="fa-solid fa-circle-check"></i> Compliant</span>
-                            </div>
-                            <div class="progress-bar-bg">
-                                <div id="photoSizeProgress" class="progress-fill" style="width: 50%;"></div>
-                            </div>
-                            <div class="meter-target-range">
-                                Target: <span id="photoTargetRangeText">20 KB - 50 KB</span>
-                            </div>
-                        </div>
-
-                        <!-- Action Buttons -->
-                        <div class="action-bar" id="photoActionBar" style="display: none;">
-                            <button id="downloadPhotoBtn" class="btn btn-primary btn-glow">
-                                <i class="fa-solid fa-download"></i> Download Photo (JPG)
-                            </button>
-                            <button id="serverFallbackPhotoBtn" class="btn btn-outline"
-                                title="Use Python server fallback if browser sizing fails">
-                                <i class="fa-brands fa-python"></i> Python Deep Compress
-                            </button>
+                        <div class="action-bar" id="bgActionBar" style="display:none;">
+                            <button id="downloadBgBtn" class="btn btn-primary btn-glow" onclick="downloadToolOutput('bg')"><i class="fa-solid fa-download"></i> Download Cleaned Image</button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- TAB 2: SIGNATURE WORKSPACE -->
-            <div class="tab-pane" id="paneSignature">
+        <!-- TOOL VIEW 3: IMAGE COMPRESSOR TOOL -->
+        <div id="view-compressor" class="tool-view" style="display: none;">
+            <div class="utility-card glass-panel">
+                <h2><i class="fa-solid fa-bolt"></i> Custom Target KB Image Compressor</h2>
+                <p class="tool-subtitle">Compress any photograph, signature, or document to an exact target file size (e.g. 20KB, 50KB, 100KB, 200KB).</p>
+
                 <div class="grid-layout">
-                    <!-- Upload Dropzone & Controls -->
                     <div class="card glass-card">
-                        <h3><i class="fa-solid fa-cloud-arrow-up"></i> Upload Signature</h3>
-                        <p class="card-desc">Ensure your signature is written clearly in black/blue ink on white paper.
-                        </p>
-
-                        <div class="dropzone" id="sigDropzone">
-                            <input type="file" id="sigFileInput" accept="image/jpeg,image/png,image/webp"
-                                class="file-input">
+                        <h3>Select Image to Compress</h3>
+                        <div class="dropzone" id="compDropzone">
+                            <input type="file" id="compFileInput" accept="image/*" class="file-input">
                             <div class="dropzone-content">
-                                <div class="upload-icon-circle alt-color">
-                                    <i class="fa-solid fa-pen-fancy"></i>
-                                </div>
-                                <h4>Drop Signature Here or <span class="browse-link">Browse</span></h4>
-                                <p class="help-text">Supports JPG, PNG, WEBP (Auto-cropped & converted)</p>
+                                <div class="upload-icon-circle"><i class="fa-solid fa-file-zipper"></i></div>
+                                <h4>Drop File Here or <span class="browse-link">Browse</span></h4>
+                                <p class="help-text">Supports all major image formats</p>
                             </div>
                         </div>
-
-                        <!-- Fine Tuning Controls -->
-                        <div class="control-panel" id="sigControlPanel" style="display: none;">
+                        <div class="control-panel" id="compControlPanel" style="display:none;">
                             <div class="control-group">
-                                <label><i class="fa-solid fa-magnifying-glass-plus"></i> Zoom & Alignment</label>
-                                <input type="range" id="sigZoomRange" min="0.5" max="2.5" step="0.02" value="1">
+                                <label><i class="fa-solid fa-bullseye"></i> Target Max File Size (KB)</label>
+                                <input type="number" id="compTargetKb" class="custom-input" value="50" min="5" max="5000">
                             </div>
-                            <div class="control-group-inline">
-                                <button class="btn btn-secondary btn-sm" onclick="rotateImage('signature', -90)">
-                                    <i class="fa-solid fa-rotate-left"></i> Rotate 90°
-                                </button>
-                                <button class="btn btn-secondary btn-sm" onclick="resetControls('signature')">
-                                    <i class="fa-solid fa-arrows-rotate"></i> Reset
-                                </button>
+                            <div class="quick-kb-pills">
+                                <button class="pill" onclick="setQuickKb(20)">20 KB</button>
+                                <button class="pill" onclick="setQuickKb(50)">50 KB</button>
+                                <button class="pill" onclick="setQuickKb(100)">100 KB</button>
+                                <button class="pill" onclick="setQuickKb(200)">200 KB</button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Live Canvas & Compression Meter -->
                     <div class="card glass-card preview-card">
-                        <h3><i class="fa-solid fa-sliders"></i> Resized Signature Preview</h3>
-
-                        <div class="canvas-wrapper sig-canvas-wrapper">
-                            <canvas id="sigCanvas" class="hidden-canvas"></canvas>
-                            <div class="preview-stage" id="sigPreviewStage">
-                                <span class="placeholder-text"><i class="fa-solid fa-pen-nib"></i> Preview will appear
-                                    after selecting a signature</span>
+                        <h3>Compressed Result</h3>
+                        <div class="canvas-wrapper">
+                            <div class="preview-stage" id="compPreviewStage">
+                                <span class="placeholder-text"><i class="fa-solid fa-file-zipper"></i> Compressed image preview will appear here</span>
                             </div>
                         </div>
-
-                        <!-- Realtime Compliance Badge -->
-                        <div class="compliance-meter" id="sigComplianceMeter" style="display: none;">
+                        <div class="compliance-meter" id="compMeter" style="display:none;">
                             <div class="meter-info">
-                                <span class="meter-label">Output Size:</span>
-                                <strong id="sigCurrentSize" class="size-val">0 KB</strong>
-                                <span id="sigStatusBadge" class="status-badge status-valid"><i
-                                        class="fa-solid fa-circle-check"></i> Compliant</span>
-                            </div>
-                            <div class="progress-bar-bg">
-                                <div id="sigSizeProgress" class="progress-fill" style="width: 50%;"></div>
-                            </div>
-                            <div class="meter-target-range">
-                                Target: <span id="sigTargetRangeText">10 KB - 20 KB</span>
+                                <span class="meter-label">Compressed Size:</span>
+                                <strong id="compSizeVal" class="size-val">0 KB</strong>
+                                <span id="compStatusBadge" class="status-badge status-valid"><i class="fa-solid fa-circle-check"></i> Ready</span>
                             </div>
                         </div>
-
-                        <!-- Action Buttons -->
-                        <div class="action-bar" id="sigActionBar" style="display: none;">
-                            <button id="downloadSigBtn" class="btn btn-primary btn-glow">
-                                <i class="fa-solid fa-download"></i> Download Signature (JPG)
-                            </button>
-                            <button id="serverFallbackSigBtn" class="btn btn-outline"
-                                title="Use Python server fallback if browser sizing fails">
-                                <i class="fa-brands fa-python"></i> Python Deep Compress
-                            </button>
+                        <div class="action-bar" id="compActionBar" style="display:none;">
+                            <button id="downloadCompBtn" class="btn btn-primary btn-glow" onclick="downloadToolOutput('comp')"><i class="fa-solid fa-download"></i> Download Compressed Image</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
+
+        <!-- TOOL VIEW 4: RESIZE IMAGES TOOL -->
+        <div id="view-resizer" class="tool-view" style="display: none;">
+            <div class="utility-card glass-panel">
+                <h2><i class="fa-solid fa-up-right-and-down-left-from-center"></i> Freeform Image Resizer</h2>
+                <p class="tool-subtitle">Resize image dimensions by Pixels, Centimeters (CM), or Millimeters (MM) with aspect ratio locking.</p>
+
+                <div class="grid-layout">
+                    <div class="card glass-card">
+                        <h3>Select Image to Resize</h3>
+                        <div class="dropzone" id="resizeDropzone">
+                            <input type="file" id="resizeFileInput" accept="image/*" class="file-input">
+                            <div class="dropzone-content">
+                                <div class="upload-icon-circle"><i class="fa-solid fa-expand"></i></div>
+                                <h4>Drop Image Here or <span class="browse-link">Browse</span></h4>
+                                <p class="help-text">Supports JPG, PNG, WEBP</p>
+                            </div>
+                        </div>
+                        <div class="control-panel" id="resizeControlPanel" style="display:none;">
+                            <div class="custom-inputs-grid">
+                                <div class="custom-field">
+                                    <label>Width (px)</label>
+                                    <input type="number" id="resizeW" class="custom-input" value="800">
+                                </div>
+                                <div class="custom-field">
+                                    <label>Height (px)</label>
+                                    <input type="number" id="resizeH" class="custom-input" value="600">
+                                </div>
+                            </div>
+                            <div class="checkbox-wrapper" style="margin-top: 12px;">
+                                <input type="checkbox" id="resizeLockAspect" checked>
+                                <label for="resizeLockAspect">Maintain Aspect Ratio</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card glass-card preview-card">
+                        <h3>Resized Preview</h3>
+                        <div class="canvas-wrapper">
+                            <div class="preview-stage" id="resizePreviewStage">
+                                <span class="placeholder-text"><i class="fa-solid fa-expand"></i> Resized preview will appear here</span>
+                            </div>
+                        </div>
+                        <div class="action-bar" id="resizeActionBar" style="display:none;">
+                            <button id="downloadResizeBtn" class="btn btn-primary btn-glow" onclick="downloadToolOutput('resize')"><i class="fa-solid fa-download"></i> Download Resized Image</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOOL VIEW 5: FORMAT CONVERTER TOOL (PNG ↔ JPG) -->
+        <div id="view-converter" class="tool-view" style="display: none;">
+            <div class="utility-card glass-panel">
+                <h2><i class="fa-solid fa-right-left"></i> PNG ↔ JPG ↔ WEBP Format Converter</h2>
+                <p class="tool-subtitle">Convert PNG files to official JPG standard or change between image formats easily.</p>
+
+                <div class="grid-layout">
+                    <div class="card glass-card">
+                        <h3>Select File to Convert</h3>
+                        <div class="dropzone" id="convDropzone">
+                            <input type="file" id="convFileInput" accept="image/*" class="file-input">
+                            <div class="dropzone-content">
+                                <div class="upload-icon-circle"><i class="fa-solid fa-file-image"></i></div>
+                                <h4>Drop File Here or <span class="browse-link">Browse</span></h4>
+                                <p class="help-text">PNG, JPG, WEBP, BMP</p>
+                            </div>
+                        </div>
+                        <div class="control-panel" id="convControlPanel" style="display:none;">
+                            <div class="control-group">
+                                <label>Target Output Format</label>
+                                <select id="convFormatSelect" class="exam-dropdown">
+                                    <option value="image/jpeg">JPG / JPEG (Standard Exam Format)</option>
+                                    <option value="image/png">PNG (High Quality / Transparency)</option>
+                                    <option value="image/webp">WEBP (Web Compact)</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary btn-block" onclick="processFormatConversion()"><i class="fa-solid fa-rotate"></i> Convert Format</button>
+                        </div>
+                    </div>
+
+                    <div class="card glass-card preview-card">
+                        <h3>Converted Result</h3>
+                        <div class="canvas-wrapper">
+                            <div class="preview-stage" id="convPreviewStage">
+                                <span class="placeholder-text"><i class="fa-solid fa-file-image"></i> Converted image preview will appear here</span>
+                            </div>
+                        </div>
+                        <div class="action-bar" id="convActionBar" style="display:none;">
+                            <button id="downloadConvBtn" class="btn btn-primary btn-glow" onclick="downloadToolOutput('conv')"><i class="fa-solid fa-download"></i> Download Converted File</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOOL VIEW 6: IMAGE CROPPER TOOL -->
+        <div id="view-cropper" class="tool-view" style="display: none;">
+            <div class="utility-card glass-panel">
+                <h2><i class="fa-solid fa-crop"></i> Image Cropper Studio</h2>
+                <p class="tool-subtitle">Crop your photo or signature with aspect ratio presets (1:1 Passport, 3.5:4.5 SSC, 2:1 Signature).</p>
+
+                <div class="grid-layout">
+                    <div class="card glass-card">
+                        <h3>Upload Image to Crop</h3>
+                        <div class="dropzone" id="cropDropzone">
+                            <input type="file" id="cropFileInput" accept="image/*" class="file-input">
+                            <div class="dropzone-content">
+                                <div class="upload-icon-circle"><i class="fa-solid fa-crop-simple"></i></div>
+                                <h4>Drop Image Here or <span class="browse-link">Browse</span></h4>
+                                <p class="help-text">Supports all image types</p>
+                            </div>
+                        </div>
+                        <div class="control-panel" id="cropControlPanel" style="display:none;">
+                            <div class="control-group">
+                                <label>Aspect Ratio Preset</label>
+                                <div class="quick-kb-pills">
+                                    <button class="pill active" onclick="setCropRatio('1:1')">1:1 Square</button>
+                                    <button class="pill" onclick="setCropRatio('3.5:4.5')">3.5:4.5 Passport</button>
+                                    <button class="pill" onclick="setCropRatio('2:1')">2:1 Signature</button>
+                                    <button class="pill" onclick="setCropRatio('free')">Freeform</button>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-block" onclick="processCropImage()"><i class="fa-solid fa-scissors"></i> Apply Crop</button>
+                        </div>
+                    </div>
+
+                    <div class="card glass-card preview-card">
+                        <h3>Cropped Result</h3>
+                        <div class="canvas-wrapper">
+                            <div class="preview-stage" id="cropPreviewStage">
+                                <span class="placeholder-text"><i class="fa-solid fa-crop"></i> Cropped preview will appear here</span>
+                            </div>
+                        </div>
+                        <div class="action-bar" id="cropActionBar" style="display:none;">
+                            <button id="downloadCropBtn" class="btn btn-primary btn-glow" onclick="downloadToolOutput('crop')"><i class="fa-solid fa-download"></i> Download Cropped Image</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOOL VIEW 7: PDF TO IMAGE TOOL -->
+        <div id="view-pdf-to-image" class="tool-view" style="display: none;">
+            <div class="utility-card glass-panel">
+                <h2><i class="fa-solid fa-file-pdf"></i> PDF to Image Converter</h2>
+                <p class="tool-subtitle">Extract and convert PDF document pages into high-resolution JPG/PNG images.</p>
+
+                <div class="grid-layout">
+                    <div class="card glass-card">
+                        <h3>Upload PDF Document</h3>
+                        <div class="dropzone" id="pdfDropzone">
+                            <input type="file" id="pdfFileInput" accept="application/pdf" class="file-input">
+                            <div class="dropzone-content">
+                                <div class="upload-icon-circle alt-color"><i class="fa-solid fa-file-pdf"></i></div>
+                                <h4>Drop PDF File Here or <span class="browse-link">Browse</span></h4>
+                                <p class="help-text">Extract pages to JPG (100% local in browser)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card glass-card preview-card">
+                        <h3>Extracted PDF Pages</h3>
+                        <div class="pdf-pages-grid" id="pdfPagesContainer">
+                            <span class="placeholder-text"><i class="fa-solid fa-file-pdf"></i> Upload a PDF file to preview extracted pages</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Quick Reference Table Section -->
         <section class="table-section glass-panel" id="presets">
@@ -335,53 +600,34 @@
             </div>
         </section>
 
-        <!-- Comprehensive Exam Photo Resizing Guide & FAQ Section (SEO & AdSense Quality) -->
+        <!-- Comprehensive Exam Photo Resizing Guide & FAQ Section -->
         <section class="seo-guide-section glass-panel" style="margin-top: 30px; line-height: 1.8;">
-            <h2
-                style="font-family: var(--font-heading); color: var(--accent-primary); font-size: 20px; margin-bottom: 12px;">
+            <h2 style="font-family: var(--font-heading); color: var(--accent-primary); font-size: 20px; margin-bottom: 12px;">
                 <i class="fa-solid fa-circle-question"></i> Frequently Asked Questions & Exam Guidelines
             </h2>
 
-            <div
-                style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 14px; color: var(--text-secondary);">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 14px; color: var(--text-secondary);">
                 <div>
-                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">How do I resize a photo
-                        to 20 KB - 50 KB for SSC CGL / CHSL?</h3>
-                    <p style="margin-bottom: 14px;">Select <strong>SSC CGL / CHSL</strong> from the dropdown menu, drag
-                        and drop your photo into the passport workspace, adjust zoom if necessary, and click download.
-                        Our engine automatically adjusts JPEG compression quality to keep the final file between 20 KB
-                        and 50 KB.</p>
+                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">How do I resize a photo to 20 KB - 50 KB for SSC CGL / CHSL?</h3>
+                    <p style="margin-bottom: 14px;">Select <strong>SSC CGL / CHSL</strong> from the dropdown menu, drag and drop your photo into the passport workspace, adjust zoom if necessary, and click download. Our engine automatically adjusts JPEG compression quality to keep the final file between 20 KB and 50 KB.</p>
 
-                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">What are the photo
-                        requirements for UPSC Civil Services IAS?</h3>
-                    <p style="margin-bottom: 14px;">UPSC requires passport photos to be between <strong>20 KB and 300
-                            KB</strong> with minimum 350x350 pixel dimensions. The photo must be clear with a light or
-                        white background, showing 3/4th face view.</p>
+                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">What are the photo requirements for UPSC Civil Services IAS?</h3>
+                    <p style="margin-bottom: 14px;">UPSC requires passport photos to be between <strong>20 KB and 300 KB</strong> with minimum 350x350 pixel dimensions. The photo must be clear with a light or white background, showing 3/4th face view.</p>
                 </div>
 
                 <div>
-                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">Is my photo stored on
-                        any external server?</h3>
-                    <p style="margin-bottom: 14px;">No. Your privacy is 100% guaranteed. All image cropping, scaling,
-                        and file compression take place locally on your own device browser using modern HTML5 Canvas
-                        technology.</p>
+                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">Is my photo stored on any external server?</h3>
+                    <p style="margin-bottom: 14px;">No. Your privacy is 100% guaranteed. All image cropping, scaling, and file compression take place locally on your own device browser using modern HTML5 Canvas technology.</p>
 
-                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">Why do online exam
-                        portals reject uploaded photos?</h3>
-                    <p style="margin-bottom: 14px;">Most rejections occur due to incorrect aspect ratio (distorted
-                        faces), dark backgrounds, or exceeding strict file size bounds (e.g., photo > 50 KB). Our
-                        real-time compliance meter alerts you before downloading.</p>
+                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">Why do online exam portals reject uploaded photos?</h3>
+                    <p style="margin-bottom: 14px;">Most rejections occur due to incorrect aspect ratio (distorted faces), dark backgrounds, or exceeding strict file size bounds (e.g., photo > 50 KB). Our real-time compliance meter alerts you before downloading.</p>
                 </div>
             </div>
         </section>
 
         <!-- Footer -->
         <footer class="main-footer">
-            <p>© 2026 Exams Photo Resizer • <a href="index.html" style="color: var(--accent-primary);">Home</a> | <a
-                    href="about.html" style="color: var(--accent-primary);">About Us</a> | <a href="privacy.html"
-                    style="color: var(--accent-primary);">Privacy Policy</a> | <a href="terms.html"
-                    style="color: var(--accent-primary);">Terms of Service</a> | <a href="contact.html"
-                    style="color: var(--accent-primary);">Contact Us</a></p>
+            <p>© 2026 Exams Photo Resizer • <a href="index.html" style="color: var(--accent-primary);">Home</a> | <a href="about.html" style="color: var(--accent-primary);">About Us</a> | <a href="privacy.html" style="color: var(--accent-primary);">Privacy Policy</a> | <a href="terms.html" style="color: var(--accent-primary);">Terms of Service</a> | <a href="contact.html" style="color: var(--accent-primary);">Contact Us</a></p>
         </footer>
     </div>
 

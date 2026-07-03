@@ -656,14 +656,70 @@ function handlePdfUpload(file) {
     reader.readAsArrayBuffer(file);
 }
 
+// Robust iOS & Mobile Compatible Image Download Handler
+async function triggerDownload(dataUrl, filename, mimeType = 'image/jpeg') {
+    if (!dataUrl) return;
+
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+    try {
+        // Fetch base64 data to Blob
+        const res = await fetch(dataUrl);
+        const blob = await res.blob();
+        const blobUrl = URL.createObjectURL(blob);
+
+        // 1. Try iOS Web Share API (Saves directly to iOS Photos / Gallery)
+        if (isIOS && navigator.share) {
+            const file = new File([blob], filename, { type: mimeType });
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                try {
+                    await navigator.share({
+                        files: [file],
+                        title: filename
+                    });
+                    showToast('Saved to iOS Photos / Share', 'success');
+                    return;
+                } catch (shareErr) {
+                    if (shareErr.name !== 'AbortError') {
+                        console.warn('Share API failed, falling back:', shareErr);
+                    }
+                }
+            }
+        }
+
+        // 2. iOS Safari Tab Fallback (Long Press to Save Image)
+        if (isIOS) {
+            const newWindow = window.open();
+            if (newWindow) {
+                newWindow.document.write(`<title>${filename}</title><img src="${dataUrl}" style="width:100%; height:auto;"/><p style="text-align:center; font-family:sans-serif; color:#666; margin-top:20px;">Touch & Hold image above to select "Save to Photos"</p>`);
+                showToast('Long press image to "Save to Photos"', 'info');
+                return;
+            }
+        }
+
+        // 3. Standard Download for Desktop & Android
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+        showToast(`Downloaded ${filename}`, 'success');
+    } catch (err) {
+        // Fallback for direct dataUrl anchor download
+        const a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        showToast(`Downloaded ${filename}`, 'success');
+    }
+}
+
 function downloadPdfPage(dataUrl, pageNum) {
-    const a = document.createElement('a');
-    a.href = dataUrl;
-    a.download = `PDF_Page_${pageNum}.jpg`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    showToast(`Downloaded Page ${pageNum} as JPG`, 'success');
+    triggerDownload(dataUrl, `PDF_Page_${pageNum}.jpg`, 'image/jpeg');
 }
 
 // Download Helper for Utility Tools
@@ -674,54 +730,11 @@ function downloadToolOutput(toolKey) {
         return;
     }
 
-    const ext = (toolKey === 'conv' && state.images.conv.format === 'image/png') ? 'png' : 'jpg';
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `Processed_${toolKey.toUpperCase()}_Image.${ext}`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    showToast(`Downloaded Processed_${toolKey.toUpperCase()}_Image.${ext}`, 'success');
-}
+    const isPng = (toolKey === 'conv' && state.images.conv.format === 'image/png');
+    const ext = isPng ? 'png' : 'jpg';
+    const mime = isPng ? 'image/png' : 'image/jpeg';
 
-// Estimate Base64 KB
-function estimateBase64SizeKb(base64String) {
-    const stringLength = base64String.length - 'data:image/jpeg;base64,'.length;
-    return Math.round(((stringLength * 0.75) / 1024) * 100) / 100;
-}
-
-// Update Compliance Meter UI (Exam Studio)
-function updateComplianceMeter(type, currentKb, minKb, maxKb) {
-    document.getElementById(type === 'photo' ? 'photoCurrentSize' : 'sigCurrentSize').textContent = `${currentKb} KB`;
-    document.getElementById(type === 'photo' ? 'photoTargetRangeText' : 'sigTargetRangeText').textContent = `${minKb} KB - ${maxKb} KB`;
-
-    const isCompliant = currentKb >= minKb && currentKb <= maxKb;
-    const badge = document.getElementById(type === 'photo' ? 'photoStatusBadge' : 'sigStatusBadge');
-
-    if (isCompliant) {
-        badge.className = 'status-badge status-valid';
-        badge.innerHTML = '<i class="fa-solid fa-circle-check"></i> Compliant';
-    } else {
-        badge.className = 'status-badge status-invalid';
-        badge.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Out of Bounds';
-    }
-
-    const pct = Math.min(100, Math.max(10, (currentKb / maxKb) * 100));
-    const fill = document.getElementById(type === 'photo' ? 'photoSizeProgress' : 'sigSizeProgress');
-    fill.style.width = `${pct}%`;
-    fill.style.background = isCompliant ? 'linear-gradient(90deg, #10b981, #34d399)' : 'linear-gradient(90deg, #ef4444, #f59e0b)';
-}
-
-function rotateImage(type, deg) {
-    state.images[type].rotation = (state.images[type].rotation + deg) % 360;
-    processCanvas(type);
-}
-
-function resetControls(type) {
-    state.images[type].zoom = 1;
-    state.images[type].rotation = 0;
-    document.getElementById(type === 'photo' ? 'photoZoomRange' : 'sigZoomRange').value = 1;
-    processCanvas(type);
+    triggerDownload(url, `Processed_${toolKey.toUpperCase()}_Image.${ext}`, mime);
 }
 
 function downloadImage(type) {
@@ -734,13 +747,7 @@ function downloadImage(type) {
     const examCode = state.selectedExam ? state.selectedExam.code : 'exam';
     const filename = `${examCode.toUpperCase()}_${type.toUpperCase()}_Resized.jpg`;
 
-    const a = document.createElement('a');
-    a.href = imgObj.dataUrl;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    showToast(`Downloaded ${filename}`, 'success');
+    triggerDownload(imgObj.dataUrl, filename, 'image/jpeg');
 }
 
 async function triggerServerFallback(type) {

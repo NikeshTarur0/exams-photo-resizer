@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="16" y="16" width="480" height="480" rx="96" ry="96" fill="url(#bgGrad)" stroke="#334155" stroke-width="8"/>
+
+  <path d="M 110 170 L 110 130 C 110 118.95 118.95 110 130 110 L 170 110" stroke="url(#emeraldGrad)" stroke-width="32" stroke-linecap="round" fill="none" />
+  <path d="M 342 110 L 382 110 C 393.05 110 402 118.95 402 130 L 402 170" stroke="url(#emeraldGrad)" stroke-width="32" stroke-linecap="round" fill="none" />
+  <path d="M 110 342 L 110 382 C 110 393.05 118.95 402 130 402 L 170 402" stroke="url(#emeraldGrad)" stroke-width="32" stroke-linecap="round" fill="none" />
+  <path d="M 342 402 L 382 402 C 393.05 402 402 393.05 402 382 L 402 342" stroke="url(#emeraldGrad)" stroke-width="32" stroke-linecap="round" fill="none" />
+
+  <circle cx="256" cy="225" r="42" fill="url(#emeraldGrad)"/>
+  <path d="M 180 320 C 180 270 220 262 256 262 C 292 262 332 270 332 320 Z" fill="url(#emeraldGrad)"/>
+  <path d="M 256 148 L 310 170 L 256 192 L 202 170 Z" fill="url(#cyanGrad)"/>
+
+  <circle cx="340" cy="340" r="36" fill="#10b981"/>
+  <path d="M 324 340 L 334 350 L 354 330" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

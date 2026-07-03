@@ -101,17 +101,21 @@ body {
     gap: 16px;
 }
 
-.logo-icon {
+.logo-icon,
+.app-logo-img {
     width: 48px;
     height: 48px;
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
     border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    color: #fff;
+    object-fit: cover;
     box-shadow: 0 4px 15px var(--accent-primary-glow);
+    transition: transform 0.3s ease;
+}
+
+.app-logo-img:hover {
+    transform: scale(1.06) rotate(3deg);
 }
 
 .logo-text h1 {

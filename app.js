@@ -1058,40 +1058,82 @@ function processUpscalerTool() {
     const img = state.images.upscale.original;
     if (!img) return;
 
-    const factor = parseFloat(document.getElementById('upscaleFactorSelect').value) || 4;
+    const selectVal = document.getElementById('upscaleFactorSelect').value;
     const sharpenAmount = parseInt(document.getElementById('upscaleSharpen').value) || 40;
 
-    let targetW = Math.round(img.width * factor);
-    let targetH = Math.round(img.height * factor);
+    let targetW, targetH;
+    const TARGET_4K = 3840;
 
-    // Limit maximum 4K dimension to 3840 x 2160 max aspect
-    const MAX_DIM = 3840;
-    if (targetW > MAX_DIM || targetH > MAX_DIM) {
-        if (targetW >= targetH) {
-            targetH = Math.round((targetH * MAX_DIM) / targetW);
-            targetW = MAX_DIM;
+    if (selectVal === '4k') {
+        // Guarantee True 4K UHD (3840px on the longest dimension)
+        if (img.width >= img.height) {
+            targetW = TARGET_4K;
+            targetH = Math.round((img.height * TARGET_4K) / img.width);
         } else {
-            targetW = Math.round((targetW * MAX_DIM) / targetH);
-            targetH = MAX_DIM;
+            targetH = TARGET_4K;
+            targetW = Math.round((img.width * TARGET_4K) / img.height);
+        }
+    } else {
+        const factor = parseFloat(selectVal) || 4;
+        targetW = Math.round(img.width * factor);
+        targetH = Math.round(img.height * factor);
+
+        // Ensure 4x scale reaches 4K dimensions if small photo
+        if (factor >= 4 && (targetW < TARGET_4K && targetH < TARGET_4K)) {
+            if (img.width >= img.height) {
+                targetW = TARGET_4K;
+                targetH = Math.round((img.height * TARGET_4K) / img.width);
+            } else {
+                targetH = TARGET_4K;
+                targetW = Math.round((img.width * TARGET_4K) / img.height);
+            }
         }
     }
 
-    const canvas = document.createElement('canvas');
-    canvas.width = targetW;
-    canvas.height = targetH;
-    const ctx = canvas.getContext('2d');
+    // Multi-pass Step Upscaling for High-Fidelity 4K Detail
+    let curCanvas = document.createElement('canvas');
+    curCanvas.width = img.width;
+    curCanvas.height = img.height;
+    let curCtx = curCanvas.getContext('2d');
+    curCtx.imageSmoothingEnabled = true;
+    curCtx.imageSmoothingQuality = 'high';
+    curCtx.drawImage(img, 0, 0);
 
-    // High Quality Interpolation rendering
+    let curW = img.width;
+    let curH = img.height;
+
+    // Step up in max 2x increments for crisp, smooth anti-aliased interpolation
+    while (curW * 2 < targetW || curH * 2 < targetH) {
+        curW = Math.min(curW * 2, targetW);
+        curH = Math.min(curH * 2, targetH);
+
+        const nextCanvas = document.createElement('canvas');
+        nextCanvas.width = curW;
+        nextCanvas.height = curH;
+        const nextCtx = nextCanvas.getContext('2d');
+        nextCtx.imageSmoothingEnabled = true;
+        nextCtx.imageSmoothingQuality = 'high';
+        nextCtx.drawImage(curCanvas, 0, 0, curW, curH);
+
+        curCanvas = nextCanvas;
+        curCtx = nextCtx;
+    }
+
+    // Final scaling pass to exact targetW x targetH
+    const finalCanvas = document.createElement('canvas');
+    finalCanvas.width = targetW;
+    finalCanvas.height = targetH;
+    const ctx = finalCanvas.getContext('2d');
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
-    ctx.drawImage(img, 0, 0, targetW, targetH);
+    ctx.drawImage(curCanvas, 0, 0, targetW, targetH);
 
     // Unsharp Mask Sharpening Filter Pass if sharpenAmount > 0
     if (sharpenAmount > 0) {
         const imgData = ctx.getImageData(0, 0, targetW, targetH);
         const data = imgData.data;
         const copyData = new Uint8ClampedArray(data);
-        const mix = (sharpenAmount / 100) * 0.45;
+        const mix = (sharpenAmount / 100) * 0.5;
 
         for (let y = 1; y < targetH - 1; y++) {
             for (let x = 1; x < targetW - 1; x++) {
@@ -1112,7 +1154,7 @@ function processUpscalerTool() {
         ctx.putImageData(imgData, 0, 0);
     }
 
-    const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+    const dataUrl = finalCanvas.toDataURL('image/jpeg', 0.95);
     state.images.upscale.processedUrl = dataUrl;
 
     const mp = ((targetW * targetH) / 1000000).toFixed(1);

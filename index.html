@@ -162,6 +162,20 @@
                 </div>
             </div>
             <div class="header-actions">
+                <div class="lang-select-wrapper">
+                    <i class="fa-solid fa-globe lang-icon"></i>
+                    <select id="languageSelect" class="lang-select" onchange="changeLanguage(this.value)">
+                        <option value="en">🇬🇧 English</option>
+                        <option value="hi">🇮🇳 हिन्दी (Hindi)</option>
+                        <option value="ne">🇳🇵 नेपाली (Nepali)</option>
+                        <option value="bn">🇮🇳 বাংলা (Bengali)</option>
+                        <option value="ta">🇮🇳 தமிழ் (Tamil)</option>
+                        <option value="te">🇮🇳 తెలుగు (Telugu)</option>
+                        <option value="es">🇪🇸 Español (Spanish)</option>
+                        <option value="fr">🇫🇷 Français (French)</option>
+                        <option value="ar">🇸🇦 العربية (Arabic)</option>
+                    </select>
+                </div>
                 <button id="themeToggleBtn" class="btn-icon" title="Toggle Light/Dark Theme">
                     <i class="fa-solid fa-moon"></i>
                 </button>
@@ -170,11 +184,10 @@
                     <span id="historyBadge" class="history-badge" style="display: none;">0</span>
                 </button>
                 <button class="btn btn-secondary btn-sm" onclick="resetEntireWorkspace()" title="Reset All Images & Inputs">
-                    <i class="fa-solid fa-rotate-right"></i> Reset
+                    <i class="fa-solid fa-rotate-right"></i> <span data-i18n="reset">Reset</span>
                 </button>
-                <a href="reviews.html" class="nav-link"><i class="fa-solid fa-star" style="color: #f59e0b;"></i> Reviews
-                    (4.9⭐)</a>
-                <a href="#presets" class="nav-link"><i class="fa-solid fa-list-check"></i> Specs Guide</a>
+                <a href="reviews.html" class="nav-link"><i class="fa-solid fa-star" style="color: #f59e0b;"></i> <span data-i18n="reviews">Reviews (4.9⭐)</span></a>
+                <a href="#presets" class="nav-link"><i class="fa-solid fa-list-check"></i> <span data-i18n="specsGuide">Specs Guide</span></a>
             </div>
         </header>
 

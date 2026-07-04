@@ -164,6 +164,7 @@ const defaultExamPresets = [
 // Initialize Application
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
+    initLanguage();
     fetchExamsData();
     setupEventListeners();
     setupUtilityToolDropzones();
@@ -1468,4 +1469,89 @@ function setPreviewView(toolKey, mode) {
     else if (toolKey === 'conv') processFormatConversion();
     else if (toolKey === 'crop') processCropImage();
     else if (toolKey === 'upscale') processUpscalerTool();
+}
+
+// ==========================================
+// INTERNATIONALIZATION (i18n) MULTI-LANGUAGE ENGINE
+// Supports: English, Hindi, Nepali, Bengali, Tamil, Telugu, Spanish, French, Arabic
+// ==========================================
+
+const i18nDict = {
+    en: {
+        reset: "Reset",
+        reviews: "Reviews (4.9⭐)",
+        specsGuide: "Specs Guide"
+    },
+    hi: {
+        reset: "रीसेट",
+        reviews: "समीक्षाएं (4.9⭐)",
+        specsGuide: "गाइड गाइड"
+    },
+    ne: {
+        reset: "रिसेट",
+        reviews: "समीक्षाहरू (4.9⭐)",
+        specsGuide: "गाइड"
+    },
+    bn: {
+        reset: "রিসেট",
+        reviews: "রিভিউ (4.9⭐)",
+        specsGuide: "গাইড"
+    },
+    ta: {
+        reset: "மீட்டமை",
+        reviews: "மதிப்புரைகள் (4.9⭐)",
+        specsGuide: "வழிகாட்டி"
+    },
+    te: {
+        reset: "రీసెట్",
+        reviews: "సమీక్షలు (4.9⭐)",
+        specsGuide: "గైడ్"
+    },
+    es: {
+        reset: "Restablecer",
+        reviews: "Reseñas (4.9⭐)",
+        specsGuide: "Guía de Especificaciones"
+    },
+    fr: {
+        reset: "Réinitialiser",
+        reviews: "Avis (4.9⭐)",
+        specsGuide: "Guide des Spécifications"
+    },
+    ar: {
+        reset: "إعادة ضبط",
+        reviews: "التقييمات (4.9⭐)",
+        specsGuide: "دليل المواصفات"
+    }
+};
+
+function changeLanguage(langCode) {
+    state.currentLanguage = langCode;
+    localStorage.setItem('user_preferred_lang', langCode);
+
+    if (langCode === 'ar') {
+        document.documentElement.setAttribute('dir', 'rtl');
+        document.body.classList.add('rtl-mode');
+    } else {
+        document.documentElement.setAttribute('dir', 'ltr');
+        document.body.classList.remove('rtl-mode');
+    }
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (i18nDict[langCode] && i18nDict[langCode][key]) {
+            el.textContent = i18nDict[langCode][key];
+        } else if (i18nDict.en[key]) {
+            el.textContent = i18nDict.en[key];
+        }
+    });
+
+    const select = document.getElementById('languageSelect');
+    if (select) select.value = langCode;
+
+    showToast(`Language updated to ${select ? select.options[select.selectedIndex].text : langCode}`, 'success');
+}
+
+function initLanguage() {
+    const savedLang = localStorage.getItem('user_preferred_lang') || 'en';
+    changeLanguage(savedLang);
 }

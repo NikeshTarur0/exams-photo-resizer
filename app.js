@@ -588,8 +588,7 @@ function processCanvas(type) {
     imgObj.dataUrl = bestDataUrl;
     imgObj.sizeKb = bestSizeKb;
 
-    const stageId = type === 'photo' ? 'photoPreviewStage' : 'sigPreviewStage';
-    document.getElementById(stageId).innerHTML = `<img src="${bestDataUrl}" alt="Resized ${type} Preview">`;
+    updateStagePreview(stageId, type, imgObj.original.src, bestDataUrl);
     updateComplianceMeter(type, bestSizeKb, req.min_kb, req.max_kb);
 }
 
@@ -785,7 +784,7 @@ function processBgRemoval() {
     const dataUrl = canvas.toDataURL(format, 0.95);
     state.images.bg.processedUrl = dataUrl;
 
-    document.getElementById('bgPreviewStage').innerHTML = `<img src="${dataUrl}" alt="BG Removed">`;
+    updateStagePreview('bgPreviewStage', 'bg', img.src, dataUrl);
 }
 
 // 2. TOOL: IMAGE COMPRESSOR LOGIC
@@ -841,7 +840,7 @@ function processCompressorTool() {
     state.images.comp.processedUrl = bestUrl;
     state.images.comp.sizeKb = bestKb;
 
-    document.getElementById('compPreviewStage').innerHTML = `<img src="${bestUrl}" alt="Compressed">`;
+    updateStagePreview('compPreviewStage', 'comp', img.src, bestUrl);
     document.getElementById('compSizeVal').textContent = `${bestKb} KB`;
 }
 
@@ -882,7 +881,7 @@ function processResizeTool() {
     const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
     state.images.resize.processedUrl = dataUrl;
 
-    document.getElementById('resizePreviewStage').innerHTML = `<img src="${dataUrl}" alt="Resized">`;
+    updateStagePreview('resizePreviewStage', 'resize', img.src, dataUrl);
 }
 
 // 4. TOOL: FORMAT CONVERTER LOGIC (PNG ↔ JPG)
@@ -921,7 +920,7 @@ function processFormatConversion() {
     state.images.conv.processedUrl = dataUrl;
     state.images.conv.format = format;
 
-    document.getElementById('convPreviewStage').innerHTML = `<img src="${dataUrl}" alt="Converted">`;
+    updateStagePreview('convPreviewStage', 'conv', img.src, dataUrl);
     showToast(`Converted format to ${format.replace('image/', '').toUpperCase()}`, 'success');
 }
 
@@ -977,7 +976,7 @@ function processCropImage() {
     const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
     state.images.crop.processedUrl = dataUrl;
 
-    document.getElementById('cropPreviewStage').innerHTML = `<img src="${dataUrl}" alt="Cropped">`;
+    updateStagePreview('cropPreviewStage', 'crop', img.src, dataUrl);
 }
 
 // 6. TOOL: PDF TO IMAGE CONVERTER LOGIC
@@ -1120,8 +1119,7 @@ function processUpscalerTool() {
     const resText = document.getElementById('upscaleResText');
     if (resText) resText.textContent = `${targetW} × ${targetH} (${mp} MP 4K UHD)`;
 
-    const stage = document.getElementById('upscalePreviewStage');
-    if (stage) stage.innerHTML = `<img src="${dataUrl}" alt="4K Upscaled Image">`;
+    updateStagePreview('upscalePreviewStage', 'upscale', img.src, dataUrl);
 }
 
 // Robust iOS & Mobile Compatible Image Download Handler
@@ -1428,6 +1426,27 @@ function resetEntireWorkspace() {
     });
 
     showToast('Workspace reset successfully! All images cleared.', 'success');
+}
+
+function updateStagePreview(stageId, toolKey, originalSrc, processedSrc) {
+    const stage = document.getElementById(stageId);
+    if (!stage) return;
+    const mode = (state.previewModes && state.previewModes[toolKey]) || 'after';
+
+    if (mode === 'before' && originalSrc) {
+        stage.innerHTML = `<img src="${originalSrc}" alt="Before Original" style="max-height: 240px; object-fit: contain;">`;
+    } else if (mode === 'compare' && originalSrc && processedSrc) {
+        stage.innerHTML = `
+            <div class="compare-grid">
+                <div class="compare-box"><span>Before</span><img src="${originalSrc}" alt="Original"></div>
+                <div class="compare-box"><span>After</span><img src="${processedSrc}" alt="Processed"></div>
+            </div>
+        `;
+    } else if (processedSrc) {
+        stage.innerHTML = `<img src="${processedSrc}" alt="Processed Result" style="max-height: 240px; object-fit: contain;">`;
+    } else if (originalSrc) {
+        stage.innerHTML = `<img src="${originalSrc}" alt="Original" style="max-height: 240px; object-fit: contain;">`;
+    }
 }
 
 function setPreviewView(toolKey, mode) {

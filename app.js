@@ -456,23 +456,7 @@ function switchTab(type) {
     checkWorkspacePanels();
 }
 
-// Main Tool Suite Switching Logic (Exam Studio, BG Remover, 4K Upscaler, etc.)
-function switchMainTool(toolId) {
-    state.currentMainTool = toolId;
 
-    document.querySelectorAll('.tool-suite-nav .suite-tab').forEach(tab => {
-        tab.classList.toggle('active', tab.dataset.tool === toolId);
-    });
-
-    document.querySelectorAll('.tool-view').forEach(view => {
-        view.style.display = 'none';
-    });
-
-    const targetView = document.getElementById(`view-${toolId}`);
-    if (targetView) {
-        targetView.style.display = 'block';
-    }
-}
 
 // Drag & Drop Handling for Exam Studio
 function setupDropzone(dropzoneId, fileInputId, type) {

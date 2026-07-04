@@ -5,11 +5,11 @@
     <!-- Google Tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JKD8P999FT"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-      gtag('config', 'G-JKD8P999FT');
+        gtag('config', 'G-JKD8P999FT');
     </script>
 
     <meta charset="UTF-8">
@@ -32,7 +32,8 @@
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Photo Resizer & Image Resizer Online (Free in KB & Pixels)">
-    <meta name="twitter:description" content="Free 1-Click Online Photo Resizer, KB Compressor, 4K Upscaler & BG Remover for SSC, UPSC, Bank, NEET & Global Exams.">
+    <meta name="twitter:description"
+        content="Free 1-Click Online Photo Resizer, KB Compressor, 4K Upscaler & BG Remover for SSC, UPSC, Bank, NEET & Global Exams.">
     <meta name="twitter:image" content="https://exams-photo-resizer.vercel.app/logo.png">
 
     <link rel="canonical" href="https://exams-photo-resizer.vercel.app/">
@@ -161,10 +162,18 @@
                 </div>
             </div>
             <div class="header-actions">
+                <button id="resetAllBtn" class="btn btn-secondary btn-sm" onclick="resetEntireWorkspace()" title="Reset Workspace & All Uploaded Files">
+                    <i class="fa-solid fa-rotate-left"></i> Reset
+                </button>
+                <button id="historyToggleBtn" class="btn-icon" onclick="toggleHistoryModal()" title="View Download History" style="position: relative;">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span id="historyBadge" class="history-badge" style="display:none;">0</span>
+                </button>
                 <button id="themeToggleBtn" class="btn-icon" title="Toggle Light/Dark Theme">
                     <i class="fa-solid fa-moon"></i>
                 </button>
-                <a href="reviews.html" class="nav-link"><i class="fa-solid fa-star" style="color: #f59e0b;"></i> Reviews (4.9⭐)</a>
+                <a href="reviews.html" class="nav-link"><i class="fa-solid fa-star" style="color: #f59e0b;"></i> Reviews
+                    (4.9⭐)</a>
                 <a href="#presets" class="nav-link"><i class="fa-solid fa-list-check"></i> Specs Guide</a>
             </div>
         </header>
@@ -217,7 +226,8 @@
 
                         <!-- Country Filter Selector -->
                         <div style="margin-bottom: 12px;">
-                            <span style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent-primary); display: block; margin-bottom: 6px;">
+                            <span
+                                style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent-primary); display: block; margin-bottom: 6px;">
                                 <i class="fa-solid fa-earth-asia"></i> 1. Choose Country:
                             </span>
                             <div class="category-pills" id="countryPills">
@@ -230,7 +240,8 @@
 
                         <!-- Category Filter Selector -->
                         <div>
-                            <span style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-secondary); display: block; margin-bottom: 6px;">
+                            <span
+                                style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-secondary); display: block; margin-bottom: 6px;">
                                 <i class="fa-solid fa-filter"></i> 2. Filter by Category:
                             </span>
                             <div class="category-pills" id="categoryPills">
@@ -244,24 +255,31 @@
                         </div>
 
                         <!-- Custom Dimensions & Target KB Panel -->
-                        <div id="customExamPanel" class="glass-card" style="display: none; margin-top: 16px; padding: 16px;">
-                            <h4 style="font-size: 14px; margin-bottom: 12px; color: var(--accent-primary);"><i class="fa-solid fa-sliders"></i> Custom Image Resizer Settings (Pixels & KB Target)</h4>
+                        <div id="customExamPanel" class="glass-card"
+                            style="display: none; margin-top: 16px; padding: 16px;">
+                            <h4 style="font-size: 14px; margin-bottom: 12px; color: var(--accent-primary);"><i
+                                    class="fa-solid fa-sliders"></i> Custom Image Resizer Settings (Pixels & KB Target)
+                            </h4>
                             <div class="custom-inputs-grid">
                                 <div class="custom-field">
                                     <label>Photo Width (px)</label>
-                                    <input type="number" id="customPhotoW" class="custom-input" value="350" oninput="updateCustomSpecs()">
+                                    <input type="number" id="customPhotoW" class="custom-input" value="350"
+                                        oninput="updateCustomSpecs()">
                                 </div>
                                 <div class="custom-field">
                                     <label>Photo Height (px)</label>
-                                    <input type="number" id="customPhotoH" class="custom-input" value="450" oninput="updateCustomSpecs()">
+                                    <input type="number" id="customPhotoH" class="custom-input" value="450"
+                                        oninput="updateCustomSpecs()">
                                 </div>
                                 <div class="custom-field">
                                     <label>Min Size (KB)</label>
-                                    <input type="number" id="customMinKb" class="custom-input" value="20" oninput="updateCustomSpecs()">
+                                    <input type="number" id="customMinKb" class="custom-input" value="20"
+                                        oninput="updateCustomSpecs()">
                                 </div>
                                 <div class="custom-field">
                                     <label>Max Size (KB)</label>
-                                    <input type="number" id="customMaxKb" class="custom-input" value="100" oninput="updateCustomSpecs()">
+                                    <input type="number" id="customMaxKb" class="custom-input" value="100"
+                                        oninput="updateCustomSpecs()">
                                 </div>
                             </div>
                         </div>
@@ -346,7 +364,14 @@
                         </div>
 
                         <div class="card glass-card preview-card">
-                            <h3><i class="fa-solid fa-sliders"></i> Real-Time Resized Preview</h3>
+                            <div class="preview-card-header">
+                                <h3><i class="fa-solid fa-sliders"></i> Real-Time Resized Preview</h3>
+                                <div class="preview-mode-pills" id="photoPreviewMode">
+                                    <button class="pill-sm active" data-mode="after" onclick="setPreviewView('photo', 'after')">After</button>
+                                    <button class="pill-sm" data-mode="before" onclick="setPreviewView('photo', 'before')">Before</button>
+                                    <button class="pill-sm" data-mode="compare" onclick="setPreviewView('photo', 'compare')">Compare</button>
+                                </div>
+                            </div>
                             <div class="canvas-wrapper">
                                 <canvas id="photoCanvas" class="hidden-canvas"></canvas>
                                 <div class="preview-stage" id="photoPreviewStage">
@@ -416,7 +441,14 @@
                         </div>
 
                         <div class="card glass-card preview-card">
-                            <h3><i class="fa-solid fa-sliders"></i> Resized Signature Preview</h3>
+                            <div class="preview-card-header">
+                                <h3><i class="fa-solid fa-sliders"></i> Resized Signature Preview</h3>
+                                <div class="preview-mode-pills" id="sigPreviewMode">
+                                    <button class="pill-sm active" data-mode="after" onclick="setPreviewView('signature', 'after')">After</button>
+                                    <button class="pill-sm" data-mode="before" onclick="setPreviewView('signature', 'before')">Before</button>
+                                    <button class="pill-sm" data-mode="compare" onclick="setPreviewView('signature', 'compare')">Compare</button>
+                                </div>
+                            </div>
                             <div class="canvas-wrapper sig-canvas-wrapper">
                                 <canvas id="sigCanvas" class="hidden-canvas"></canvas>
                                 <div class="preview-stage" id="sigPreviewStage">
@@ -485,11 +517,15 @@
                             </div>
                             <button class="btn btn-primary btn-block" onclick="processBgRemoval()"><i
                                     class="fa-solid fa-play"></i> Remove Background</button>
+                                      <div class="card glass-card preview-card">
+                        <div class="preview-card-header">
+                            <h3>Result Preview</h3>
+                            <div class="preview-mode-pills" id="bgPreviewMode">
+                                <button class="pill-sm active" data-mode="after" onclick="setPreviewView('bg', 'after')">After</button>
+                                <button class="pill-sm" data-mode="before" onclick="setPreviewView('bg', 'before')">Before</button>
+                                <button class="pill-sm" data-mode="compare" onclick="setPreviewView('bg', 'compare')">Compare</button>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="card glass-card preview-card">
-                        <h3>Result Preview</h3>
                         <div class="canvas-wrapper">
                             <div class="preview-stage" id="bgPreviewStage">
                                 <span class="placeholder-text"><i class="fa-solid fa-wand-magic-sparkles"></i> Processed
@@ -540,7 +576,14 @@
                     </div>
 
                     <div class="card glass-card preview-card">
-                        <h3>Compressed Result</h3>
+                        <div class="preview-card-header">
+                            <h3>Compressed Result</h3>
+                            <div class="preview-mode-pills" id="compPreviewMode">
+                                <button class="pill-sm active" data-mode="after" onclick="setPreviewView('comp', 'after')">After</button>
+                                <button class="pill-sm" data-mode="before" onclick="setPreviewView('comp', 'before')">Before</button>
+                                <button class="pill-sm" data-mode="compare" onclick="setPreviewView('comp', 'compare')">Compare</button>
+                            </div>
+                        </div>
                         <div class="canvas-wrapper">
                             <div class="preview-stage" id="compPreviewStage">
                                 <span class="placeholder-text"><i class="fa-solid fa-file-zipper"></i> Compressed image
@@ -602,7 +645,14 @@
                     </div>
 
                     <div class="card glass-card preview-card">
-                        <h3>Resized Preview</h3>
+                        <div class="preview-card-header">
+                            <h3>Resized Preview</h3>
+                            <div class="preview-mode-pills" id="resizePreviewMode">
+                                <button class="pill-sm active" data-mode="after" onclick="setPreviewView('resize', 'after')">After</button>
+                                <button class="pill-sm" data-mode="before" onclick="setPreviewView('resize', 'before')">Before</button>
+                                <button class="pill-sm" data-mode="compare" onclick="setPreviewView('resize', 'compare')">Compare</button>
+                            </div>
+                        </div>
                         <div class="canvas-wrapper">
                             <div class="preview-stage" id="resizePreviewStage">
                                 <span class="placeholder-text"><i class="fa-solid fa-expand"></i> Resized preview will
@@ -647,12 +697,19 @@
                                 </select>
                             </div>
                             <button class="btn btn-primary btn-block" onclick="processFormatConversion()"><i
-                                    class="fa-solid fa-rotate"></i> Convert Format</button>
+                                     class="fa-solid fa-rotate"></i> Convert Format</button>
                         </div>
                     </div>
 
                     <div class="card glass-card preview-card">
-                        <h3>Converted Result</h3>
+                        <div class="preview-card-header">
+                            <h3>Converted Result</h3>
+                            <div class="preview-mode-pills" id="convPreviewMode">
+                                <button class="pill-sm active" data-mode="after" onclick="setPreviewView('conv', 'after')">After</button>
+                                <button class="pill-sm" data-mode="before" onclick="setPreviewView('conv', 'before')">Before</button>
+                                <button class="pill-sm" data-mode="compare" onclick="setPreviewView('conv', 'compare')">Compare</button>
+                            </div>
+                        </div>
                         <div class="canvas-wrapper">
                             <div class="preview-stage" id="convPreviewStage">
                                 <span class="placeholder-text"><i class="fa-solid fa-file-image"></i> Converted image
@@ -703,7 +760,14 @@
                     </div>
 
                     <div class="card glass-card preview-card">
-                        <h3>Cropped Result</h3>
+                        <div class="preview-card-header">
+                            <h3>Cropped Result</h3>
+                            <div class="preview-mode-pills" id="cropPreviewMode">
+                                <button class="pill-sm active" data-mode="after" onclick="setPreviewView('crop', 'after')">After</button>
+                                <button class="pill-sm" data-mode="before" onclick="setPreviewView('crop', 'before')">Before</button>
+                                <button class="pill-sm" data-mode="compare" onclick="setPreviewView('crop', 'compare')">Compare</button>
+                            </div>
+                        </div>
                         <div class="canvas-wrapper">
                             <div class="preview-stage" id="cropPreviewStage">
                                 <span class="placeholder-text"><i class="fa-solid fa-crop"></i> Cropped preview will
@@ -753,8 +817,10 @@
         <!-- TOOL VIEW 8: AI 4K ULTRA IMAGE UPSCALER TOOL -->
         <div id="view-upscaler" class="tool-view" style="display: none;">
             <div class="utility-card glass-panel">
-                <h2><i class="fa-solid fa-expand" style="color: #38bdf8;"></i> AI 4K Ultra Image Upscaler & Enhancer</h2>
-                <p class="tool-subtitle">Upscale small photos, low-resolution signatures & documents to 4K Ultra HD resolution (up to 3840×2160) with edge sharpening.</p>
+                <h2><i class="fa-solid fa-expand" style="color: #38bdf8;"></i> AI 4K Ultra Image Upscaler & Enhancer
+                </h2>
+                <p class="tool-subtitle">Upscale small photos, low-resolution signatures & documents to 4K Ultra HD
+                    resolution (up to 3840×2160) with edge sharpening.</p>
 
                 <div class="grid-layout">
                     <div class="card glass-card">
@@ -762,14 +828,17 @@
                         <div class="dropzone" id="upscaleDropzone">
                             <input type="file" id="upscaleFileInput" accept="image/*" class="file-input">
                             <div class="dropzone-content">
-                                <div class="upload-icon-circle" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                                <div class="upload-icon-circle"
+                                    style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;"><i
+                                        class="fa-solid fa-wand-magic-sparkles"></i></div>
                                 <h4>Drop Image Here or <span class="browse-link">Browse</span></h4>
                                 <p class="help-text">JPG, PNG, WEBP (Upscale up to 4K UHD)</p>
                             </div>
                         </div>
                         <div class="control-panel" id="upscaleControlPanel" style="display:none;">
                             <div class="control-group">
-                                <label><i class="fa-solid fa-up-right-and-down-left-from-center"></i> Target Upscale Scale</label>
+                                <label><i class="fa-solid fa-up-right-and-down-left-from-center"></i> Target Upscale
+                                    Scale</label>
                                 <select id="upscaleFactorSelect" class="exam-dropdown">
                                     <option value="2">2x HD Upscale (Double Dimensions)</option>
                                     <option value="4" selected>4x 4K Ultra HD (3840px Max Width)</option>
@@ -786,22 +855,32 @@
                     </div>
 
                     <div class="card glass-card preview-card">
-                        <h3>4K Upscaled Preview</h3>
+                        <div class="preview-card-header">
+                            <h3>4K Upscaled Preview</h3>
+                            <div class="preview-mode-pills" id="upscalePreviewMode">
+                                <button class="pill-sm active" data-mode="after" onclick="setPreviewView('upscale', 'after')">After</button>
+                                <button class="pill-sm" data-mode="before" onclick="setPreviewView('upscale', 'before')">Before</button>
+                                <button class="pill-sm" data-mode="compare" onclick="setPreviewView('upscale', 'compare')">Compare</button>
+                            </div>
+                        </div>
                         <div class="canvas-wrapper">
                             <div class="preview-stage" id="upscalePreviewStage">
-                                <span class="placeholder-text"><i class="fa-solid fa-expand"></i> 4K Upscaled image preview will appear here</span>
+                                <span class="placeholder-text"><i class="fa-solid fa-expand"></i> 4K Upscaled image
+                                    preview will appear here</span>
                             </div>
                         </div>
                         <div class="compliance-meter" id="upscaleInfoMeter" style="display: none;">
                             <div class="meter-info">
                                 <span class="meter-label">Resolution:</span>
                                 <strong id="upscaleResText" class="size-val">3840 x 2160 (4K UHD)</strong>
-                                <span class="status-badge status-valid"><i class="fa-solid fa-circle-check"></i> 4K Enhanced</span>
+                                <span class="status-badge status-valid"><i class="fa-solid fa-circle-check"></i> 4K
+                                    Enhanced</span>
                             </div>
                         </div>
                         <div class="action-bar" id="upscaleActionBar" style="display:none;">
                             <button id="downloadUpscaleBtn" class="btn btn-primary btn-glow"
-                                onclick="downloadToolOutput('upscale')"><i class="fa-solid fa-download"></i> Download 4K Ultra HD Image</button>
+                                onclick="downloadToolOutput('upscale')"><i class="fa-solid fa-download"></i> Download 4K
+                                Ultra HD Image</button>
                         </div>
                     </div>
                 </div>
@@ -882,6 +961,23 @@
                     style="color: var(--accent-primary);">Terms of Service</a> | <a href="contact.html"
                     style="color: var(--accent-primary);">Contact Us</a></p>
         </footer>
+    </div>
+
+    <!-- Download History Modal -->
+    <div id="historyModal" class="modal-backdrop" style="display: none;" onclick="closeHistoryModalOnBackdrop(event)">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-clock-rotate-left"></i> Download History (Saved Locally)</h3>
+                <button class="btn-close" onclick="toggleHistoryModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body" id="historyModalBody">
+                <!-- Dynamically populated by JS -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary btn-sm" onclick="clearDownloadHistory()"><i class="fa-solid fa-trash-can"></i> Clear History</button>
+                <button class="btn btn-primary btn-sm" onclick="toggleHistoryModal()">Close</button>
+            </div>
+        </div>
     </div>
 
     <!-- Notification Toast Container -->

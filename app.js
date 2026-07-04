@@ -11,6 +11,7 @@ const state = {
     activeCountry: 'all',
     activeTab: 'photo', // 'photo' or 'signature'
     currentMainTool: 'exam-studio',
+    viewModes: { photo: 'after', signature: 'after', bg: 'after', comp: 'after', resize: 'after', conv: 'after', crop: 'after', upscale: 'after' },
     images: {
         photo: { original: null, file: null, zoom: 1, rotation: 0, canvas: null, dataUrl: null, sizeKb: 0 },
         signature: { original: null, file: null, zoom: 1, rotation: 0, canvas: null, dataUrl: null, sizeKb: 0 },
@@ -163,6 +164,7 @@ const defaultExamPresets = [
 // Initialize Application
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
+    updateHistoryBadge();
     fetchExamsData();
     setupEventListeners();
     setupUtilityToolDropzones();
@@ -404,13 +406,41 @@ function setupGenericToolDropzone(dropzoneId, fileInputId, toolKey, callback) {
     const fileInput = document.getElementById(fileInputId);
     if (!dropzone || !fileInput) return;
 
-    dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
-    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
-    dropzone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropzone.classList.remove('dragover');
-        if (e.dataTransfer.files && e.dataTransfer.files[0]) callback(e.dataTransfer.files[0]);
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropzone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropzone.classList.add('dragover');
+        });
     });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropzone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropzone.classList.remove('dragover');
+        });
+    });
+
+    dropzone.addEventListener('drop', (e) => {
+        const files = e.dataTransfer.files;
+        if (files && files[0]) {
+            const file = files[0];
+            if (toolKey === 'pdf') {
+                if (file.type !== 'application/pdf' && !file.name.endsWith('.pdf')) {
+                    showToast('Invalid file format: Please drop a valid PDF document file (.pdf)', 'error');
+                    return;
+                }
+            } else {
+                if (!file.type.startsWith('image/')) {
+                    showToast('Invalid file format: Please drop a valid image file (JPG, PNG, WEBP)', 'error');
+                    return;
+                }
+            }
+            callback(file);
+        }
+    });
+
     fileInput.addEventListener('change', (e) => {
         if (e.target.files && e.target.files[0]) callback(e.target.files[0]);
     });
@@ -448,14 +478,35 @@ function switchMainTool(toolId) {
 function setupDropzone(dropzoneId, fileInputId, type) {
     const dropzone = document.getElementById(dropzoneId);
     const fileInput = document.getElementById(fileInputId);
+    if (!dropzone || !fileInput) return;
 
-    dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
-    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
-    dropzone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropzone.classList.remove('dragover');
-        if (e.dataTransfer.files && e.dataTransfer.files[0]) handleFileSelect(e.dataTransfer.files[0], type);
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropzone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropzone.classList.add('dragover');
+        });
     });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropzone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropzone.classList.remove('dragover');
+        });
+    });
+
+    dropzone.addEventListener('drop', (e) => {
+        const files = e.dataTransfer.files;
+        if (files && files[0]) {
+            if (!files[0].type.startsWith('image/')) {
+                showToast(`Invalid file format: Please upload a valid JPG, PNG, or WEBP ${type} image.`, 'error');
+                return;
+            }
+            handleFileSelect(files[0], type);
+        }
+    });
+
     fileInput.addEventListener('change', (e) => {
         if (e.target.files && e.target.files[0]) handleFileSelect(e.target.files[0], type);
     });
@@ -551,9 +602,105 @@ function processCanvas(type) {
     imgObj.dataUrl = bestDataUrl;
     imgObj.sizeKb = bestSizeKb;
 
-    const stageId = type === 'photo' ? 'photoPreviewStage' : 'sigPreviewStage';
-    document.getElementById(stageId).innerHTML = `<img src="${bestDataUrl}" alt="Resized ${type} Preview">`;
     updateComplianceMeter(type, bestSizeKb, req.min_kb, req.max_kb);
+    renderExamPreview(type);
+}
+
+// Before / After View Mode Toggle Handler
+function setPreviewView(toolKey, mode) {
+    if (!state.viewModes) state.viewModes = {};
+    state.viewModes[toolKey] = mode;
+
+    const modeContainer = document.getElementById(`${toolKey}PreviewMode`);
+    if (modeContainer) {
+        modeContainer.querySelectorAll('.pill-sm').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.mode === mode);
+        });
+    }
+
+    if (toolKey === 'photo' || toolKey === 'signature') {
+        renderExamPreview(toolKey);
+    } else {
+        renderUtilityPreview(toolKey);
+    }
+}
+
+function renderExamPreview(type) {
+    const stageId = type === 'photo' ? 'photoPreviewStage' : 'sigPreviewStage';
+    const stage = document.getElementById(stageId);
+    if (!stage) return;
+
+    const imgObj = state.images[type];
+    if (!imgObj || !imgObj.original) return;
+
+    const mode = (state.viewModes && state.viewModes[type]) || 'after';
+    const origUrl = imgObj.original.src;
+    const procUrl = imgObj.dataUrl;
+
+    if (mode === 'before') {
+        stage.innerHTML = `
+            <div style="position: relative; display: flex; align-items: center; justify-content: center; width: 100%;">
+                <span class="badge-tag before-tag">Original (Before)</span>
+                <img src="${origUrl}" alt="Original Before Image" style="max-width: 100%; max-height: 280px; object-fit: contain;">
+            </div>`;
+    } else if (mode === 'compare') {
+        stage.innerHTML = `
+            <div class="compare-split-grid">
+                <div class="compare-box">
+                    <span class="badge-tag before-tag">Before</span>
+                    <img src="${origUrl}" alt="Original Image">
+                </div>
+                <div class="compare-box">
+                    <span class="badge-tag after-tag">After</span>
+                    <img src="${procUrl || origUrl}" alt="Resized Image">
+                </div>
+            </div>`;
+    } else {
+        stage.innerHTML = `<img src="${procUrl || origUrl}" alt="Resized ${type} Preview" style="max-width: 100%; max-height: 280px; object-fit: contain;">`;
+    }
+}
+
+function renderUtilityPreview(toolKey) {
+    const stageMap = {
+        bg: 'bgPreviewStage',
+        comp: 'compPreviewStage',
+        resize: 'resizePreviewStage',
+        conv: 'convPreviewStage',
+        crop: 'cropPreviewStage',
+        upscale: 'upscalePreviewStage'
+    };
+    const stageId = stageMap[toolKey];
+    const stage = document.getElementById(stageId);
+    if (!stage) return;
+
+    const imgObj = state.images[toolKey];
+    if (!imgObj || !imgObj.original) return;
+
+    const mode = (state.viewModes && state.viewModes[toolKey]) || 'after';
+    const origUrl = imgObj.original ? imgObj.original.src : '';
+    const procUrl = imgObj.processedUrl || '';
+
+    if (mode === 'before') {
+        stage.innerHTML = `
+            <div style="position: relative; display: flex; align-items: center; justify-content: center; width: 100%;">
+                <span class="badge-tag before-tag">Original (Before)</span>
+                <img src="${origUrl}" alt="Original Image" style="max-width: 100%; max-height: 280px; object-fit: contain;">
+            </div>`;
+    } else if (mode === 'compare') {
+        stage.innerHTML = `
+            <div class="compare-split-grid">
+                <div class="compare-box">
+                    <span class="badge-tag before-tag">Before</span>
+                    <img src="${origUrl}" alt="Original Image">
+                </div>
+                <div class="compare-box">
+                    <span class="badge-tag after-tag">After</span>
+                    <img src="${procUrl || origUrl}" alt="Processed Image">
+                </div>
+            </div>`;
+    } else {
+        stage.innerHTML = `<img src="${procUrl || origUrl}" alt="Processed Image" style="max-width: 100%; max-height: 280px; object-fit: contain;">`;
+    }
 }
 
 // Ensure control panels & compliance meters are hidden when no image is loaded
@@ -748,7 +895,7 @@ function processBgRemoval() {
     const dataUrl = canvas.toDataURL(format, 0.95);
     state.images.bg.processedUrl = dataUrl;
 
-    document.getElementById('bgPreviewStage').innerHTML = `<img src="${dataUrl}" alt="BG Removed">`;
+    renderUtilityPreview('bg');
 }
 
 // 2. TOOL: IMAGE COMPRESSOR LOGIC
@@ -804,7 +951,7 @@ function processCompressorTool() {
     state.images.comp.processedUrl = bestUrl;
     state.images.comp.sizeKb = bestKb;
 
-    document.getElementById('compPreviewStage').innerHTML = `<img src="${bestUrl}" alt="Compressed">`;
+    renderUtilityPreview('comp');
     document.getElementById('compSizeVal').textContent = `${bestKb} KB`;
 }
 
@@ -845,7 +992,7 @@ function processResizeTool() {
     const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
     state.images.resize.processedUrl = dataUrl;
 
-    document.getElementById('resizePreviewStage').innerHTML = `<img src="${dataUrl}" alt="Resized">`;
+    renderUtilityPreview('resize');
 }
 
 // 4. TOOL: FORMAT CONVERTER LOGIC (PNG ↔ JPG)
@@ -884,7 +1031,7 @@ function processFormatConversion() {
     state.images.conv.processedUrl = dataUrl;
     state.images.conv.format = format;
 
-    document.getElementById('convPreviewStage').innerHTML = `<img src="${dataUrl}" alt="Converted">`;
+    renderUtilityPreview('conv');
     showToast(`Converted format to ${format.replace('image/', '').toUpperCase()}`, 'success');
 }
 
@@ -940,7 +1087,7 @@ function processCropImage() {
     const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
     state.images.crop.processedUrl = dataUrl;
 
-    document.getElementById('cropPreviewStage').innerHTML = `<img src="${dataUrl}" alt="Cropped">`;
+    renderUtilityPreview('crop');
 }
 
 // 6. TOOL: PDF TO IMAGE CONVERTER LOGIC
@@ -1088,26 +1235,37 @@ function processUpscalerTool() {
 }
 
 // Robust iOS & Mobile Compatible Image Download Handler
-async function triggerDownload(dataUrl, filename, mimeType = 'image/jpeg') {
-    if (!dataUrl) return;
+async function triggerDownload(dataUrl, filename, mimeType = 'image/jpeg', toolName = 'Image Suite', isReDownload = false) {
+    if (!dataUrl) {
+        showToast('No image data available for download.', 'error');
+        return;
+    }
+
+    // Save to Local Browser History if not a re-download request
+    if (!isReDownload) {
+        const sizeKb = estimateBase64SizeKb(dataUrl);
+        saveDownloadHistoryItem({
+            id: Date.now(),
+            filename: filename,
+            toolName: toolName,
+            timestamp: Date.now(),
+            dataUrl: dataUrl,
+            sizeKb: sizeKb
+        });
+    }
 
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
     try {
-        // Fetch base64 data to Blob
         const res = await fetch(dataUrl);
         const blob = await res.blob();
         const blobUrl = URL.createObjectURL(blob);
 
-        // 1. Try iOS Web Share API (Saves directly to iOS Photos / Gallery)
         if (isIOS && navigator.share) {
             const file = new File([blob], filename, { type: mimeType });
             if (navigator.canShare && navigator.canShare({ files: [file] })) {
                 try {
-                    await navigator.share({
-                        files: [file],
-                        title: filename
-                    });
+                    await navigator.share({ files: [file], title: filename });
                     showToast('Saved to iOS Photos / Share', 'success');
                     return;
                 } catch (shareErr) {
@@ -1118,7 +1276,6 @@ async function triggerDownload(dataUrl, filename, mimeType = 'image/jpeg') {
             }
         }
 
-        // 2. iOS Safari Tab Fallback (Long Press to Save Image)
         if (isIOS) {
             const newWindow = window.open();
             if (newWindow) {
@@ -1128,7 +1285,6 @@ async function triggerDownload(dataUrl, filename, mimeType = 'image/jpeg') {
             }
         }
 
-        // 3. Standard Download for Desktop & Android
         const a = document.createElement('a');
         a.href = blobUrl;
         a.download = filename;
@@ -1138,7 +1294,6 @@ async function triggerDownload(dataUrl, filename, mimeType = 'image/jpeg') {
         setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
         showToast(`Downloaded ${filename}`, 'success');
     } catch (err) {
-        // Fallback for direct dataUrl anchor download
         const a = document.createElement('a');
         a.href = dataUrl;
         a.download = filename;
@@ -1150,35 +1305,198 @@ async function triggerDownload(dataUrl, filename, mimeType = 'image/jpeg') {
 }
 
 function downloadPdfPage(dataUrl, pageNum) {
-    triggerDownload(dataUrl, `PDF_Page_${pageNum}.jpg`, 'image/jpeg');
+    triggerDownload(dataUrl, `PDF_Page_${pageNum}.jpg`, 'image/jpeg', 'PDF Extractor');
 }
 
 // Download Helper for Utility Tools
 function downloadToolOutput(toolKey) {
     const url = state.images[toolKey] ? state.images[toolKey].processedUrl : null;
     if (!url) {
-        showToast('No processed file ready for download', 'error');
+        showToast('No processed image ready for download. Please upload an image first.', 'error');
         return;
     }
 
     const isPng = (toolKey === 'conv' && state.images.conv.format === 'image/png');
     const ext = isPng ? 'png' : 'jpg';
     const mime = isPng ? 'image/png' : 'image/jpeg';
+    const toolNames = { bg: 'BG Remover', comp: 'Compressor', resize: 'Resizer', conv: 'Converter', crop: 'Cropper', upscale: '4K Upscaler' };
 
-    triggerDownload(url, `Processed_${toolKey.toUpperCase()}_Image.${ext}`, mime);
+    triggerDownload(url, `Processed_${toolKey.toUpperCase()}_Image.${ext}`, mime, toolNames[toolKey] || 'Utility Tool');
 }
 
 function downloadImage(type) {
     const imgObj = state.images[type];
-    if (!imgObj.dataUrl) {
-        showToast('No image available to download', 'error');
+    if (!imgObj || !imgObj.dataUrl) {
+        showToast(`No ${type} image ready to download. Please select and adjust your ${type} first.`, 'error');
         return;
     }
 
     const examCode = state.selectedExam ? state.selectedExam.code : 'exam';
     const filename = `${examCode.toUpperCase()}_${type.toUpperCase()}_Resized.jpg`;
 
-    triggerDownload(imgObj.dataUrl, filename, 'image/jpeg');
+    triggerDownload(imgObj.dataUrl, filename, 'image/jpeg', type === 'photo' ? 'Exam Photo' : 'Exam Signature');
+}
+
+// Local Download History Storage Engine
+function getDownloadHistory() {
+    try {
+        const data = localStorage.getItem('exams_download_history');
+        return data ? JSON.parse(data) : [];
+    } catch (e) {
+        return [];
+    }
+}
+
+function saveDownloadHistoryItem(item) {
+    try {
+        let history = getDownloadHistory();
+        history.unshift(item);
+        if (history.length > 25) history = history.slice(0, 25);
+        localStorage.setItem('exams_download_history', JSON.stringify(history));
+        updateHistoryBadge();
+    } catch (e) {
+        console.warn('Failed to save to history:', e);
+    }
+}
+
+function updateHistoryBadge() {
+    const history = getDownloadHistory();
+    const badge = document.getElementById('historyBadge');
+    if (badge) {
+        if (history.length > 0) {
+            badge.textContent = history.length;
+            badge.style.display = 'flex';
+        } else {
+            badge.style.display = 'none';
+        }
+    }
+}
+
+function toggleHistoryModal() {
+    const modal = document.getElementById('historyModal');
+    if (!modal) return;
+    const isHidden = modal.style.display === 'none' || !modal.style.display;
+    modal.style.display = isHidden ? 'flex' : 'none';
+    if (isHidden) {
+        renderDownloadHistory();
+    }
+}
+
+function closeHistoryModalOnBackdrop(e) {
+    if (e.target && e.target.id === 'historyModal') {
+        toggleHistoryModal();
+    }
+}
+
+function renderDownloadHistory() {
+    const body = document.getElementById('historyModalBody');
+    if (!body) return;
+
+    const history = getDownloadHistory();
+    if (history.length === 0) {
+        body.innerHTML = `
+            <div style="text-align: center; padding: 40px 20px; color: var(--text-muted);">
+                <i class="fa-solid fa-clock-rotate-left" style="font-size: 42px; margin-bottom: 12px; opacity: 0.4;"></i>
+                <p style="font-size: 15px; font-weight: 600; color: var(--text-primary);">No download history yet</p>
+                <p style="font-size: 13px;">Images you process and download will automatically be saved here in your browser.</p>
+            </div>`;
+        return;
+    }
+
+    body.innerHTML = history.map((item, idx) => `
+        <div class="history-item">
+            <img src="${item.dataUrl}" class="history-thumb" alt="${item.filename}">
+            <div class="history-info">
+                <span class="history-filename">${item.filename}</span>
+                <span class="history-meta">
+                    <i class="fa-regular fa-clock"></i> ${new Date(item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} • 
+                    <strong>${item.sizeKb} KB</strong> • ${item.toolName}
+                </span>
+            </div>
+            <div class="history-actions">
+                <button class="btn btn-primary btn-sm" onclick="downloadHistoryItem(${idx})" title="Download again">
+                    <i class="fa-solid fa-download"></i> Save
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="deleteHistoryItem(${idx})" title="Remove item">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function downloadHistoryItem(index) {
+    const history = getDownloadHistory();
+    const item = history[index];
+    if (item && item.dataUrl) {
+        triggerDownload(item.dataUrl, item.filename, 'image/jpeg', item.toolName, true);
+    }
+}
+
+function deleteHistoryItem(index) {
+    let history = getDownloadHistory();
+    history.splice(index, 1);
+    localStorage.setItem('exams_download_history', JSON.stringify(history));
+    updateHistoryBadge();
+    renderDownloadHistory();
+    showToast('Item removed from download history', 'info');
+}
+
+function clearDownloadHistory() {
+    if (confirm('Are you sure you want to clear your local download history?')) {
+        localStorage.removeItem('exams_download_history');
+        updateHistoryBadge();
+        renderDownloadHistory();
+        showToast('Download history cleared', 'info');
+    }
+}
+
+// Global One-Click Reset Workspace
+function resetEntireWorkspace() {
+    state.images = {
+        photo: { original: null, file: null, zoom: 1, rotation: 0, canvas: null, dataUrl: null, sizeKb: 0 },
+        signature: { original: null, file: null, zoom: 1, rotation: 0, canvas: null, dataUrl: null, sizeKb: 0 },
+        bg: { original: null, file: null, processedUrl: null },
+        comp: { original: null, file: null, processedUrl: null, sizeKb: 0 },
+        resize: { original: null, file: null, processedUrl: null, width: 800, height: 600 },
+        conv: { original: null, file: null, processedUrl: null, format: 'image/jpeg' },
+        crop: { original: null, file: null, processedUrl: null, ratio: '1:1' },
+        upscale: { original: null, file: null, processedUrl: null }
+    };
+
+    state.viewModes = { photo: 'after', signature: 'after', bg: 'after', comp: 'after', resize: 'after', conv: 'after', crop: 'after', upscale: 'after' };
+
+    // Reset inputs
+    ['photoFileInput', 'sigFileInput', 'bgFileInput', 'compFileInput', 'resizeFileInput', 'convFileInput', 'cropFileInput', 'pdfFileInput', 'upscaleFileInput'].forEach(id => {
+        const input = document.getElementById(id);
+        if (input) input.value = '';
+    });
+
+    // Reset stage placeholders
+    document.getElementById('photoPreviewStage').innerHTML = `<span class="placeholder-text"><i class="fa-solid fa-image"></i> Preview will appear after selecting a photo</span>`;
+    document.getElementById('sigPreviewStage').innerHTML = `<span class="placeholder-text"><i class="fa-solid fa-pen-nib"></i> Preview will appear after selecting a signature</span>`;
+    document.getElementById('bgPreviewStage').innerHTML = `<span class="placeholder-text"><i class="fa-solid fa-wand-magic-sparkles"></i> Processed image preview will appear here</span>`;
+    document.getElementById('compPreviewStage').innerHTML = `<span class="placeholder-text"><i class="fa-solid fa-file-zipper"></i> Compressed image preview will appear here</span>`;
+    document.getElementById('resizePreviewStage').innerHTML = `<span class="placeholder-text"><i class="fa-solid fa-expand"></i> Resized preview will appear here</span>`;
+    document.getElementById('convPreviewStage').innerHTML = `<span class="placeholder-text"><i class="fa-solid fa-file-image"></i> Converted image preview will appear here</span>`;
+    document.getElementById('cropPreviewStage').innerHTML = `<span class="placeholder-text"><i class="fa-solid fa-crop"></i> Cropped preview will appear here</span>`;
+    const pdfCont = document.getElementById('pdfPagesContainer');
+    if (pdfCont) pdfCont.innerHTML = `<span class="placeholder-text"><i class="fa-solid fa-file-pdf"></i> Upload a PDF file to preview extracted pages</span>`;
+    document.getElementById('upscalePreviewStage').innerHTML = `<span class="placeholder-text"><i class="fa-solid fa-expand"></i> 4K Upscaled image preview will appear here</span>`;
+
+    // Hide control panels and action bars
+    ['photoControlPanel', 'sigControlPanel', 'photoComplianceMeter', 'sigComplianceMeter', 'photoActionBar', 'sigActionBar',
+     'bgControlPanel', 'bgActionBar', 'compControlPanel', 'compActionBar', 'compMeter', 'resizeControlPanel', 'resizeActionBar',
+     'convControlPanel', 'convActionBar', 'cropControlPanel', 'cropActionBar', 'upscaleControlPanel', 'upscaleInfoMeter'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+    });
+
+    // Reset range sliders
+    const photoZoom = document.getElementById('photoZoomRange'); if (photoZoom) photoZoom.value = 1;
+    const sigZoom = document.getElementById('sigZoomRange'); if (sigZoom) sigZoom.value = 1;
+
+    showToast('Workspace reset to clean state!', 'success');
 }
 
 async function triggerServerFallback(type) {
@@ -1225,6 +1543,7 @@ async function triggerServerFallback(type) {
 
 function renderReferenceTable() {
     const tbody = document.getElementById('referenceTableBody');
+    if (!tbody) return;
     tbody.innerHTML = '';
 
     state.exams.forEach(exam => {
@@ -1256,8 +1575,10 @@ function highlightTableRows() {
 
 function showToast(message, type = 'info') {
     const container = document.getElementById('toastContainer');
+    if (!container) return;
+
     const toast = document.createElement('div');
-    toast.className = 'toast';
+    toast.className = `toast ${type === 'error' ? 'toast-error' : ''}`;
 
     let icon = 'fa-circle-info';
     if (type === 'success') icon = 'fa-circle-check';
@@ -1269,14 +1590,25 @@ function showToast(message, type = 'info') {
     setTimeout(() => {
         toast.style.opacity = '0';
         setTimeout(() => toast.remove(), 300);
-    }, 4000);
+    }, 4500);
 }
 
 function initTheme() {
     const themeBtn = document.getElementById('themeToggleBtn');
+    if (!themeBtn) return;
+
+    const savedTheme = localStorage.getItem('exams_theme') || 'dark';
+    document.body.setAttribute('data-theme', savedTheme);
+    themeBtn.innerHTML = savedTheme === 'light' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+
     themeBtn.addEventListener('click', () => {
-        const isDark = document.body.getAttribute('data-theme') !== 'light';
-        document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
-        themeBtn.innerHTML = isDark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+        const currentTheme = document.body.getAttribute('data-theme') || 'dark';
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+        document.body.setAttribute('data-theme', newTheme);
+        localStorage.setItem('exams_theme', newTheme);
+
+        themeBtn.innerHTML = newTheme === 'light' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+        showToast(`Switched to ${newTheme === 'light' ? 'Light' : 'Dark'} Mode`, 'info');
     });
 }

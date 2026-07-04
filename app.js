@@ -1480,47 +1480,128 @@ const i18nDict = {
     en: {
         reset: "Reset",
         reviews: "Reviews (4.9⭐)",
-        specsGuide: "Specs Guide"
+        specsGuide: "Specs Guide",
+        tabExamStudio: "Exam Resizer Studio",
+        tabBgRemover: "BG Remover",
+        tabCompressor: "Image Compressor",
+        tabResizer: "Resize Images",
+        tabConverter: "PNG ↔ JPG",
+        tabCropper: "Crop Images",
+        tabPdfToImage: "PDF to Image",
+        tabUpscaler: "4K Upscaler",
+        step1Label: "Step 1: Select Target Competitive Exam"
     },
     hi: {
         reset: "रीसेट",
         reviews: "समीक्षाएं (4.9⭐)",
-        specsGuide: "गाइड गाइड"
+        specsGuide: "गाइड",
+        tabExamStudio: "परीक्षा रिसाइज़र स्टूडियो",
+        tabBgRemover: "बैकग्राउंड रिमूवर",
+        tabCompressor: "इमेज कंप्रेसर",
+        tabResizer: "इमेज रीसाइज़ करें",
+        tabConverter: "PNG ↔ JPG",
+        tabCropper: "इमेज क्रॉप करें",
+        tabPdfToImage: "पीडीएफ से इमेज",
+        tabUpscaler: "4K अपस्केलर",
+        step1Label: "चरण 1: लक्ष्य परीक्षा चुनें"
     },
     ne: {
         reset: "रिसेट",
         reviews: "समीक्षाहरू (4.9⭐)",
-        specsGuide: "गाइड"
+        specsGuide: "गाइड",
+        tabExamStudio: "परीक्षा स्टुडियो",
+        tabBgRemover: "ब्याकग्राउन्ड रिमूभर",
+        tabCompressor: "इमेज कम्प्रेसर",
+        tabResizer: "साइज बढाउनुहोस्/घटाउनुहोस्",
+        tabConverter: "PNG ↔ JPG",
+        tabCropper: "इमेज क्रप गर्नुहोस्",
+        tabPdfToImage: "पीडीएफ बाट फोटो",
+        tabUpscaler: "4K अपस्केलर",
+        step1Label: "चरण १: लक्ष्य परीक्षा छान्नुहोस्"
     },
     bn: {
         reset: "রিসেট",
         reviews: "রিভিউ (4.9⭐)",
-        specsGuide: "গাইড"
+        specsGuide: "গাইড",
+        tabExamStudio: "পরীক্ষা স্টুডিও",
+        tabBgRemover: "ব্যাকগ্রাউন্ড রিমুভার",
+        tabCompressor: "ইমেজ কমপ্রেসর",
+        tabResizer: "রিসাইজ করুন",
+        tabConverter: "PNG ↔ JPG",
+        tabCropper: "ক্রপ করুন",
+        tabPdfToImage: "পিডিএফ থেকে ছবি",
+        tabUpscaler: "4K আপস্কেলার",
+        step1Label: "ধাপ ১: পরীক্ষা নির্বাচন করুন"
     },
     ta: {
         reset: "மீட்டமை",
         reviews: "மதிப்புரைகள் (4.9⭐)",
-        specsGuide: "வழிகாட்டி"
+        specsGuide: "வழிகாட்டி",
+        tabExamStudio: "தேர்வு ஸ்டுடியோ",
+        tabBgRemover: "பின்புலம் நீக்கி",
+        tabCompressor: "அளவு குறைப்பி",
+        tabResizer: "அளவு மாற்றி",
+        tabConverter: "PNG ↔ JPG",
+        tabCropper: "பயிர் செய்",
+        tabPdfToImage: "PDF to Image",
+        tabUpscaler: "4K அப்ஸ்கேலர்",
+        step1Label: "படி 1: தேர்வை தேர்ந்தெடுக்கவும்"
     },
     te: {
         reset: "రీసెట్",
         reviews: "సమీక్షలు (4.9⭐)",
-        specsGuide: "గైడ్"
+        specsGuide: "గైడ్",
+        tabExamStudio: "పరీక్ష స్టూడియో",
+        tabBgRemover: "BG రిమూవర్",
+        tabCompressor: "ఇమేజ్ కంప్రెసర్",
+        tabResizer: "రీసైజ్ చేయండి",
+        tabConverter: "PNG ↔ JPG",
+        tabCropper: "క్రాప్ చేయండి",
+        tabPdfToImage: "PDF నుండి ఇమేజ్",
+        tabUpscaler: "4K అప్‌స్కేలర్",
+        step1Label: "దశ 1: పరీక్షను ఎంచుకోండి"
     },
     es: {
         reset: "Restablecer",
         reviews: "Reseñas (4.9⭐)",
-        specsGuide: "Guía de Especificaciones"
+        specsGuide: "Guía de Especificaciones",
+        tabExamStudio: "Estudio de Examen",
+        tabBgRemover: "Quitar Fondo",
+        tabCompressor: "Compresor de Imagen",
+        tabResizer: "Redimensionar",
+        tabConverter: "PNG ↔ JPG",
+        tabCropper: "Recortar Imagen",
+        tabPdfToImage: "PDF a Imagen",
+        tabUpscaler: "Escalador 4K",
+        step1Label: "Paso 1: Seleccionar Examen Objetivo"
     },
     fr: {
         reset: "Réinitialiser",
         reviews: "Avis (4.9⭐)",
-        specsGuide: "Guide des Spécifications"
+        specsGuide: "Guide des Spécifications",
+        tabExamStudio: "Studio Examen",
+        tabBgRemover: "Effacer Fond",
+        tabCompressor: "Compresseur d'Image",
+        tabResizer: "Redimensionner",
+        tabConverter: "PNG ↔ JPG",
+        tabCropper: "Rogner L'Image",
+        tabPdfToImage: "PDF en Image",
+        tabUpscaler: "Agrandir en 4K",
+        step1Label: "Étape 1: Sélectionner L'Examen Cible"
     },
     ar: {
         reset: "إعادة ضبط",
         reviews: "التقييمات (4.9⭐)",
-        specsGuide: "دليل المواصفات"
+        specsGuide: "دليل المواصفات",
+        tabExamStudio: "استوديو الامتحانات",
+        tabBgRemover: "إزالة الخلفية",
+        tabCompressor: "ضغط الصور",
+        tabResizer: "تغيير الحجم",
+        tabConverter: "PNG ↔ JPG",
+        tabCropper: "قص الصور",
+        tabPdfToImage: "تحويل PDF لصور",
+        tabUpscaler: "مكبر 4K",
+        step1Label: "الخطوة 1: اختر الامتحان المستهدف"
     }
 };
 

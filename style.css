@@ -1612,3 +1612,22 @@ button.pill-sm.active {
     color: #f8fafc;
     padding: 8px;
 }
+
+/* RTL Mode for Arabic */
+html[dir="rtl"] body {
+    direction: rtl;
+    text-align: right;
+}
+
+html[dir="rtl"] .lang-icon {
+    left: auto;
+    right: 10px;
+}
+
+html[dir="rtl"] .lang-select {
+    padding: 6px 30px 6px 12px;
+}
+
+html[dir="rtl"] .header-actions {
+    flex-direction: row-reverse;
+}

@@ -162,20 +162,6 @@
                 </div>
             </div>
             <div class="header-actions">
-                <div class="lang-select-wrapper">
-                    <i class="fa-solid fa-globe lang-icon"></i>
-                    <select id="languageSelect" class="lang-select" onchange="changeLanguage(this.value)">
-                        <option value="en">🇬🇧 English</option>
-                        <option value="hi">🇮🇳 हिन्दी (Hindi)</option>
-                        <option value="ne">🇳🇵 नेपाली (Nepali)</option>
-                        <option value="bn">🇮🇳 বাংলা (Bengali)</option>
-                        <option value="ta">🇮🇳 தமிழ் (Tamil)</option>
-                        <option value="te">🇮🇳 తెలుగు (Telugu)</option>
-                        <option value="es">🇪🇸 Español (Spanish)</option>
-                        <option value="fr">🇫🇷 Français (French)</option>
-                        <option value="ar">🇸🇦 العربية (Arabic)</option>
-                    </select>
-                </div>
                 <button id="themeToggleBtn" class="btn-icon" title="Toggle Light/Dark Theme">
                     <i class="fa-solid fa-moon"></i>
                 </button>
@@ -184,38 +170,38 @@
                     <span id="historyBadge" class="history-badge" style="display: none;">0</span>
                 </button>
                 <button class="btn btn-secondary btn-sm" onclick="resetEntireWorkspace()" title="Reset All Images & Inputs">
-                    <i class="fa-solid fa-rotate-right"></i> <span data-i18n="reset">Reset</span>
+                    <i class="fa-solid fa-rotate-right"></i> Reset
                 </button>
-                <a href="reviews.html" class="nav-link"><i class="fa-solid fa-star" style="color: #f59e0b;"></i> <span data-i18n="reviews">Reviews (4.9⭐)</span></a>
-                <a href="#presets" class="nav-link"><i class="fa-solid fa-list-check"></i> <span data-i18n="specsGuide">Specs Guide</span></a>
+                <a href="reviews.html" class="nav-link"><i class="fa-solid fa-star" style="color: #f59e0b;"></i> Reviews (4.9⭐)</a>
+                <a href="#presets" class="nav-link"><i class="fa-solid fa-list-check"></i> Specs Guide</a>
             </div>
         </header>
 
         <!-- Global Suite Utility Navigation Bar -->
         <nav class="tool-suite-nav">
             <button class="suite-tab active" data-tool="exam-studio" onclick="switchMainTool('exam-studio')">
-                <i class="fa-solid fa-graduation-cap"></i> <span data-i18n="tabExamStudio">Exam Resizer Studio</span>
+                <i class="fa-solid fa-graduation-cap"></i> Exam Resizer Studio
             </button>
             <button class="suite-tab" data-tool="bg-remover" onclick="switchMainTool('bg-remover')">
-                <i class="fa-solid fa-wand-magic-sparkles"></i> <span data-i18n="tabBgRemover">BG Remover</span>
+                <i class="fa-solid fa-wand-magic-sparkles"></i> BG Remover
             </button>
             <button class="suite-tab" data-tool="compressor" onclick="switchMainTool('compressor')">
-                <i class="fa-solid fa-bolt"></i> <span data-i18n="tabCompressor">Image Compressor</span>
+                <i class="fa-solid fa-bolt"></i> Image Compressor
             </button>
             <button class="suite-tab" data-tool="resizer" onclick="switchMainTool('resizer')">
-                <i class="fa-solid fa-up-right-and-down-left-from-center"></i> <span data-i18n="tabResizer">Resize Images</span>
+                <i class="fa-solid fa-up-right-and-down-left-from-center"></i> Resize Images
             </button>
             <button class="suite-tab" data-tool="converter" onclick="switchMainTool('converter')">
-                <i class="fa-solid fa-right-left"></i> <span data-i18n="tabConverter">PNG ↔ JPG</span>
+                <i class="fa-solid fa-right-left"></i> PNG ↔ JPG
             </button>
             <button class="suite-tab" data-tool="cropper" onclick="switchMainTool('cropper')">
-                <i class="fa-solid fa-crop"></i> <span data-i18n="tabCropper">Crop Images</span>
+                <i class="fa-solid fa-crop"></i> Crop Images
             </button>
             <button class="suite-tab" data-tool="pdf-to-image" onclick="switchMainTool('pdf-to-image')">
-                <i class="fa-solid fa-file-pdf"></i> <span data-i18n="tabPdfToImage">PDF to Image</span>
+                <i class="fa-solid fa-file-pdf"></i> PDF to Image
             </button>
             <button class="suite-tab" data-tool="upscaler" onclick="switchMainTool('upscaler')">
-                <i class="fa-solid fa-expand" style="color: #38bdf8;"></i> <span data-i18n="tabUpscaler">4K Upscaler</span>
+                <i class="fa-solid fa-expand" style="color: #38bdf8;"></i> 4K Upscaler
             </button>
         </nav>
 
@@ -226,7 +212,7 @@
                 <div class="hero-card glass-panel">
                     <div class="hero-content">
                         <label for="examSelect" class="section-label">
-                            <i class="fa-solid fa-building-columns"></i> <span data-i18n="step1Label">Step 1: Select Target Competitive Exam</span>
+                            <i class="fa-solid fa-building-columns"></i> Step 1: Select Target Competitive Exam
                         </label>
 
                         <div class="custom-select-wrapper">
@@ -241,13 +227,13 @@
                         <div style="margin-bottom: 12px;">
                             <span
                                 style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent-primary); display: block; margin-bottom: 6px;">
-                                <i class="fa-solid fa-earth-asia"></i> <span data-i18n="chooseCountry">1. Choose Country:</span>
+                                <i class="fa-solid fa-earth-asia"></i> 1. Choose Country:
                             </span>
                             <div class="category-pills" id="countryPills">
-                                <button class="pill active" data-country="all" data-i18n="allCountries">🌐 All Countries</button>
-                                <button class="pill" data-country="India" data-i18n="indiaExams">🇮🇳 India Exams</button>
-                                <button class="pill" data-country="Nepal" data-i18n="nepalExams">🇳🇵 Nepal Exams</button>
-                                <button class="pill" data-country="USA" data-i18n="usaExams">🇺🇸 USA & Global</button>
+                                <button class="pill active" data-country="all">🌐 All Countries</button>
+                                <button class="pill" data-country="India">🇮🇳 India Exams</button>
+                                <button class="pill" data-country="Nepal">🇳🇵 Nepal Exams</button>
+                                <button class="pill" data-country="USA">🇺🇸 USA & Global</button>
                             </div>
                         </div>
 
@@ -255,15 +241,15 @@
                         <div>
                             <span
                                 style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-secondary); display: block; margin-bottom: 6px;">
-                                <i class="fa-solid fa-filter"></i> <span data-i18n="filterCategory">2. Filter by Category:</span>
+                                <i class="fa-solid fa-filter"></i> 2. Filter by Category:
                             </span>
                             <div class="category-pills" id="categoryPills">
-                                <button class="pill active" data-cat="all" data-i18n="allCat">All Categories</button>
-                                <button class="pill" data-cat="Government Job" data-i18n="govJobs">Government Jobs</button>
-                                <button class="pill" data-cat="Civil Services" data-i18n="civilServices">Civil Services / PSC</button>
-                                <button class="pill" data-cat="Banking" data-i18n="banking">Banking Exams</button>
-                                <button class="pill" data-cat="Medical Entrance" data-i18n="medical">Medical Entrance</button>
-                                <button class="pill" data-cat="Engineering Entrance" data-i18n="engineering">Engineering Entrance</button>
+                                <button class="pill active" data-cat="all">All Categories</button>
+                                <button class="pill" data-cat="Government Job">Government Jobs</button>
+                                <button class="pill" data-cat="Civil Services">Civil Services / PSC</button>
+                                <button class="pill" data-cat="Banking">Banking Exams</button>
+                                <button class="pill" data-cat="Medical Entrance">Medical Entrance</button>
+                                <button class="pill" data-cat="Engineering Entrance">Engineering Entrance</button>
                             </div>
                         </div>
 
@@ -334,10 +320,10 @@
             <main class="workspace">
                 <div class="tab-navigation">
                     <button class="tab-btn active" id="tabPhotoBtn" onclick="switchTab('photo')">
-                        <i class="fa-solid fa-image"></i> <span data-i18n="tabPhoto">Passport Photograph</span>
+                        <i class="fa-solid fa-image"></i> Passport Photograph
                     </button>
                     <button class="tab-btn" id="tabSigBtn" onclick="switchTab('signature')">
-                        <i class="fa-solid fa-pen-nib"></i> <span data-i18n="tabSig">Signature Upload</span>
+                        <i class="fa-solid fa-pen-nib"></i> Signature Upload
                     </button>
                 </div>
 
@@ -529,7 +515,7 @@
                                 </select>
                             </div>
                             <button class="btn btn-primary btn-block" onclick="processBgRemoval()"><i
-                                    class="fa-solid fa-play"></i> <span data-i18n="btnRemoveBg">Remove Background</span></button>
+                                    class="fa-solid fa-play"></i> Remove Background</button>
                         </div>
                     </div>
 
@@ -550,7 +536,7 @@
                         </div>
                         <div class="action-bar" id="bgActionBar" style="display:none;">
                             <button id="downloadBgBtn" class="btn btn-primary btn-glow"
-                                onclick="downloadToolOutput('bg')"><i class="fa-solid fa-download"></i> <span data-i18n="btnDownloadBg">Download Cleaned Image</span></button>
+                                onclick="downloadToolOutput('bg')"><i class="fa-solid fa-download"></i> Download Cleaned Image</button>
                         </div>
                     </div>
                 </div>
@@ -615,7 +601,7 @@
                         </div>
                         <div class="action-bar" id="compActionBar" style="display:none;">
                             <button id="downloadCompBtn" class="btn btn-primary btn-glow"
-                                onclick="downloadToolOutput('comp')"><i class="fa-solid fa-download"></i> <span data-i18n="btnDownloadComp">Download Compressed Image</span></button>
+                                onclick="downloadToolOutput('comp')"><i class="fa-solid fa-download"></i> Download Compressed Image</button>
                         </div>
                     </div>
                 </div>
@@ -675,7 +661,7 @@
                         </div>
                         <div class="action-bar" id="resizeActionBar" style="display:none;">
                             <button id="downloadResizeBtn" class="btn btn-primary btn-glow"
-                                onclick="downloadToolOutput('resize')"><i class="fa-solid fa-download"></i> <span data-i18n="btnDownloadResize">Download Resized Image</span></button>
+                                onclick="downloadToolOutput('resize')"><i class="fa-solid fa-download"></i> Download Resized Image</button>
                         </div>
                     </div>
                 </div>
@@ -731,7 +717,7 @@
                         </div>
                         <div class="action-bar" id="convActionBar" style="display:none;">
                             <button id="downloadConvBtn" class="btn btn-primary btn-glow"
-                                onclick="downloadToolOutput('conv')"><i class="fa-solid fa-download"></i> <span data-i18n="btnDownloadConv">Download Converted File</span></button>
+                                onclick="downloadToolOutput('conv')"><i class="fa-solid fa-download"></i> Download Converted File</button>
                         </div>
                     </div>
                 </div>
@@ -788,7 +774,7 @@
                         </div>
                         <div class="action-bar" id="cropActionBar" style="display:none;">
                             <button id="downloadCropBtn" class="btn btn-primary btn-glow"
-                                onclick="downloadToolOutput('crop')"><i class="fa-solid fa-download"></i> <span data-i18n="btnDownloadCrop">Download Cropped Image</span></button>
+                                onclick="downloadToolOutput('crop')"><i class="fa-solid fa-download"></i> Download Cropped Image</button>
                         </div>
                     </div>
                 </div>
@@ -890,7 +876,7 @@
                         </div>
                         <div class="action-bar" id="upscaleActionBar" style="display:none;">
                             <button id="downloadUpscaleBtn" class="btn btn-primary btn-glow"
-                                onclick="downloadToolOutput('upscale')"><i class="fa-solid fa-download"></i> <span data-i18n="btnDownloadUpscale">Download 4K Image</span></button>
+                                onclick="downloadToolOutput('upscale')"><i class="fa-solid fa-download"></i> Download 4K Ultra HD Image</button>
                         </div>
                     </div>
                 </div>
@@ -964,12 +950,12 @@
 
         <!-- Footer -->
         <footer class="main-footer">
-            <p>© 2026 Exams Photo Resizer • <a href="index.html" style="color: var(--accent-primary);" data-i18n="footerHome">Home</a> | <a
-                    href="about.html" style="color: var(--accent-primary);" data-i18n="footerAbout">About Us</a> | <a href="reviews.html"
-                    style="color: var(--accent-primary);" data-i18n="footerReviews">Reviews</a> | <a href="privacy.html"
-                    style="color: var(--accent-primary);" data-i18n="footerPrivacy">Privacy Policy</a> | <a href="terms.html"
-                    style="color: var(--accent-primary);" data-i18n="footerTerms">Terms of Service</a> | <a href="contact.html"
-                    style="color: var(--accent-primary);" data-i18n="footerContact">Contact Us</a></p>
+            <p>© 2026 Exams Photo Resizer • <a href="index.html" style="color: var(--accent-primary);">Home</a> | <a
+                    href="about.html" style="color: var(--accent-primary);">About Us</a> | <a href="reviews.html"
+                    style="color: var(--accent-primary);">Reviews</a> | <a href="privacy.html"
+                    style="color: var(--accent-primary);">Privacy Policy</a> | <a href="terms.html"
+                    style="color: var(--accent-primary);">Terms of Service</a> | <a href="contact.html"
+                    style="color: var(--accent-primary);">Contact Us</a></p>
         </footer>
     </div>
 

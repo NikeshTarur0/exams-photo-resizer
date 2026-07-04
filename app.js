@@ -11,6 +11,7 @@ const state = {
     activeCountry: 'all',
     activeTab: 'photo', // 'photo' or 'signature'
     currentMainTool: 'exam-studio',
+    previewModes: { photo: 'after', signature: 'after', bg: 'after', comp: 'after', resize: 'after', conv: 'after', crop: 'after', upscale: 'after' },
     images: {
         photo: { original: null, file: null, zoom: 1, rotation: 0, canvas: null, dataUrl: null, sizeKb: 0 },
         signature: { original: null, file: null, zoom: 1, rotation: 0, canvas: null, dataUrl: null, sizeKb: 0 },
@@ -167,6 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
     setupUtilityToolDropzones();
     checkWorkspacePanels();
+    updateHistoryBadge();
 });
 
 // Suite Navigation Tool Switching
@@ -1164,6 +1166,7 @@ async function triggerDownload(dataUrl, filename, mimeType = 'image/jpeg') {
         a.click();
         document.body.removeChild(a);
         setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+        saveDownloadHistoryItem(filename, dataUrl);
         showToast(`Downloaded ${filename}`, 'success');
     } catch (err) {
         const a = document.createElement('a');
@@ -1172,6 +1175,7 @@ async function triggerDownload(dataUrl, filename, mimeType = 'image/jpeg') {
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
+        saveDownloadHistoryItem(filename, dataUrl);
         showToast(`Downloaded ${filename}`, 'success');
     }
 }
@@ -1306,4 +1310,143 @@ function initTheme() {
         document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
         themeBtn.innerHTML = isDark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
     });
+}
+
+// ==========================================
+// UX ENHANCEMENTS: History, Workspace Reset, Preview Modes
+// ==========================================
+
+function getDownloadHistory() {
+    try {
+        return JSON.parse(localStorage.getItem('exams_download_history') || '[]');
+    } catch (e) {
+        return [];
+    }
+}
+
+function saveDownloadHistoryItem(filename, dataUrl) {
+    if (!dataUrl) return;
+    try {
+        const history = getDownloadHistory();
+        const newItem = {
+            id: Date.now(),
+            filename: filename,
+            dataUrl: dataUrl,
+            timestamp: new Date().toLocaleString()
+        };
+        history.unshift(newItem);
+        if (history.length > 20) history.pop();
+        localStorage.setItem('exams_download_history', JSON.stringify(history));
+        updateHistoryBadge();
+    } catch (e) {
+        console.warn('LocalStorage limit reached for history:', e);
+    }
+}
+
+function updateHistoryBadge() {
+    const badge = document.getElementById('historyBadge');
+    if (!badge) return;
+    const history = getDownloadHistory();
+    if (history.length > 0) {
+        badge.textContent = history.length;
+        badge.style.display = 'flex';
+    } else {
+        badge.style.display = 'none';
+    }
+}
+
+function toggleHistoryModal() {
+    const modal = document.getElementById('historyModal');
+    if (!modal) return;
+    const isHidden = modal.style.display === 'none';
+    modal.style.display = isHidden ? 'flex' : 'none';
+    if (isHidden) renderDownloadHistory();
+}
+
+function closeHistoryModalOnBackdrop(e) {
+    if (e.target.id === 'historyModal') toggleHistoryModal();
+}
+
+function clearDownloadHistory() {
+    localStorage.removeItem('exams_download_history');
+    updateHistoryBadge();
+    renderDownloadHistory();
+    showToast('Download history cleared', 'info');
+}
+
+function renderDownloadHistory() {
+    const body = document.getElementById('historyModalBody');
+    if (!body) return;
+    const history = getDownloadHistory();
+    if (history.length === 0) {
+        body.innerHTML = '<p class="placeholder-text" style="text-align:center; padding: 20px;"><i class="fa-solid fa-clock-rotate-left"></i> No download history recorded yet.</p>';
+        return;
+    }
+    body.innerHTML = history.map(item => `
+        <div class="history-item-card">
+            <div class="history-item-info">
+                <img src="${item.dataUrl}" alt="${item.filename}" class="history-thumb" />
+                <div class="history-details">
+                    <strong>${item.filename}</strong>
+                    <span><i class="fa-solid fa-clock"></i> ${item.timestamp}</span>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="triggerDownload('${item.dataUrl}', '${item.filename}')">
+                <i class="fa-solid fa-download"></i> Save Again
+            </button>
+        </div>
+    `).join('');
+}
+
+function resetEntireWorkspace() {
+    document.querySelectorAll('input[type="file"]').forEach(input => input.value = '');
+    
+    Object.keys(state.images).forEach(key => {
+        state.images[key] = { original: null, file: null, zoom: 1, rotation: 0, canvas: null, dataUrl: null, sizeKb: 0, processedUrl: null };
+    });
+
+    checkWorkspacePanels();
+
+    ['compControlPanel', 'compMeter', 'compActionBar', 'resizeControlPanel', 'resizeActionBar', 
+     'convControlPanel', 'convActionBar', 'cropControlPanel', 'cropActionBar', 
+     'upscaleControlPanel', 'upscaleActionBar', 'upscaleInfoMeter', 'bgControlPanel', 'bgActionBar'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+    });
+
+    const stages = {
+        bgPreviewStage: '<span class="placeholder-text"><i class="fa-solid fa-wand-magic-sparkles"></i> Processed image preview will appear here</span>',
+        compPreviewStage: '<span class="placeholder-text"><i class="fa-solid fa-file-zipper"></i> Compressed image preview will appear here</span>',
+        resizePreviewStage: '<span class="placeholder-text"><i class="fa-solid fa-expand"></i> Resized preview will appear here</span>',
+        convPreviewStage: '<span class="placeholder-text"><i class="fa-solid fa-file-image"></i> Converted image preview will appear here</span>',
+        cropPreviewStage: '<span class="placeholder-text"><i class="fa-solid fa-crop"></i> Cropped preview will appear here</span>',
+        upscalePreviewStage: '<span class="placeholder-text"><i class="fa-solid fa-expand"></i> 4K Upscaled image preview will appear here</span>'
+    };
+    Object.entries(stages).forEach(([id, html]) => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = html;
+    });
+
+    showToast('Workspace reset successfully! All images cleared.', 'success');
+}
+
+function setPreviewView(toolKey, mode) {
+    if (!state.previewModes) state.previewModes = {};
+    state.previewModes[toolKey] = mode;
+    
+    const modeNav = document.getElementById(`${toolKey}PreviewMode`);
+    if (modeNav) {
+        modeNav.querySelectorAll('.pill-sm').forEach(pill => {
+            pill.classList.toggle('active', pill.dataset.mode === mode);
+        });
+    }
+
+    if (toolKey === 'photo') processCanvas('photo');
+    else if (toolKey === 'signature') processCanvas('signature');
+    else if (toolKey === 'bg') processBgRemoval();
+    else if (toolKey === 'comp') processCompressorTool();
+    else if (toolKey === 'resize') processResizeTool();
+    else if (toolKey === 'conv') processFormatConversion();
+    else if (toolKey === 'crop') processCropImage();
+    else if (toolKey === 'upscale') processUpscalerTool();
 }

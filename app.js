@@ -176,7 +176,9 @@ function switchMainTool(toolId) {
         tab.classList.toggle('active', tab.dataset.tool === toolId);
     });
     document.querySelectorAll('.tool-view').forEach(view => {
-        view.style.display = view.id === `view-${toolId}` ? 'block' : 'none';
+        const isActive = view.id === `view-${toolId}`;
+        view.style.display = isActive ? 'block' : 'none';
+        view.classList.toggle('active', isActive);
     });
     showToast(`Switched to ${toolId.replace('-', ' ').toUpperCase()}`, 'info');
 }

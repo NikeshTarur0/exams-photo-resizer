@@ -78,6 +78,7 @@ try {
     $exams = $stmt->fetchAll();
 
     foreach ($exams as &$e) {
+        $e['country'] = $e['country'] ?? 'India';
         $reqStmt = $pdo->prepare("SELECT * FROM exam_requirements WHERE exam_id = :exam_id");
         $reqStmt->execute(['exam_id' => $e['id']]);
         $reqs = $reqStmt->fetchAll();

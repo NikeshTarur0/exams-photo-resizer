@@ -215,7 +215,8 @@ function populateDropdown() {
     select.innerHTML = '<option value="" disabled>-- Select Exam / Specification --</option>';
 
     const filtered = state.exams.filter(e => {
-        const matchCountry = (state.activeCountry === 'all' || e.country === 'all' || e.country === state.activeCountry);
+        const examCountry = e.country || 'India';
+        const matchCountry = (state.activeCountry === 'all' || examCountry === 'all' || examCountry === state.activeCountry);
         const matchCat = (state.activeCategory === 'all' || e.category === state.activeCategory);
         return matchCountry && matchCat;
     });
@@ -228,9 +229,14 @@ function populateDropdown() {
     });
 
     if (filtered.length > 0) {
-        select.value = filtered[0].code;
-        selectExam(filtered[0].code);
+        let toSelect = filtered[0].code;
+        if (state.selectedExam && filtered.some(e => e.code === state.selectedExam.code)) {
+            toSelect = state.selectedExam.code;
+        }
+        select.value = toSelect;
+        selectExam(toSelect);
     } else {
+        select.innerHTML = '<option value="" disabled selected>No matching presets found</option>';
         showToast('No exam presets found matching your filter selection', 'info');
     }
 }
@@ -239,6 +245,11 @@ function populateDropdown() {
 function selectExam(code) {
     state.selectedExam = state.exams.find(e => e.code === code);
     if (!state.selectedExam) return;
+
+    const select = document.getElementById('examSelect');
+    if (select && select.value !== code) {
+        select.value = code;
+    }
 
     const isCustom = code === 'custom';
     const customPanel = document.getElementById('customExamPanel');
@@ -275,21 +286,25 @@ function updateCustomSpecs() {
     if (state.images.signature.original) processCanvas('signature');
 }
 
-// Update Specs Summary Cards
+// Update Specs Summary Cards & Compliance Target Indicators
 function updateSpecBanner() {
+    if (!state.selectedExam || !state.selectedExam.requirements) return;
     const req = state.selectedExam.requirements;
-    if (!req) return;
 
     if (req.photo) {
         document.getElementById('specPhotoDim').textContent = `${req.photo.target_width || req.photo.min_width_px} x ${req.photo.target_height || req.photo.min_height_px} px`;
         document.getElementById('specPhotoSize').textContent = `${req.photo.min_kb} KB - ${req.photo.max_kb} KB`;
         document.getElementById('specPhotoBg').textContent = req.photo.bg_color || 'White background';
+        const photoRange = document.getElementById('photoTargetRangeText');
+        if (photoRange) photoRange.textContent = `${req.photo.min_kb} KB - ${req.photo.max_kb} KB`;
     }
 
     if (req.signature) {
         document.getElementById('specSigDim').textContent = `${req.signature.target_width || req.signature.min_width_px} x ${req.signature.target_height || req.signature.min_height_px} px`;
         document.getElementById('specSigSize').textContent = `${req.signature.min_kb} KB - ${req.signature.max_kb} KB`;
         document.getElementById('specSigInk').textContent = req.signature.bg_color || 'Black ink on white paper';
+        const sigRange = document.getElementById('sigTargetRangeText');
+        if (sigRange) sigRange.textContent = `${req.signature.min_kb} KB - ${req.signature.max_kb} KB`;
     }
 }
 
@@ -588,6 +603,7 @@ function processCanvas(type) {
     imgObj.dataUrl = bestDataUrl;
     imgObj.sizeKb = bestSizeKb;
 
+    const stageId = type === 'photo' ? 'photoPreviewStage' : 'sigPreviewStage';
     updateStagePreview(stageId, type, imgObj.original.src, bestDataUrl);
     updateComplianceMeter(type, bestSizeKb, req.min_kb, req.max_kb);
 }
@@ -1296,23 +1312,32 @@ async function triggerServerFallback(type) {
 
 function renderReferenceTable() {
     const tbody = document.getElementById('referenceTableBody');
+    if (!tbody) return;
     tbody.innerHTML = '';
 
     state.exams.forEach(exam => {
-        const req = exam.requirements;
+        const req = exam.requirements || {};
         const p = req.photo || {};
         const s = req.signature || {};
 
         const tr = document.createElement('tr');
         tr.id = `row-${exam.code}`;
+        tr.style.cursor = 'pointer';
+        tr.title = `Click to select ${exam.name}`;
         tr.innerHTML = `
             <td><strong>${exam.code.toUpperCase()}</strong></td>
             <td>${exam.name}</td>
-            <td>${p.target_width || p.min_width_px} x ${p.target_height || p.min_height_px} px</td>
-            <td><span class="highlight-badge">${p.min_kb} - ${p.max_kb} KB</span></td>
-            <td>${s.target_width || s.min_width_px} x ${s.target_height || s.min_height_px} px</td>
-            <td><span class="highlight-badge">${s.min_kb} - ${s.max_kb} KB</span></td>
+            <td>${p.target_width || p.min_width_px || '-'} x ${p.target_height || p.min_height_px || '-'} px</td>
+            <td><span class="highlight-badge">${p.min_kb || 0} - ${p.max_kb || 0} KB</span></td>
+            <td>${s.target_width || s.min_width_px || '-'} x ${s.target_height || s.min_height_px || '-'} px</td>
+            <td><span class="highlight-badge">${s.min_kb || 0} - ${s.max_kb || 0} KB</span></td>
         `;
+        tr.addEventListener('click', () => {
+            selectExam(exam.code);
+            const selectHero = document.querySelector('.selection-hero');
+            if (selectHero) selectHero.scrollIntoView({ behavior: 'smooth' });
+            showToast(`Selected exam preset: ${exam.name}`, 'info');
+        });
         tbody.appendChild(tr);
     });
 }

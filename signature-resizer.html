@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signature Resizer Online: Resize Signature to KB & Pixels</title>
+    <meta name="description" content="Resize signature to exact dimensions and KB (e.g. 10-20KB, 140x60px) for SSC, UPSC, Bank, NEET, and competitive exams online.">
+    <link rel="canonical" href="https://photoresizer.examstudio.in/signature-resizer.html" />
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Signature Resizer Online: Resize Signature to KB & Pixels" />
+    <meta property="og:description" content="Resize signature to exact dimensions and KB (e.g. 10-20KB, 140x60px) for SSC, UPSC, Bank, NEET, and competitive exams online." />
+    <meta property="og:image" content="https://photoresizer.examstudio.in/assets/og-image.jpg" />
+    <meta property="og:type" content="website" />
+
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Schema.org WebApplication Metadata -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Online Signature Resizer",
+      "url": "https://photoresizer.examstudio.in/signature-resizer.html",
+      "description": "Resize and compress signature scans to meet strict exam criteria in pixels and KB.",
+      "applicationCategory": "ImageApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript. HTML5 Canvas supported browser.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+</head>
+<body data-theme="dark">
+    <!-- Animated Glow Background -->
+    <div class="glow-bg">
+        <div class="glow-sphere sphere-1"></div>
+        <div class="glow-sphere sphere-2"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="app-container">
+        <!-- Global Header -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h1>Exam Studio <span class="badge">Pro Suite</span></h1>
+                    <p class="subtitle">Indian Exam & Government Form Image Utilities</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary btn-icon" id="themeToggleBtn" title="Toggle Theme">
+                    <i class="fa-solid fa-sun"></i>
+                </button>
+                <button class="btn btn-secondary" onclick="toggleHistoryModal()">
+                    <i class="fa-solid fa-clock-rotate-left"></i> History 
+                    <span id="historyBadge" class="history-badge" style="display:none;">0</span>
+                </button>
+                <button class="btn btn-danger" onclick="resetEntireWorkspace()">
+                    <i class="fa-solid fa-trash-can"></i> Clear Workspace
+                </button>
+            </div>
+        </header>
+
+        <!-- Global Suite Utility Navigation Bar -->
+        <nav class="tool-suite-nav">
+            <a href="index.html" class="suite-tab" data-tool="exam-studio">
+                <i class="fa-solid fa-graduation-cap"></i> Exam Resizer Studio
+            </a>
+            <a href="passport-photo-maker.html" class="suite-tab" data-tool="passport">
+                <i class="fa-solid fa-user-tie"></i> Passport Photo Maker
+            </a>
+            <a href="signature-resizer.html" class="suite-tab active" data-tool="signature-resizer">
+                <i class="fa-solid fa-signature"></i> Signature Resizer
+            </a>
+            <a href="bg-remover.html" class="suite-tab" data-tool="bg-remover">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> BG Remover
+            </a>
+            <a href="image-compressor.html" class="suite-tab" data-tool="compressor">
+                <i class="fa-solid fa-bolt"></i> Image Compressor
+            </a>
+            <a href="resize-by-pixels.html" class="suite-tab" data-tool="resizer">
+                <i class="fa-solid fa-up-right-and-down-left-from-center"></i> Resize Images
+            </a>
+            <a href="png-to-jpeg.html" class="suite-tab" data-tool="converter">
+                <i class="fa-solid fa-right-left"></i> PNG ↔ JPG
+            </a>
+            <a href="image-cropper.html" class="suite-tab" data-tool="cropper">
+                <i class="fa-solid fa-crop"></i> Crop Images
+            </a>
+            <a href="pdf-to-image.html" class="suite-tab" data-tool="pdf-to-image">
+                <i class="fa-solid fa-file-pdf"></i> PDF to Image
+            </a>
+            <a href="upscaler.html" class="suite-tab" data-tool="upscaler">
+                <i class="fa-solid fa-expand" style="color: #38bdf8;"></i> 4K Upscaler
+            </a>
+        </nav>
+
+        <!-- TOOL VIEW: SIGNATURE RESIZER -->
+        <div id="view-signature-resizer" class="tool-view active">
+            <div class="selection-hero text-center" style="margin-bottom: 25px;">
+                <h2><i class="fa-solid fa-signature"></i> Online Signature Resizer</h2>
+                <p>Upload a photo of your signature, adjust width, height, and target KB. Clean background ink and sharpen stroke details instantly.</p>
+            </div>
+
+            <div class="workspace-grid">
+                <!-- Left panel: File Dropzone & Configuration -->
+                <div class="glass-card panel-input">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-image"></i> Upload Signature</h3>
+                    </div>
+
+                    <!-- Dropzone -->
+                    <div class="dropzone" id="sigResizerDropzone">
+                        <i class="fa-solid fa-signature drop-icon"></i>
+                        <h4>Drag & Drop Signature Image</h4>
+                        <p>Supports JPG, PNG, WEBP formats (Up to 5MB)</p>
+                        <span class="btn btn-primary btn-sm">Select Local File</span>
+                        <input type="file" id="sigResizerFileInput" accept="image/*" style="display:none;" />
+                    </div>
+
+                    <!-- Controls (Hidden initially) -->
+                    <div id="sigResizerControlPanel" style="display: none; margin-top: 20px;">
+                        <div class="divider"></div>
+                        <div class="form-group">
+                            <label for="sigResizerPresetSelect"><i class="fa-solid fa-sliders"></i> Signature Preset Selection</label>
+                            <select id="sigResizerPresetSelect" class="form-select">
+                                <option value="ssc-sig" selected>SSC Signature Standard (280 x 140 px / 10-20 KB)</option>
+                                <option value="standard-bank">Banking Signature standard (140 x 60 px / 5-15 KB)</option>
+                                <option value="defence-sig">Army/Defence Signature standard (400 x 200 px / 10-20 KB)</option>
+                                <option value="custom">Custom Dimensions (Set manually)</option>
+                            </select>
+                        </div>
+
+                        <!-- Custom Dimension Inputs (Shown when 'custom' selected) -->
+                        <div id="sigResizerCustomInputs" class="form-row" style="display: none; margin-top: 15px;">
+                            <div class="form-group col-6">
+                                <label for="sigResizerW">Width (px)</label>
+                                <input type="number" id="sigResizerW" class="form-control" value="280">
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="sigResizerH">Height (px)</label>
+                                <input type="number" id="sigResizerH" class="form-control" value="140">
+                            </div>
+                            <div class="form-group col-6" style="margin-top: 10px;">
+                                <label for="sigResizerMinKb">Min size (KB)</label>
+                                <input type="number" id="sigResizerMinKb" class="form-control" value="10">
+                            </div>
+                            <div class="form-group col-6" style="margin-top: 10px;">
+                                <label for="sigResizerMaxKb">Max size (KB)</label>
+                                <input type="number" id="sigResizerMaxKb" class="form-control" value="20">
+                            </div>
+                        </div>
+
+                        <!-- Enhance Signature Filter Switch -->
+                        <div class="form-group" style="margin-top: 15px;">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="sigResizerEnhance" />
+                                <span class="checkmark"></span>
+                                <strong>Enhance Signature Ink</strong> (Cleans yellow tint & whitens background paper)
+                            </label>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 15px;">
+                            <div class="label-row">
+                                <label for="sigResizerZoomRange"><i class="fa-solid fa-magnifying-glass-plus"></i> Adjust scale zoom</label>
+                                <span class="value-display" id="sigResizerZoomVal">1.0x</span>
+                            </div>
+                            <input type="range" id="sigResizerZoomRange" min="0.5" max="2.5" step="0.05" value="1" class="slider" />
+                        </div>
+
+                        <div class="form-group" style="margin-top: 15px;">
+                            <label><i class="fa-solid fa-arrows-rotate"></i> Rotate Signature</label>
+                            <div class="btn-group">
+                                <button class="btn btn-secondary btn-icon" onclick="rotateImage('sigResizer', -90)" title="Rotate 90° CCW">
+                                    <i class="fa-solid fa-rotate-left"></i> Rotate Left
+                                </button>
+                                <button class="btn btn-secondary btn-icon" onclick="rotateImage('sigResizer', 90)" title="Rotate 90° CW">
+                                    <i class="fa-solid fa-rotate-right"></i> Rotate Right
+                                </button>
+                                <button class="btn btn-danger btn-icon" onclick="resetControls('sigResizer')" title="Reset Zoom & Rotation">
+                                    <i class="fa-solid fa-arrow-rotate-back"></i> Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right panel: Preview Stage & Output Specs -->
+                <div class="glass-card panel-preview">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-magnifying-glass"></i> Live Preview Stage</h3>
+                        <div class="preview-mode-nav" id="sigResizerPreviewMode">
+                            <span class="pill-sm" data-mode="before" onclick="setPreviewView('sigResizer', 'before')">Before</span>
+                            <span class="pill-sm active" data-mode="after" onclick="setPreviewView('sigResizer', 'after')">After</span>
+                            <span class="pill-sm" data-mode="compare" onclick="setPreviewView('sigResizer', 'compare')">Compare</span>
+                        </div>
+                    </div>
+
+                    <div class="preview-stage" id="sigResizerPreviewStage">
+                        <span class="placeholder-text">
+                            <i class="fa-solid fa-signature"></i> Preview of processed signature will appear here
+                        </span>
+                    </div>
+
+                    <!-- Compliance Meter -->
+                    <div class="compliance-meter" id="sigResizerComplianceMeter" style="display: none;">
+                        <div class="meter-header">
+                            <div>
+                                <span class="meter-title">Output File Size</span>
+                                <span class="current-size" id="sigResizerCurrentSize">0 KB</span>
+                            </div>
+                            <span id="sigResizerStatusBadge" class="status-badge status-invalid">
+                                <i class="fa-solid fa-circle-question"></i> Calculating
+                            </span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="sigResizerSizeProgress" style="width: 0%"></div>
+                        </div>
+                        <div class="meter-footer">
+                            <span>Target range: <strong id="sigResizerTargetRangeText">10 KB - 20 KB</strong></span>
+                            <span>Format: <strong>JPG / JPEG</strong></span>
+                        </div>
+                    </div>
+
+                    <!-- Action Bar -->
+                    <div class="action-bar" id="sigResizerActionBar" style="display: none;">
+                        <button class="btn btn-success btn-lg flex-grow" onclick="downloadSigResizerOutput()">
+                            <i class="fa-solid fa-cloud-arrow-down animate-bounce"></i> Download Ready Signature (JPG)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEO Informational & FAQ section -->
+            <section class="seo-guide-section glass-card" style="margin-top: 30px; padding: 25px;">
+                <h2>Official Guidelines for Signature Uploads on Online Portals</h2>
+                <p>Most online competitive exam sites (UPSC, SSC, IBPS, Railways) require candidates to upload a signature scanned on a <strong>white sheet of paper in blue/black ink</strong>. Scans with faint ink, ruled lines, or dark margins are automatically flagged by portal verification scripts.</p>
+                
+                <div class="info-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                    <div>
+                        <h4><i class="fa-solid fa-circle-info" style="color:var(--primary);"></i> Ink and Paper Guidelines</h4>
+                        <p>Signatures must be signed on pure white paper with a fresh black or blue ballpoint pen. Do not crop signatures written on lined notebook sheets or colored papers, as this fails automated background detection.</p>
+                    </div>
+                    <div>
+                        <h4><i class="fa-solid fa-circle-info" style="color:var(--primary);"></i> Image Enhancement Filter</h4>
+                        <p>Our built-in <strong>Enhance Signature Ink</strong> filter uses a smart threshold flood-fill filter to neutralize yellowish camera backgrounds to solid white, while increasing contrast on pen strokes to make signatures extremely legible.</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 25px;">Frequently Asked Questions</h3>
+                <div class="faq-container">
+                    <details class="faq-item" open>
+                        <summary>What is the standard pixel size of an SSC signature?</summary>
+                        <p>For the Staff Selection Commission (SSC) portals, signatures must be rescaled to 140x60 pixels (minimum) to 280x140 pixels. The file size limit is strictly 10 KB to 20 KB.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Should the signature be in JPG or PNG format?</summary>
+                        <p>Virtually all Indian exam portals (including UPSC, IBPS, and state recruitments) require signatures to be uploaded in JPG or JPEG formats. PNGs containing alpha transparency layers are often rejected.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>How does the Enhance Filter work?</summary>
+                        <p>It processes each pixel on a local HTML5 canvas. It isolates yellow shades typical of room-light phone cameras and converts them to pure white, while intensifying black and blue shades to enhance the stroke details.</p>
+                    </details>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="app-footer text-center">
+            <p>© 2026 Exam Studio Pro Suite. All processing is executed client-side inside your browser. No files are uploaded to our servers.</p>
+        </footer>
+    </div>
+
+    <!-- Global Download History Modal -->
+    <div id="historyModal" class="modal-backdrop" style="display: none;" onclick="closeHistoryModalOnBackdrop(e)">
+        <div class="glass-card modal-container">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-clock-rotate-left"></i> Download History</h3>
+                <button class="btn btn-secondary btn-icon" onclick="toggleHistoryModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="historyModalBody">
+                <!-- Content generated via JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" onclick="clearDownloadHistory()">Clear All History</button>
+                <button class="btn btn-secondary" onclick="toggleHistoryModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+    <script>
+        // Custom logic to handle showing custom dimension fields
+        document.getElementById('sigResizerPresetSelect').addEventListener('change', function(e) {
+            const customDiv = document.getElementById('sigResizerCustomInputs');
+            customDiv.style.display = e.target.value === 'custom' ? 'flex' : 'none';
+        });
+
+        // Sync inputs with processSigResizerCanvas if Custom sizes change
+        ['sigResizerW', 'sigResizerH', 'sigResizerMinKb', 'sigResizerMaxKb'].forEach(id => {
+            document.getElementById(id).addEventListener('input', () => {
+                if (state.images.sigResizer.original) processSigResizerCanvas();
+            });
+        });
+        
+        // Sync zoom range label value
+        document.getElementById('sigResizerZoomRange').addEventListener('input', function(e) {
+            document.getElementById('sigResizerZoomVal').textContent = parseFloat(e.target.value).toFixed(1) + 'x';
+        });
+    </script>
+</body>
+</html>

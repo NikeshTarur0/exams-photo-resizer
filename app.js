@@ -11,7 +11,7 @@ const state = {
     activeCountry: 'all',
     activeTab: 'photo', // 'photo' or 'signature'
     currentMainTool: 'exam-studio',
-    previewModes: { photo: 'after', signature: 'after', bg: 'after', comp: 'after', resize: 'after', conv: 'after', crop: 'after', upscale: 'after' },
+    previewModes: { photo: 'after', signature: 'after', bg: 'after', comp: 'after', resize: 'after', conv: 'after', crop: 'after', upscale: 'after', passport: 'after', sigResizer: 'after' },
     images: {
         photo: { original: null, file: null, zoom: 1, rotation: 0, canvas: null, dataUrl: null, sizeKb: 0 },
         signature: { original: null, file: null, zoom: 1, rotation: 0, canvas: null, dataUrl: null, sizeKb: 0 },
@@ -20,7 +20,9 @@ const state = {
         resize: { original: null, file: null, processedUrl: null, width: 800, height: 600 },
         conv: { original: null, file: null, processedUrl: null, format: 'image/jpeg' },
         crop: { original: null, file: null, processedUrl: null, ratio: '1:1' },
-        upscale: { original: null, file: null, processedUrl: null }
+        upscale: { original: null, file: null, processedUrl: null },
+        passport: { original: null, file: null, zoom: 1, rotation: 0, canvas: null, dataUrl: null, sizeKb: 0, bg: 'original', preset: 'in-passport' },
+        sigResizer: { original: null, file: null, zoom: 1, rotation: 0, canvas: null, dataUrl: null, sizeKb: 0, enhance: false, preset: 'ssc-sig' }
     }
 };
 
@@ -118,6 +120,55 @@ const defaultExamPresets = [
         }
     },
     {
+        id: 20, code: 'gujarat_police', name: 'Gujarat Police Recruitment', conducting_body: 'Lokrakshak Recruitment Board (LRB)', category: 'Defence Exam', country: 'India',
+        requirements: {
+            photo: { min_width_px: 200, max_width_px: 200, min_height_px: 250, max_height_px: 250, target_width: 200, target_height: 250, aspect_ratio: '4:5', min_kb: 15, max_kb: 50, bg_color: 'White or light background', dpi: 200 },
+            signature: { min_width_px: 140, max_width_px: 140, min_height_px: 80, max_height_px: 80, target_width: 140, target_height: 80, aspect_ratio: '7:4', min_kb: 5, max_kb: 20, bg_color: 'White paper with black/blue ink', dpi: 200 }
+        }
+    },
+    {
+        id: 21, code: 'gpssb', name: 'GPSSB Panchayat Recruitment', conducting_body: 'Gujarat Panchayat Service Selection Board', category: 'Government Job', country: 'India',
+        requirements: {
+            photo: { min_width_px: 130, max_width_px: 150, min_height_px: 180, max_height_px: 200, target_width: 130, target_height: 180, aspect_ratio: '3.6:5.0', min_kb: 5, max_kb: 15, bg_color: 'Light background', dpi: 200 },
+            signature: { min_width_px: 275, max_width_px: 300, min_height_px: 90, max_height_px: 100, target_width: 275, target_height: 90, aspect_ratio: '3:1', min_kb: 5, max_kb: 15, bg_color: 'White paper with black/blue ink', dpi: 200 }
+        }
+    },
+    {
+        id: 22, code: 'gpsc', name: 'GPSC Gujarat Civil Services', conducting_body: 'Gujarat Public Service Commission', category: 'Civil Services', country: 'India',
+        requirements: {
+            photo: { min_width_px: 130, max_width_px: 150, min_height_px: 180, max_height_px: 200, target_width: 130, target_height: 180, aspect_ratio: '3.6:5.0', min_kb: 5, max_kb: 15, bg_color: 'Light background', dpi: 200 },
+            signature: { min_width_px: 275, max_width_px: 300, min_height_px: 90, max_height_px: 100, target_width: 275, target_height: 90, aspect_ratio: '3:1', min_kb: 5, max_kb: 15, bg_color: 'White paper with black/blue ink', dpi: 200 }
+        }
+    },
+    {
+        id: 23, code: 'indian_army', name: 'Indian Army Agnipath Recruitment', conducting_body: 'Indian Army', category: 'Defence Exam', country: 'India',
+        requirements: {
+            photo: { min_width_px: 350, max_width_px: 350, min_height_px: 450, max_height_px: 450, target_width: 350, target_height: 450, aspect_ratio: '3.5:4.5', min_kb: 20, max_kb: 50, bg_color: 'White background', dpi: 200 },
+            signature: { min_width_px: 350, max_width_px: 350, min_height_px: 150, max_height_px: 150, target_width: 350, target_height: 150, aspect_ratio: '7:3', min_kb: 10, max_kb: 20, bg_color: 'White paper with black/blue ink', dpi: 200 }
+        }
+    },
+    {
+        id: 24, code: 'crpf', name: 'CRPF Head Constable & GD Recruitment', conducting_body: 'Central Reserve Police Force', category: 'Defence Exam', country: 'India',
+        requirements: {
+            photo: { min_width_px: 350, max_width_px: 350, min_height_px: 450, max_height_px: 450, target_width: 350, target_height: 450, aspect_ratio: '3.5:4.5', min_kb: 20, max_kb: 50, bg_color: 'Light background', dpi: 200 },
+            signature: { min_width_px: 400, max_width_px: 400, min_height_px: 200, max_height_px: 200, target_width: 400, target_height: 200, aspect_ratio: '2:1', min_kb: 10, max_kb: 20, bg_color: 'White paper with black ink', dpi: 200 }
+        }
+    },
+    {
+        id: 25, code: 'cisf', name: 'CISF Constable & ASI Recruitment', conducting_body: 'Central Industrial Security Force', category: 'Defence Exam', country: 'India',
+        requirements: {
+            photo: { min_width_px: 350, max_width_px: 350, min_height_px: 450, max_height_px: 450, target_width: 350, target_height: 450, aspect_ratio: '3.5:4.5', min_kb: 20, max_kb: 50, bg_color: 'White background', dpi: 200 },
+            signature: { min_width_px: 400, max_width_px: 400, min_height_px: 200, max_height_px: 200, target_width: 400, target_height: 200, aspect_ratio: '2:1', min_kb: 10, max_kb: 20, bg_color: 'White paper with black ink', dpi: 200 }
+        }
+    },
+    {
+        id: 26, code: 'bsf', name: 'BSF Constable GD & Head Constable', conducting_body: 'Border Security Force', category: 'Defence Exam', country: 'India',
+        requirements: {
+            photo: { min_width_px: 350, max_width_px: 350, min_height_px: 450, max_height_px: 450, target_width: 350, target_height: 450, aspect_ratio: '3.5:4.5', min_kb: 20, max_kb: 50, bg_color: 'White background', dpi: 200 },
+            signature: { min_width_px: 400, max_width_px: 400, min_height_px: 200, max_height_px: 200, target_width: 400, target_height: 200, aspect_ratio: '2:1', min_kb: 10, max_kb: 20, bg_color: 'White paper with black/blue ink', dpi: 200 }
+        }
+    },
+    {
         id: 14, code: 'nepal_psc', name: 'Nepal Lok Sewa Aayog (Public Service Commission Nepal)', conducting_body: 'Lok Sewa Aayog Nepal 🇳🇵', category: 'Government Job', country: 'Nepal',
         requirements: {
             photo: { min_width_px: 350, max_width_px: 450, min_height_px: 450, max_height_px: 550, target_width: 350, target_height: 450, aspect_ratio: '3.5:4.5', min_kb: 20, max_kb: 200, bg_color: 'Plain white background (PP size)', dpi: 300 },
@@ -164,12 +215,37 @@ const defaultExamPresets = [
 // Initialize Application
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
+    initActiveTab();
     fetchExamsData();
     setupEventListeners();
     setupUtilityToolDropzones();
     checkWorkspacePanels();
     updateHistoryBadge();
 });
+
+// Set active navigation tab on page load based on current path
+function initActiveTab() {
+    const path = window.location.pathname;
+    const filename = path.substring(path.lastIndexOf('/') + 1);
+    
+    // Default to exam-studio
+    let tool = 'exam-studio';
+    if (filename === 'bg-remover.html') tool = 'bg-remover';
+    else if (filename === 'image-compressor.html') tool = 'compressor';
+    else if (filename === 'resize-by-pixels.html') tool = 'resizer';
+    else if (filename === 'png-to-jpeg.html' || filename === 'jpeg-to-png.html') tool = 'converter';
+    else if (filename === 'image-cropper.html') tool = 'cropper';
+    else if (filename === 'pdf-to-image.html') tool = 'pdf-to-image';
+    else if (filename === 'upscaler.html') tool = 'upscaler';
+    else if (filename === 'passport-photo-maker.html') tool = 'passport';
+    else if (filename === 'signature-resizer.html') tool = 'signature-resizer';
+
+    state.currentMainTool = tool;
+    
+    document.querySelectorAll('.suite-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.tool === tool);
+    });
+}
 
 // Suite Navigation Tool Switching
 function switchMainTool(toolId) {
@@ -377,6 +453,8 @@ function setupUtilityToolDropzones() {
     setupGenericToolDropzone('cropDropzone', 'cropFileInput', 'crop', handleCropUpload);
     setupGenericToolDropzone('pdfDropzone', 'pdfFileInput', 'pdf', handlePdfUpload);
     setupGenericToolDropzone('upscaleDropzone', 'upscaleFileInput', 'upscale', handleUpscaleUpload);
+    setupGenericToolDropzone('passportDropzone', 'passportFileInput', 'passport', handlePassportUpload);
+    setupGenericToolDropzone('sigResizerDropzone', 'sigResizerFileInput', 'sigResizer', handleSigResizerUpload);
 
     const upFactor = document.getElementById('upscaleFactorSelect');
     if (upFactor) {
@@ -406,16 +484,73 @@ function setupUtilityToolDropzones() {
         });
     }
 
-    document.getElementById('compTargetKb').addEventListener('input', (e) => {
-        if (state.images.comp.original) processCompressorTool();
-    });
+    const compTargetKb = document.getElementById('compTargetKb');
+    if (compTargetKb) {
+        compTargetKb.addEventListener('input', (e) => {
+            if (state.images.comp.original) processCompressorTool();
+        });
+    }
 
-    document.getElementById('resizeW').addEventListener('input', (e) => {
-        if (state.images.resize.original) processResizeTool();
-    });
-    document.getElementById('resizeH').addEventListener('input', (e) => {
-        if (state.images.resize.original) processResizeTool();
-    });
+    const resizeW = document.getElementById('resizeW');
+    if (resizeW) {
+        resizeW.addEventListener('input', (e) => {
+            if (state.images.resize.original) processResizeTool();
+        });
+    }
+    const resizeH = document.getElementById('resizeH');
+    if (resizeH) {
+        resizeH.addEventListener('input', (e) => {
+            if (state.images.resize.original) processResizeTool();
+        });
+    }
+
+    const passportZoom = document.getElementById('passportZoomRange');
+    if (passportZoom) {
+        passportZoom.addEventListener('input', (e) => {
+            state.images.passport.zoom = parseFloat(e.target.value);
+            if (state.images.passport.original) processPassportCanvas();
+        });
+    }
+
+    const passportPreset = document.getElementById('passportPresetSelect');
+    if (passportPreset) {
+        passportPreset.addEventListener('change', (e) => {
+            state.images.passport.preset = e.target.value;
+            if (state.images.passport.original) processPassportCanvas();
+        });
+    }
+
+    const passportBg = document.getElementById('passportBgSelect');
+    if (passportBg) {
+        passportBg.addEventListener('change', (e) => {
+            state.images.passport.bg = e.target.value;
+            if (state.images.passport.original) processPassportCanvas();
+        });
+    }
+
+    const sigResizerZoom = document.getElementById('sigResizerZoomRange');
+    if (sigResizerZoom) {
+        sigResizerZoom.addEventListener('input', (e) => {
+            state.images.sigResizer.zoom = parseFloat(e.target.value);
+            if (state.images.sigResizer.original) processSigResizerCanvas();
+        });
+    }
+
+    const sigResizerPreset = document.getElementById('sigResizerPresetSelect');
+    if (sigResizerPreset) {
+        sigResizerPreset.addEventListener('change', (e) => {
+            state.images.sigResizer.preset = e.target.value;
+            if (state.images.sigResizer.original) processSigResizerCanvas();
+        });
+    }
+
+    const sigResizerEnhance = document.getElementById('sigResizerEnhance');
+    if (sigResizerEnhance) {
+        sigResizerEnhance.addEventListener('change', (e) => {
+            state.images.sigResizer.enhance = e.target.checked;
+            if (state.images.sigResizer.original) processSigResizerCanvas();
+        });
+    }
 }
 
 function setupGenericToolDropzone(dropzoneId, fileInputId, toolKey, callback) {
@@ -669,7 +804,13 @@ function updateComplianceMeter(type, sizeKb, minKb, maxKb) {
 function rotateImage(type, deg) {
     if (!state.images[type].original) return;
     state.images[type].rotation = (state.images[type].rotation + deg + 360) % 360;
-    processCanvas(type);
+    if (type === 'passport') {
+        processPassportCanvas();
+    } else if (type === 'sigResizer') {
+        processSigResizerCanvas();
+    } else {
+        processCanvas(type);
+    }
 }
 
 // Reset Image Controls
@@ -677,9 +818,19 @@ function resetControls(type) {
     if (!state.images[type].original) return;
     state.images[type].zoom = 1;
     state.images[type].rotation = 0;
-    const zoomInput = document.getElementById(type === 'photo' ? 'photoZoomRange' : 'sigZoomRange');
+    let zoomId = type === 'photo' ? 'photoZoomRange' : 'sigZoomRange';
+    if (type === 'passport') zoomId = 'passportZoomRange';
+    if (type === 'sigResizer') zoomId = 'sigResizerZoomRange';
+    const zoomInput = document.getElementById(zoomId);
     if (zoomInput) zoomInput.value = 1;
-    processCanvas(type);
+    
+    if (type === 'passport') {
+        processPassportCanvas();
+    } else if (type === 'sigResizer') {
+        processSigResizerCanvas();
+    } else {
+        processCanvas(type);
+    }
 }
 
 // 1. TOOL: BACKGROUND REMOVER LOGIC
@@ -1180,6 +1331,305 @@ function processUpscalerTool() {
     updateStagePreview('upscalePreviewStage', 'upscale', img.src, dataUrl);
 }
 
+// 8. TOOL: PASSPORT PHOTO MAKER LOGIC
+function handlePassportUpload(file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+            state.images.passport.original = img;
+            state.images.passport.zoom = 1;
+            state.images.passport.rotation = 0;
+            
+            const ctrl = document.getElementById('passportControlPanel');
+            const meter = document.getElementById('passportComplianceMeter');
+            const act = document.getElementById('passportActionBar');
+            
+            if (ctrl) ctrl.style.display = 'block';
+            if (meter) meter.style.display = 'block';
+            if (act) act.style.display = 'flex';
+            
+            processPassportCanvas();
+            showToast('Passport Photo uploaded successfully!', 'success');
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+function processPassportCanvas() {
+    const imgObj = state.images.passport;
+    if (!imgObj.original) return;
+
+    let targetW = 350;
+    let targetH = 450;
+    let minKb = 20;
+    let maxKb = 50;
+
+    const preset = imgObj.preset;
+    if (preset === 'in-passport') {
+        targetW = 350; targetH = 450; minKb = 20; maxKb = 50;
+    } else if (preset === 'us-visa') {
+        targetW = 600; targetH = 600; minKb = 10; maxKb = 240;
+    } else if (preset === 'sch-visa') {
+        targetW = 413; targetH = 531; minKb = 10; maxKb = 80;
+    } else if (preset === 'custom') {
+        targetW = parseInt(document.getElementById('passportW').value) || 350;
+        targetH = parseInt(document.getElementById('passportH').value) || 450;
+        minKb = parseInt(document.getElementById('passportMinKb').value) || 10;
+        maxKb = parseInt(document.getElementById('passportMaxKb').value) || 50;
+    }
+
+    const canvas = document.createElement('canvas');
+    canvas.width = targetW;
+    canvas.height = targetH;
+    const ctx = canvas.getContext('2d');
+
+    if (imgObj.bg === 'white') {
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, targetW, targetH);
+    } else if (imgObj.bg === 'light-blue') {
+        ctx.fillStyle = '#e0f2fe';
+        ctx.fillRect(0, 0, targetW, targetH);
+    } else if (imgObj.bg === 'light-grey') {
+        ctx.fillStyle = '#f1f5f9';
+        ctx.fillRect(0, 0, targetW, targetH);
+    } else {
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, targetW, targetH);
+    }
+
+    ctx.save();
+    ctx.translate(targetW / 2, targetH / 2);
+    ctx.rotate((imgObj.rotation * Math.PI) / 180);
+
+    const aspectOriginal = imgObj.original.width / imgObj.original.height;
+    const aspectTarget = targetW / targetH;
+
+    let drawW, drawH;
+    if (aspectOriginal > aspectTarget) {
+        drawH = targetH * imgObj.zoom;
+        drawW = drawH * aspectOriginal;
+    } else {
+        drawW = targetW * imgObj.zoom;
+        drawH = drawW / aspectOriginal;
+    }
+
+    ctx.drawImage(imgObj.original, -drawW / 2, -drawH / 2, drawW, drawH);
+    ctx.restore();
+
+    let lowQ = 0.05;
+    let highQ = 0.98;
+    let bestDataUrl = null;
+    let bestSizeKb = 0;
+
+    for (let i = 0; i < 8; i++) {
+        const midQ = (lowQ + highQ) / 2;
+        const dataUrl = canvas.toDataURL('image/jpeg', midQ);
+        const sizeKb = estimateBase64SizeKb(dataUrl);
+
+        bestDataUrl = dataUrl;
+        bestSizeKb = sizeKb;
+
+        if (sizeKb > maxKb) {
+            highQ = midQ - 0.02;
+        } else if (sizeKb < minKb) {
+            lowQ = midQ + 0.02;
+        } else {
+            break;
+        }
+    }
+
+    imgObj.dataUrl = bestDataUrl;
+    imgObj.sizeKb = bestSizeKb;
+
+    updateStagePreview('passportPreviewStage', 'passport', imgObj.original.src, bestDataUrl);
+    updateComplianceMeterCustom('passport', bestSizeKb, minKb, maxKb);
+}
+
+function downloadPassportOutput() {
+    const url = state.images.passport.dataUrl;
+    if (!url) {
+        showToast('No passport image ready for download', 'error');
+        return;
+    }
+    triggerDownload(url, 'passport_photo.jpg', 'image/jpeg');
+}
+
+// 9. TOOL: SIGNATURE RESIZER LOGIC
+function handleSigResizerUpload(file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+            state.images.sigResizer.original = img;
+            state.images.sigResizer.zoom = 1;
+            state.images.sigResizer.rotation = 0;
+            
+            const ctrl = document.getElementById('sigResizerControlPanel');
+            const meter = document.getElementById('sigResizerComplianceMeter');
+            const act = document.getElementById('sigResizerActionBar');
+            
+            if (ctrl) ctrl.style.display = 'block';
+            if (meter) meter.style.display = 'block';
+            if (act) act.style.display = 'flex';
+            
+            processSigResizerCanvas();
+            showToast('Signature uploaded successfully!', 'success');
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+function processSigResizerCanvas() {
+    const imgObj = state.images.sigResizer;
+    if (!imgObj.original) return;
+
+    let targetW = 280;
+    let targetH = 140;
+    let minKb = 10;
+    let maxKb = 20;
+
+    const preset = imgObj.preset;
+    if (preset === 'standard-bank') {
+        targetW = 140; targetH = 60; minKb = 5; maxKb = 15;
+    } else if (preset === 'ssc-sig') {
+        targetW = 280; targetH = 140; minKb = 10; maxKb = 20;
+    } else if (preset === 'defence-sig') {
+        targetW = 400; targetH = 200; minKb = 10; maxKb = 20;
+    } else if (preset === 'custom') {
+        targetW = parseInt(document.getElementById('sigResizerW').value) || 280;
+        targetH = parseInt(document.getElementById('sigResizerH').value) || 140;
+        minKb = parseInt(document.getElementById('sigResizerMinKb').value) || 10;
+        maxKb = parseInt(document.getElementById('sigResizerMaxKb').value) || 20;
+    }
+
+    const canvas = document.createElement('canvas');
+    canvas.width = targetW;
+    canvas.height = targetH;
+    const ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(0, 0, targetW, targetH);
+
+    ctx.save();
+    ctx.translate(targetW / 2, targetH / 2);
+    ctx.rotate((imgObj.rotation * Math.PI) / 180);
+
+    const aspectOriginal = imgObj.original.width / imgObj.original.height;
+    const aspectTarget = targetW / targetH;
+
+    let drawW, drawH;
+    if (aspectOriginal > aspectTarget) {
+        drawH = targetH * imgObj.zoom;
+        drawW = drawH * aspectOriginal;
+    } else {
+        drawW = targetW * imgObj.zoom;
+        drawH = drawW / aspectOriginal;
+    }
+
+    ctx.drawImage(imgObj.original, -drawW / 2, -drawH / 2, drawW, drawH);
+    ctx.restore();
+
+    if (imgObj.enhance) {
+        const imgData = ctx.getImageData(0, 0, targetW, targetH);
+        const data = imgData.data;
+        for (let i = 0; i < data.length; i += 4) {
+            let r = data[i];
+            let g = data[i+1];
+            let b = data[i+2];
+            let grey = 0.299 * r + 0.587 * g + 0.114 * b;
+            if (grey > 180) {
+                data[i] = 255;
+                data[i+1] = 255;
+                data[i+2] = 255;
+            } else {
+                let factor = 1.8;
+                r = Math.max(0, Math.min(255, 128 + (r - 128) * factor));
+                g = Math.max(0, Math.min(255, 128 + (g - 128) * factor));
+                b = Math.max(0, Math.min(255, 128 + (b - 128) * factor));
+                data[i] = r;
+                data[i+1] = g;
+                data[i+2] = b;
+            }
+        }
+        ctx.putImageData(imgData, 0, 0);
+    }
+
+    let lowQ = 0.05;
+    let highQ = 0.98;
+    let bestDataUrl = null;
+    let bestSizeKb = 0;
+
+    for (let i = 0; i < 8; i++) {
+        const midQ = (lowQ + highQ) / 2;
+        const dataUrl = canvas.toDataURL('image/jpeg', midQ);
+        const sizeKb = estimateBase64SizeKb(dataUrl);
+
+        bestDataUrl = dataUrl;
+        bestSizeKb = sizeKb;
+
+        if (sizeKb > maxKb) {
+            highQ = midQ - 0.02;
+        } else if (sizeKb < minKb) {
+            lowQ = midQ + 0.02;
+        } else {
+            break;
+        }
+    }
+
+    imgObj.dataUrl = bestDataUrl;
+    imgObj.sizeKb = bestSizeKb;
+
+    updateStagePreview('sigResizerPreviewStage', 'sigResizer', imgObj.original.src, bestDataUrl);
+    updateComplianceMeterCustom('sigResizer', bestSizeKb, minKb, maxKb);
+}
+
+function downloadSigResizerOutput() {
+    const url = state.images.sigResizer.dataUrl;
+    if (!url) {
+        showToast('No signature image ready for download', 'error');
+        return;
+    }
+    triggerDownload(url, 'signature_resized.jpg', 'image/jpeg');
+}
+
+function updateComplianceMeterCustom(prefix, sizeKb, minKb, maxKb) {
+    const sizeEl = document.getElementById(`${prefix}CurrentSize`);
+    const badgeEl = document.getElementById(`${prefix}StatusBadge`);
+    const progressEl = document.getElementById(`${prefix}SizeProgress`);
+    const targetRangeText = document.getElementById(`${prefix}TargetRangeText`);
+
+    if (sizeEl) sizeEl.textContent = `${sizeKb} KB`;
+    if (targetRangeText) targetRangeText.textContent = `${minKb} KB - ${maxKb} KB`;
+
+    const isValid = sizeKb >= minKb && sizeKb <= maxKb;
+    if (badgeEl) {
+        if (isValid) {
+            badgeEl.className = 'status-badge status-valid';
+            badgeEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> Compliant';
+        } else if (sizeKb < minKb) {
+            badgeEl.className = 'status-badge status-invalid';
+            badgeEl.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Below Limit (${sizeKb} KB)`;
+        } else {
+            badgeEl.className = 'status-badge status-invalid';
+            badgeEl.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Exceeds Limit (${sizeKb} KB)`;
+        }
+    }
+
+    if (progressEl) {
+        let pct = 0;
+        if (maxKb > 0) {
+            pct = Math.min(100, Math.max(5, Math.round((sizeKb / maxKb) * 100)));
+        }
+        progressEl.style.width = `${pct}%`;
+        progressEl.style.background = isValid 
+            ? 'linear-gradient(90deg, #10b981, #34d399)' 
+            : 'linear-gradient(90deg, #ef4444, #f87171)';
+    }
+}
+
 // Robust iOS & Mobile Compatible Image Download Handler
 async function triggerDownload(dataUrl, filename, mimeType = 'image/jpeg') {
     if (!dataUrl) return;
@@ -1474,7 +1924,9 @@ function resetEntireWorkspace() {
 
     ['compControlPanel', 'compMeter', 'compActionBar', 'resizeControlPanel', 'resizeActionBar', 
      'convControlPanel', 'convActionBar', 'cropControlPanel', 'cropActionBar', 
-     'upscaleControlPanel', 'upscaleActionBar', 'upscaleInfoMeter', 'bgControlPanel', 'bgActionBar'].forEach(id => {
+     'upscaleControlPanel', 'upscaleActionBar', 'upscaleInfoMeter', 'bgControlPanel', 'bgActionBar',
+     'passportControlPanel', 'passportComplianceMeter', 'passportActionBar',
+     'sigResizerControlPanel', 'sigResizerComplianceMeter', 'sigResizerActionBar'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.style.display = 'none';
     });
@@ -1485,7 +1937,9 @@ function resetEntireWorkspace() {
         resizePreviewStage: '<span class="placeholder-text"><i class="fa-solid fa-expand"></i> Resized preview will appear here</span>',
         convPreviewStage: '<span class="placeholder-text"><i class="fa-solid fa-file-image"></i> Converted image preview will appear here</span>',
         cropPreviewStage: '<span class="placeholder-text"><i class="fa-solid fa-crop"></i> Cropped preview will appear here</span>',
-        upscalePreviewStage: '<span class="placeholder-text"><i class="fa-solid fa-expand"></i> 4K Upscaled image preview will appear here</span>'
+        upscalePreviewStage: '<span class="placeholder-text"><i class="fa-solid fa-expand"></i> 4K Upscaled image preview will appear here</span>',
+        passportPreviewStage: '<span class="placeholder-text"><i class="fa-solid fa-user-tie"></i> Passport preview will appear here</span>',
+        sigResizerPreviewStage: '<span class="placeholder-text"><i class="fa-solid fa-signature"></i> Signature preview will appear here</span>'
     };
     Object.entries(stages).forEach(([id, html]) => {
         const el = document.getElementById(id);
@@ -1535,4 +1989,6 @@ function setPreviewView(toolKey, mode) {
     else if (toolKey === 'conv') processFormatConversion();
     else if (toolKey === 'crop') processCropImage();
     else if (toolKey === 'upscale') processUpscalerTool();
+    else if (toolKey === 'passport') processPassportCanvas();
+    else if (toolKey === 'sigResizer') processSigResizerCanvas();
 }

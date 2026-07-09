@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Image Cropper: Crop Photos & Signatures Online</title>
+    <meta name="description" content="Free online image cropper tool. Crop passport photos, signatures, and documents with official exam aspect ratio presets (1:1, 3.5:4.5, 2:1).">
+    <link rel="canonical" href="https://photoresizer.examstudio.in/image-cropper.html" />
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Online Image Cropper: Crop Photos & Signatures Online" />
+    <meta property="og:description" content="Free online image cropper tool. Crop passport photos, signatures, and documents with official exam aspect ratio presets (1:1, 3.5:4.5, 2:1)." />
+    <meta property="og:image" content="https://photoresizer.examstudio.in/assets/og-image.jpg" />
+    <meta property="og:type" content="website" />
+
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Schema.org WebApplication Metadata -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Image Cropper Online",
+      "url": "https://photoresizer.examstudio.in/image-cropper.html",
+      "description": "Crop photos, signatures, and documents with aspect ratio lock presets.",
+      "applicationCategory": "ImageApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript. HTML5 Canvas supported browser.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+</head>
+<body data-theme="dark">
+    <!-- Animated Glow Background -->
+    <div class="glow-bg">
+        <div class="glow-sphere sphere-1"></div>
+        <div class="glow-sphere sphere-2"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="app-container">
+        <!-- Global Header -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h1>Exam Studio <span class="badge">Pro Suite</span></h1>
+                    <p class="subtitle">Indian Exam & Government Form Image Utilities</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary btn-icon" id="themeToggleBtn" title="Toggle Theme">
+                    <i class="fa-solid fa-sun"></i>
+                </button>
+                <button class="btn btn-secondary" onclick="toggleHistoryModal()">
+                    <i class="fa-solid fa-clock-rotate-left"></i> History 
+                    <span id="historyBadge" class="history-badge" style="display:none;">0</span>
+                </button>
+                <button class="btn btn-danger" onclick="resetEntireWorkspace()">
+                    <i class="fa-solid fa-trash-can"></i> Clear Workspace
+                </button>
+            </div>
+        </header>
+
+        <!-- Global Suite Utility Navigation Bar -->
+        <nav class="tool-suite-nav">
+            <a href="index.html" class="suite-tab" data-tool="exam-studio">
+                <i class="fa-solid fa-graduation-cap"></i> Exam Resizer Studio
+            </a>
+            <a href="passport-photo-maker.html" class="suite-tab" data-tool="passport">
+                <i class="fa-solid fa-user-tie"></i> Passport Photo Maker
+            </a>
+            <a href="signature-resizer.html" class="suite-tab" data-tool="signature-resizer">
+                <i class="fa-solid fa-signature"></i> Signature Resizer
+            </a>
+            <a href="bg-remover.html" class="suite-tab" data-tool="bg-remover">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> BG Remover
+            </a>
+            <a href="image-compressor.html" class="suite-tab" data-tool="compressor">
+                <i class="fa-solid fa-bolt"></i> Image Compressor
+            </a>
+            <a href="resize-by-pixels.html" class="suite-tab" data-tool="resizer">
+                <i class="fa-solid fa-up-right-and-down-left-from-center"></i> Resize Images
+            </a>
+            <a href="png-to-jpeg.html" class="suite-tab" data-tool="converter">
+                <i class="fa-solid fa-right-left"></i> PNG ↔ JPG
+            </a>
+            <a href="image-cropper.html" class="suite-tab active" data-tool="cropper">
+                <i class="fa-solid fa-crop"></i> Crop Images
+            </a>
+            <a href="pdf-to-image.html" class="suite-tab" data-tool="pdf-to-image">
+                <i class="fa-solid fa-file-pdf"></i> PDF to Image
+            </a>
+            <a href="upscaler.html" class="suite-tab" data-tool="upscaler">
+                <i class="fa-solid fa-expand" style="color: #38bdf8;"></i> 4K Upscaler
+            </a>
+        </nav>
+
+        <!-- TOOL VIEW: IMAGE CROPPER -->
+        <div id="view-cropper" class="tool-view active">
+            <div class="selection-hero text-center" style="margin-bottom: 25px;">
+                <h2><i class="fa-solid fa-crop"></i> Image Cropper Studio</h2>
+                <p>Crop images using target aspect ratios (1:1 Square, 3.5:4.5 Passport, 2:1 Signature) instantly.</p>
+            </div>
+
+            <div class="workspace-grid">
+                <!-- Left panel: File Dropzone & Configuration -->
+                <div class="glass-card panel-input">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-image"></i> Select Image</h3>
+                    </div>
+
+                    <!-- Dropzone -->
+                    <div class="dropzone" id="cropDropzone">
+                        <i class="fa-solid fa-crop-simple drop-icon"></i>
+                        <h4>Drop Image Here or Browse</h4>
+                        <p>JPG, PNG, WEBP formats (Up to 10MB)</p>
+                        <span class="btn btn-primary btn-sm">Select Local File</span>
+                        <input type="file" id="cropFileInput" accept="image/*" style="display:none;" />
+                    </div>
+
+                    <!-- Controls (Hidden initially) -->
+                    <div id="cropControlPanel" style="display: none; margin-top: 20px;">
+                        <div class="divider"></div>
+                        
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-border-none"></i> Target Aspect Ratio Preset</label>
+                            <div class="quick-kb-pills" style="display: flex; gap: 10px; margin-top: 10px;">
+                                <button class="pill" onclick="setCropRatio('1:1')">1:1 Square</button>
+                                <button class="pill" onclick="setCropRatio('3.5:4.5')">3.5:4.5 Photo</button>
+                                <button class="pill" onclick="setCropRatio('2:1')">2:1 Signature</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right panel: Preview Stage & Output Specs -->
+                <div class="glass-card panel-preview">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-magnifying-glass"></i> Live Preview Stage</h3>
+                        <div class="preview-mode-nav" id="cropPreviewMode">
+                            <span class="pill-sm" data-mode="before" onclick="setPreviewView('crop', 'before')">Before</span>
+                            <span class="pill-sm active" data-mode="after" onclick="setPreviewView('crop', 'after')">After</span>
+                            <span class="pill-sm" data-mode="compare" onclick="setPreviewView('crop', 'compare')">Compare</span>
+                        </div>
+                    </div>
+
+                    <div class="preview-stage" id="cropPreviewStage">
+                        <span class="placeholder-text">
+                            <i class="fa-solid fa-crop"></i> Preview of cropped image will appear here
+                        </span>
+                    </div>
+
+                    <!-- Action Bar -->
+                    <div class="action-bar" id="cropActionBar" style="display: none;">
+                        <button class="btn btn-success btn-lg flex-grow" onclick="downloadToolOutput('crop')">
+                            <i class="fa-solid fa-cloud-arrow-down animate-bounce"></i> Download Cropped Image
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEO Informational & FAQ section -->
+            <section class="seo-guide-section glass-card" style="margin-top: 30px; padding: 25px;">
+                <h2>How to Crop Images to Match Aspect Ratio Requirements</h2>
+                <p>When applying online, you might have a high-resolution selfie or scanned document page. Attempting to fit the full frame directly causes distortion. Cropping isolates the face or signature box, creating the correct 1:1, 3.5:4.5, or 2:1 aspect ratio boundaries.</p>
+                
+                <div class="info-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                    <div>
+                        <h4><i class="fa-solid fa-circle-nodes" style="color:var(--primary);"></i> Smart Center Centering</h4>
+                        <p>Our cropper automatically centers the cropping frame based on image dimensions, saving you from manually dragging lines and borders.</p>
+                    </div>
+                    <div>
+                        <h4><i class="fa-solid fa-rocket" style="color:var(--primary);"></i> One-Click Presets</h4>
+                        <p>Apply exact mathematical proportions instantly. Choose <strong>3.5:4.5</strong> for standard Indian competitive exams, <strong>1:1</strong> for square visas, or <strong>2:1</strong> for wide signatures.</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 25px;">Frequently Asked Questions</h3>
+                <div class="faq-container">
+                    <details class="faq-item" open>
+                        <summary>What ratio should I use to crop signature scans?</summary>
+                        <p>Signatures are horizontal. Use the wide 2:1 ratio preset (e.g. 280x140 pixels) to cleanly crop the signature box from standard white A4 papers.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Is this cropper free to use?</summary>
+                        <p>Yes. This cropper runs entirely in JS on your own computer, requiring zero subscription plans or payments.</p>
+                    </details>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="app-footer text-center">
+            <p>© 2026 Exam Studio Pro Suite. All processing is executed client-side inside your browser. No files are uploaded to our servers.</p>
+        </footer>
+    </div>
+
+    <!-- Global Download History Modal -->
+    <div id="historyModal" class="modal-backdrop" style="display: none;" onclick="closeHistoryModalOnBackdrop(e)">
+        <div class="glass-card modal-container">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-clock-rotate-left"></i> Download History</h3>
+                <button class="btn btn-secondary btn-icon" onclick="toggleHistoryModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="historyModalBody">
+                <!-- Content generated via JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" onclick="clearDownloadHistory()">Clear All History</button>
+                <button class="btn btn-secondary" onclick="toggleHistoryModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>

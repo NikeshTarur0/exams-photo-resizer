@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compress Image to KB Online (Free 20KB, 50KB, 100KB, 200KB)</title>
+    <meta name="description" content="Free online Image Compressor and Resize in KB tool. Compress photo, signature, or document to exact target sizes like 20 KB, 50 KB, 100 KB, and 200 KB.">
+    <link rel="canonical" href="https://photoresizer.examstudio.in/image-compressor.html" />
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Compress Image to KB Online (Free 20KB, 50KB, 100KB, 200KB)" />
+    <meta property="og:description" content="Free online Image Compressor and Resize in KB tool. Compress photo, signature, or document to exact target sizes like 20 KB, 50 KB, 100 KB, and 200 KB." />
+    <meta property="og:image" content="https://photoresizer.examstudio.in/assets/og-image.jpg" />
+    <meta property="og:type" content="website" />
+
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Schema.org WebApplication Metadata -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Image Compressor to KB",
+      "url": "https://photoresizer.examstudio.in/image-compressor.html",
+      "description": "Compress images to exact target sizes like 20KB, 50KB, 100KB online for application portals.",
+      "applicationCategory": "ImageApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript. HTML5 Canvas supported browser.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+</head>
+<body data-theme="dark">
+    <!-- Animated Glow Background -->
+    <div class="glow-bg">
+        <div class="glow-sphere sphere-1"></div>
+        <div class="glow-sphere sphere-2"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="app-container">
+        <!-- Global Header -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h1>Exam Studio <span class="badge">Pro Suite</span></h1>
+                    <p class="subtitle">Indian Exam & Government Form Image Utilities</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary btn-icon" id="themeToggleBtn" title="Toggle Theme">
+                    <i class="fa-solid fa-sun"></i>
+                </button>
+                <button class="btn btn-secondary" onclick="toggleHistoryModal()">
+                    <i class="fa-solid fa-clock-rotate-left"></i> History 
+                    <span id="historyBadge" class="history-badge" style="display:none;">0</span>
+                </button>
+                <button class="btn btn-danger" onclick="resetEntireWorkspace()">
+                    <i class="fa-solid fa-trash-can"></i> Clear Workspace
+                </button>
+            </div>
+        </header>
+
+        <!-- Global Suite Utility Navigation Bar -->
+        <nav class="tool-suite-nav">
+            <a href="index.html" class="suite-tab" data-tool="exam-studio">
+                <i class="fa-solid fa-graduation-cap"></i> Exam Resizer Studio
+            </a>
+            <a href="passport-photo-maker.html" class="suite-tab" data-tool="passport">
+                <i class="fa-solid fa-user-tie"></i> Passport Photo Maker
+            </a>
+            <a href="signature-resizer.html" class="suite-tab" data-tool="signature-resizer">
+                <i class="fa-solid fa-signature"></i> Signature Resizer
+            </a>
+            <a href="bg-remover.html" class="suite-tab" data-tool="bg-remover">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> BG Remover
+            </a>
+            <a href="image-compressor.html" class="suite-tab active" data-tool="compressor">
+                <i class="fa-solid fa-bolt"></i> Image Compressor
+            </a>
+            <a href="resize-by-pixels.html" class="suite-tab" data-tool="resizer">
+                <i class="fa-solid fa-up-right-and-down-left-from-center"></i> Resize Images
+            </a>
+            <a href="png-to-jpeg.html" class="suite-tab" data-tool="converter">
+                <i class="fa-solid fa-right-left"></i> PNG ↔ JPG
+            </a>
+            <a href="image-cropper.html" class="suite-tab" data-tool="cropper">
+                <i class="fa-solid fa-crop"></i> Crop Images
+            </a>
+            <a href="pdf-to-image.html" class="suite-tab" data-tool="pdf-to-image">
+                <i class="fa-solid fa-file-pdf"></i> PDF to Image
+            </a>
+            <a href="upscaler.html" class="suite-tab" data-tool="upscaler">
+                <i class="fa-solid fa-expand" style="color: #38bdf8;"></i> 4K Upscaler
+            </a>
+        </nav>
+
+        <!-- TOOL VIEW: IMAGE COMPRESSOR -->
+        <div id="view-compressor" class="tool-view active">
+            <div class="selection-hero text-center" style="margin-bottom: 25px;">
+                <h2><i class="fa-solid fa-bolt"></i> Custom Target KB Image Compressor</h2>
+                <p>Resize files to exact sizes. Compress photos and signatures to 20 KB, 50 KB, 100 KB, or 200 KB without quality loss.</p>
+            </div>
+
+            <div class="workspace-grid">
+                <!-- Left panel: File Dropzone & Configuration -->
+                <div class="glass-card panel-input">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-image"></i> Select Image</h3>
+                    </div>
+
+                    <!-- Dropzone -->
+                    <div class="dropzone" id="compDropzone">
+                        <i class="fa-solid fa-file-zipper drop-icon"></i>
+                        <h4>Drop Image Here or Browse</h4>
+                        <p>JPG, PNG, WEBP formats (Up to 15MB)</p>
+                        <span class="btn btn-primary btn-sm">Select Local File</span>
+                        <input type="file" id="compFileInput" accept="image/*" style="display:none;" />
+                    </div>
+
+                    <!-- Controls (Hidden initially) -->
+                    <div id="compControlPanel" style="display: none; margin-top: 20px;">
+                        <div class="divider"></div>
+                        
+                        <div class="form-group">
+                            <label for="compTargetKb"><i class="fa-solid fa-bullseye"></i> Target Max File Size (KB)</label>
+                            <input type="number" id="compTargetKb" class="form-control" value="50" min="5" max="5000" />
+                        </div>
+
+                        <div class="quick-kb-pills" style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
+                            <button class="pill" onclick="setQuickKb(20)">20 KB</button>
+                            <button class="pill" onclick="setQuickKb(50)">50 KB</button>
+                            <button class="pill" onclick="setQuickKb(100)">100 KB</button>
+                            <button class="pill" onclick="setQuickKb(200)">200 KB</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right panel: Preview Stage & Output Specs -->
+                <div class="glass-card panel-preview">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-magnifying-glass"></i> Live Preview Stage</h3>
+                        <div class="preview-mode-nav" id="compPreviewMode">
+                            <span class="pill-sm" data-mode="before" onclick="setPreviewView('comp', 'before')">Before</span>
+                            <span class="pill-sm active" data-mode="after" onclick="setPreviewView('comp', 'after')">After</span>
+                            <span class="pill-sm" data-mode="compare" onclick="setPreviewView('comp', 'compare')">Compare</span>
+                        </div>
+                    </div>
+
+                    <div class="preview-stage" id="compPreviewStage">
+                        <span class="placeholder-text">
+                            <i class="fa-solid fa-file-zipper"></i> Preview of compressed image will appear here
+                        </span>
+                    </div>
+
+                    <!-- Compliance Meter -->
+                    <div class="compliance-meter" id="compMeter" style="display: none;">
+                        <div class="meter-header">
+                            <div>
+                                <span class="meter-title">Output File Size</span>
+                                <span class="current-size" id="compSizeVal">0 KB</span>
+                            </div>
+                            <span id="compStatusBadge" class="status-badge status-valid">
+                                <i class="fa-solid fa-circle-check"></i> Ready
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Action Bar -->
+                    <div class="action-bar" id="compActionBar" style="display: none;">
+                        <button class="btn btn-success btn-lg flex-grow" onclick="downloadToolOutput('comp')">
+                            <i class="fa-solid fa-cloud-arrow-down animate-bounce"></i> Download Compressed Image
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEO Informational & FAQ section -->
+            <section class="seo-guide-section glass-card" style="margin-top: 30px; padding: 25px;">
+                <h2>Image Compression to Exact Sizes (20KB, 50KB, 100KB, 200KB)</h2>
+                <p>Exam platforms like UPSC, SSC, IBPS, and state recruitments have automated validation rules that discard files exceeding standard sizes (usually 20 KB for signatures and 50 KB for photos). Simply adjusting the quality quality factor manually in Photoshop is difficult. Our binary compression algorithms automate this in milliseconds.</p>
+                
+                <div class="info-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                    <div>
+                        <h4><i class="fa-solid fa-brain" style="color:var(--primary);"></i> Smart Quality Search</h4>
+                        <p>Our compressor uses an iterative binary search algorithm to detect the exact JPEG quality index. This maximizes the image crispness while staying strictly below your designated target size.</p>
+                    </div>
+                    <div>
+                        <h4><i class="fa-solid fa-bolt" style="color:var(--primary);"></i> Offline Compress</h4>
+                        <p>All compression operations are handled within your local browser memory space. No images are sent over the network, ensuring instant speeds even on slow 3G mobile connections.</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 25px;">Frequently Asked Questions</h3>
+                <div class="faq-container">
+                    <details class="faq-item" open>
+                        <summary>How can I compress my signature to less than 20 KB?</summary>
+                        <p>Upload your signature scan, set the "Target Max File Size" field to 20 KB (or click the quick "20 KB" pill), and our engine will find the perfect quality scale to keep it under 20 KB instantly.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Will my image quality drop during compression?</summary>
+                        <p>We preserve pixel dimensions. Only the high-frequency color artifacts that are invisible to the human eye are compressed. This guarantees that text strokes and faces remain clear and eligible.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Can I compress PDF documents here?</summary>
+                        <p>This tool is optimized for photos (JPG, PNG, WEBP). To extract pages from a PDF to JPG, use our dedicated "PDF to Image" tab in the suite navigation.</p>
+                    </details>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="app-footer text-center">
+            <p>© 2026 Exam Studio Pro Suite. All processing is executed client-side inside your browser. No files are uploaded to our servers.</p>
+        </footer>
+    </div>
+
+    <!-- Global Download History Modal -->
+    <div id="historyModal" class="modal-backdrop" style="display: none;" onclick="closeHistoryModalOnBackdrop(e)">
+        <div class="glass-card modal-container">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-clock-rotate-left"></i> Download History</h3>
+                <button class="btn btn-secondary btn-icon" onclick="toggleHistoryModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="historyModalBody">
+                <!-- Content generated via JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" onclick="clearDownloadHistory()">Clear All History</button>
+                <button class="btn btn-secondary" onclick="toggleHistoryModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+    <script>
+        function setQuickKb(kb) {
+            const input = document.getElementById('compTargetKb');
+            if (input) {
+                input.value = kb;
+                if (state.images.comp.original) processCompressorTool();
+            }
+        }
+    </script>
+</body>
+</html>

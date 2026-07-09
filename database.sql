@@ -60,7 +60,14 @@ INSERT INTO `exams` (`id`, `code`, `name`, `conducting_body`, `category`, `offic
 (6, 'nta_jee', 'NTA JEE Main Engineering Entrance', 'National Testing Agency', 'Engineering Entrance', 'https://jeemain.nta.ac.in'),
 (7, 'sbi_po', 'SBI Probationary Officer (PO)', 'State Bank of India', 'Banking', 'https://sbi.co.in/careers'),
 (8, 'gate', 'Graduate Aptitude Test in Engineering (GATE)', 'IIT / IISc', 'Post Graduate', 'https://gate2026.iitkgp.ac.in'),
-(9, 'rrb_ntpc', 'RRB NTPC Non-Technical Popular Categories', 'Railway Recruitment Board', 'Railways', 'https://indianrailways.gov.in');
+(9, 'rrb_ntpc', 'RRB NTPC Non-Technical Popular Categories', 'Railway Recruitment Board', 'Railways', 'https://indianrailways.gov.in'),
+(10, 'gujarat_police', 'Gujarat Police Recruitment', 'Lokrakshak Recruitment Board (LRB)', 'Defence Exam', 'https://ojas.gujarat.gov.in'),
+(11, 'gpssb', 'GPSSB Panchayat Recruitment', 'Gujarat Panchayat Service Selection Board', 'Government Job', 'https://gpssb.gujarat.gov.in'),
+(12, 'gpsc', 'GPSC Gujarat Civil Services', 'Gujarat Public Service Commission', 'Civil Services', 'https://gpsc.gujarat.gov.in'),
+(13, 'indian_army', 'Indian Army Agnipath Recruitment', 'Indian Army', 'Defence Exam', 'https://joinindianarmy.nic.in'),
+(14, 'crpf', 'CRPF Head Constable & GD Recruitment', 'Central Reserve Police Force', 'Defence Exam', 'https://crpf.gov.in'),
+(15, 'cisf', 'CISF Constable & ASI Recruitment', 'Central Industrial Security Force', 'Defence Exam', 'https://cisfrectt.cisf.gov.in'),
+(16, 'bsf', 'BSF Constable GD & Head Constable', 'Border Security Force', 'Defence Exam', 'https://rectt.bsf.gov.in');
 
 -- SSC CGL Requirements
 INSERT INTO `exam_requirements` (`exam_id`, `doc_type`, `min_width_px`, `max_width_px`, `min_height_px`, `max_height_px`, `aspect_ratio`, `min_kb`, `max_kb`, `bg_color`, `allowed_formats`, `dpi`, `special_instructions`) VALUES
@@ -106,3 +113,38 @@ INSERT INTO `exam_requirements` (`exam_id`, `doc_type`, `min_width_px`, `max_wid
 INSERT INTO `exam_requirements` (`exam_id`, `doc_type`, `min_width_px`, `max_width_px`, `min_height_px`, `max_height_px`, `aspect_ratio`, `min_kb`, `max_kb`, `bg_color`, `allowed_formats`, `dpi`, `special_instructions`) VALUES
 (9, 'photo', 320, 400, 400, 500, '3.5:4.5', 20, 50, 'White / Light plain background', 'JPG, JPEG', 200, 'Color passport photo without dark glasses or caps.'),
 (9, 'signature', 250, 350, 100, 150, '3.0:1.2', 10, 20, 'White paper with Black or Blue ink', 'JPG, JPEG', 200, 'Running hand signature strictly.');
+
+-- Gujarat Police Requirements
+INSERT INTO `exam_requirements` (`exam_id`, `doc_type`, `min_width_px`, `max_width_px`, `min_height_px`, `max_height_px`, `aspect_ratio`, `min_kb`, `max_kb`, `bg_color`, `allowed_formats`, `dpi`, `special_instructions`) VALUES
+(10, 'photo', 200, 200, 250, 250, '4.0:5.0', 15, 50, 'White or light plain background', 'JPG, JPEG', 200, 'Recent passport size photo. Both ears visible.'),
+(10, 'signature', 140, 140, 80, 80, '7.0:4.0', 5, 20, 'White paper with black/blue ink', 'JPG, JPEG', 200, 'Running hand signature.');
+
+-- GPSSB Requirements
+INSERT INTO `exam_requirements` (`exam_id`, `doc_type`, `min_width_px`, `max_width_px`, `min_height_px`, `max_height_px`, `aspect_ratio`, `min_kb`, `max_kb`, `bg_color`, `allowed_formats`, `dpi`, `special_instructions`) VALUES
+(11, 'photo', 130, 150, 180, 200, '3.6:5.0', 5, 15, 'Light background', 'JPG, JPEG', 200, 'OJAS standard max 15KB size.'),
+(11, 'signature', 275, 300, 90, 100, '3.0:1.0', 5, 15, 'White paper with black/blue ink', 'JPG, JPEG', 200, 'OJAS standard max 15KB size.');
+
+-- GPSC Requirements
+INSERT INTO `exam_requirements` (`exam_id`, `doc_type`, `min_width_px`, `max_width_px`, `min_height_px`, `max_height_px`, `aspect_ratio`, `min_kb`, `max_kb`, `bg_color`, `allowed_formats`, `dpi`, `special_instructions`) VALUES
+(12, 'photo', 130, 150, 180, 200, '3.6:5.0', 5, 15, 'Light background', 'JPG, JPEG', 200, 'OJAS standard photo max 15KB.'),
+(12, 'signature', 275, 300, 90, 100, '3.0:1.0', 5, 15, 'White paper with black/blue ink', 'JPG, JPEG', 200, 'OJAS standard signature max 15KB.');
+
+-- Indian Army Requirements
+INSERT INTO `exam_requirements` (`exam_id`, `doc_type`, `min_width_px`, `max_width_px`, `min_height_px`, `max_height_px`, `aspect_ratio`, `min_kb`, `max_kb`, `bg_color`, `allowed_formats`, `dpi`, `special_instructions`) VALUES
+(13, 'photo', 350, 350, 450, 450, '3.5:4.5', 20, 50, 'White background', 'JPG, JPEG', 200, 'Recent photograph without cap/glasses.'),
+(13, 'signature', 350, 350, 150, 150, '7.0:3.0', 10, 20, 'White paper with black/blue ink', 'JPG, JPEG', 200, 'Legible running signature.');
+
+-- CRPF Requirements
+INSERT INTO `exam_requirements` (`exam_id`, `doc_type`, `min_width_px`, `max_width_px`, `min_height_px`, `max_height_px`, `aspect_ratio`, `min_kb`, `max_kb`, `bg_color`, `allowed_formats`, `dpi`, `special_instructions`) VALUES
+(14, 'photo', 350, 350, 450, 450, '3.5:4.5', 20, 50, 'Light background', 'JPG, JPEG', 200, 'Color passport photo with both ears visible.'),
+(14, 'signature', 400, 400, 200, 200, '2.0:1.0', 10, 20, 'White paper with black ink', 'JPG, JPEG', 200, 'Signed in running hand.');
+
+-- CISF Requirements
+INSERT INTO `exam_requirements` (`exam_id`, `doc_type`, `min_width_px`, `max_width_px`, `min_height_px`, `max_height_px`, `aspect_ratio`, `min_kb`, `max_kb`, `bg_color`, `allowed_formats`, `dpi`, `special_instructions`) VALUES
+(15, 'photo', 350, 350, 450, 450, '3.5:4.5', 20, 50, 'White background', 'JPG, JPEG', 200, 'Must have name and date of photo printed at bottom.'),
+(15, 'signature', 400, 400, 200, 200, '2.0:1.0', 10, 20, 'White paper with black ink', 'JPG, JPEG', 200, 'Running hand signature in black ink.');
+
+-- BSF Requirements
+INSERT INTO `exam_requirements` (`exam_id`, `doc_type`, `min_width_px`, `max_width_px`, `min_height_px`, `max_height_px`, `aspect_ratio`, `min_kb`, `max_kb`, `bg_color`, `allowed_formats`, `dpi`, `special_instructions`) VALUES
+(16, 'photo', 350, 350, 450, 450, '3.5:4.5', 20, 50, 'White background', 'JPG, JPEG', 200, 'Recent colored passport photo.'),
+(16, 'signature', 400, 400, 200, 200, '2.0:1.0', 10, 20, 'White paper with black/blue ink', 'JPG, JPEG', 200, 'Running hand signature.');

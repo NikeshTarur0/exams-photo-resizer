@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resize Image by Pixels & Dimensions Online</title>
+    <meta name="description" content="Free online image resizer to resize photo dimensions by pixels, centimeters (cm), or millimeters (mm) with aspect ratio locking. Clear, fast, and secure.">
+    <link rel="canonical" href="https://photoresizer.examstudio.in/resize-by-pixels.html" />
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Resize Image by Pixels & Dimensions Online" />
+    <meta property="og:description" content="Free online image resizer to resize photo dimensions by pixels, centimeters (cm), or millimeters (mm) with aspect ratio locking. Clear, fast, and secure." />
+    <meta property="og:image" content="https://photoresizer.examstudio.in/assets/og-image.jpg" />
+    <meta property="og:type" content="website" />
+
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Schema.org WebApplication Metadata -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Image Resizer by Pixels",
+      "url": "https://photoresizer.examstudio.in/resize-by-pixels.html",
+      "description": "Resize image dimensions by pixels or standard measurement metrics with ease.",
+      "applicationCategory": "ImageApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript. HTML5 Canvas supported browser.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+</head>
+<body data-theme="dark">
+    <!-- Animated Glow Background -->
+    <div class="glow-bg">
+        <div class="glow-sphere sphere-1"></div>
+        <div class="glow-sphere sphere-2"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="app-container">
+        <!-- Global Header -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h1>Exam Studio <span class="badge">Pro Suite</span></h1>
+                    <p class="subtitle">Indian Exam & Government Form Image Utilities</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary btn-icon" id="themeToggleBtn" title="Toggle Theme">
+                    <i class="fa-solid fa-sun"></i>
+                </button>
+                <button class="btn btn-secondary" onclick="toggleHistoryModal()">
+                    <i class="fa-solid fa-clock-rotate-left"></i> History 
+                    <span id="historyBadge" class="history-badge" style="display:none;">0</span>
+                </button>
+                <button class="btn btn-danger" onclick="resetEntireWorkspace()">
+                    <i class="fa-solid fa-trash-can"></i> Clear Workspace
+                </button>
+            </div>
+        </header>
+
+        <!-- Global Suite Utility Navigation Bar -->
+        <nav class="tool-suite-nav">
+            <a href="index.html" class="suite-tab" data-tool="exam-studio">
+                <i class="fa-solid fa-graduation-cap"></i> Exam Resizer Studio
+            </a>
+            <a href="passport-photo-maker.html" class="suite-tab" data-tool="passport">
+                <i class="fa-solid fa-user-tie"></i> Passport Photo Maker
+            </a>
+            <a href="signature-resizer.html" class="suite-tab" data-tool="signature-resizer">
+                <i class="fa-solid fa-signature"></i> Signature Resizer
+            </a>
+            <a href="bg-remover.html" class="suite-tab" data-tool="bg-remover">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> BG Remover
+            </a>
+            <a href="image-compressor.html" class="suite-tab" data-tool="compressor">
+                <i class="fa-solid fa-bolt"></i> Image Compressor
+            </a>
+            <a href="resize-by-pixels.html" class="suite-tab active" data-tool="resizer">
+                <i class="fa-solid fa-up-right-and-down-left-from-center"></i> Resize Images
+            </a>
+            <a href="png-to-jpeg.html" class="suite-tab" data-tool="converter">
+                <i class="fa-solid fa-right-left"></i> PNG ↔ JPG
+            </a>
+            <a href="image-cropper.html" class="suite-tab" data-tool="cropper">
+                <i class="fa-solid fa-crop"></i> Crop Images
+            </a>
+            <a href="pdf-to-image.html" class="suite-tab" data-tool="pdf-to-image">
+                <i class="fa-solid fa-file-pdf"></i> PDF to Image
+            </a>
+            <a href="upscaler.html" class="suite-tab" data-tool="upscaler">
+                <i class="fa-solid fa-expand" style="color: #38bdf8;"></i> 4K Upscaler
+            </a>
+        </nav>
+
+        <!-- TOOL VIEW: RESIZE IMAGES -->
+        <div id="view-resizer" class="tool-view active">
+            <div class="selection-hero text-center" style="margin-bottom: 25px;">
+                <h2><i class="fa-solid fa-up-right-and-down-left-from-center"></i> Freeform Image Resizer</h2>
+                <p>Resize dimensions by Pixels with aspect ratio locking. Fast, clean, and 100% secure processing.</p>
+            </div>
+
+            <div class="workspace-grid">
+                <!-- Left panel: File Dropzone & Configuration -->
+                <div class="glass-card panel-input">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-image"></i> Select Image</h3>
+                    </div>
+
+                    <!-- Dropzone -->
+                    <div class="dropzone" id="resizeDropzone">
+                        <i class="fa-solid fa-expand drop-icon"></i>
+                        <h4>Drop Image Here or Browse</h4>
+                        <p>JPG, PNG, WEBP formats (Up to 10MB)</p>
+                        <span class="btn btn-primary btn-sm">Select Local File</span>
+                        <input type="file" id="resizeFileInput" accept="image/*" style="display:none;" />
+                    </div>
+
+                    <!-- Controls (Hidden initially) -->
+                    <div id="resizeControlPanel" style="display: none; margin-top: 20px;">
+                        <div class="divider"></div>
+                        
+                        <div class="form-row" style="display: flex; gap: 15px;">
+                            <div class="form-group col-6">
+                                <label for="resizeW">Width (px)</label>
+                                <input type="number" id="resizeW" class="form-control" value="800" />
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="resizeH">Height (px)</label>
+                                <input type="number" id="resizeH" class="form-control" value="600" />
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 15px;">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="resizeLockAspect" checked />
+                                <span class="checkmark"></span>
+                                <strong>Lock Aspect Ratio</strong>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right panel: Preview Stage & Output Specs -->
+                <div class="glass-card panel-preview">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-magnifying-glass"></i> Live Preview Stage</h3>
+                        <div class="preview-mode-nav" id="resizePreviewMode">
+                            <span class="pill-sm" data-mode="before" onclick="setPreviewView('resize', 'before')">Before</span>
+                            <span class="pill-sm active" data-mode="after" onclick="setPreviewView('resize', 'after')">After</span>
+                            <span class="pill-sm" data-mode="compare" onclick="setPreviewView('resize', 'compare')">Compare</span>
+                        </div>
+                    </div>
+
+                    <div class="preview-stage" id="resizePreviewStage">
+                        <span class="placeholder-text">
+                            <i class="fa-solid fa-expand"></i> Preview of resized image will appear here
+                        </span>
+                    </div>
+
+                    <!-- Action Bar -->
+                    <div class="action-bar" id="resizeActionBar" style="display: none;">
+                        <button class="btn btn-success btn-lg flex-grow" onclick="downloadToolOutput('resize')">
+                            <i class="fa-solid fa-cloud-arrow-down animate-bounce"></i> Download Resized Image
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEO Informational & FAQ section -->
+            <section class="seo-guide-section glass-card" style="margin-top: 30px; padding: 25px;">
+                <h2>Image Resizing Guidelines & Calculation Standards</h2>
+                <p>Digital application portals rely on rigid aspect ratios to maintain standard document layouts. If you upload a photo with mismatched dimensions, the rendering engine might squish or stretch your facial features. Maintaining standard height and width limits is critical.</p>
+                
+                <div class="info-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                    <div>
+                        <h4><i class="fa-solid fa-link" style="color:var(--primary);"></i> Locking Aspect Ratio</h4>
+                        <p>Keep the "Lock Aspect Ratio" box checked to prevent structural distortion. Changing width will automatically calculate and scale height proportionally to prevent stretched images.</p>
+                    </div>
+                    <div>
+                        <h4><i class="fa-solid fa-calculator" style="color:var(--primary);"></i> Pixels to cm / mm conversion</h4>
+                        <p>If your instruction sheet specifies dimensions in centimeters (e.g. 3.5 x 4.5 cm), convert it at 300 DPI: <strong>Width = 3.5 cm * 118 px/cm = 413 px</strong>, and <strong>Height = 4.5 cm * 118 px/cm = 531 px</strong>.</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 25px;">Frequently Asked Questions</h3>
+                <div class="faq-container">
+                    <details class="faq-item" open>
+                        <summary>What is the best pixel size for standard photo uploads?</summary>
+                        <p>A safe standard for general profile pictures and web applications is 800 x 800 pixels (aspect ratio 1:1) or 600 x 800 pixels (aspect ratio 3:4).</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>How can I resize by centimeters (cm) online?</summary>
+                        <p>First, calculate the pixels based on standard 300 DPI resolution, and then input those pixel counts directly in the Width and Height input fields above.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Will resizing my photo reduce its file size (KB)?</summary>
+                        <p>Yes. Shrinking pixel dimensions (e.g., from 4000px down to 800px) reduces the amount of source image data, compressing file size in KB dramatically.</p>
+                    </details>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="app-footer text-center">
+            <p>© 2026 Exam Studio Pro Suite. All processing is executed client-side inside your browser. No files are uploaded to our servers.</p>
+        </footer>
+    </div>
+
+    <!-- Global Download History Modal -->
+    <div id="historyModal" class="modal-backdrop" style="display: none;" onclick="closeHistoryModalOnBackdrop(e)">
+        <div class="glass-card modal-container">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-clock-rotate-left"></i> Download History</h3>
+                <button class="btn btn-secondary btn-icon" onclick="toggleHistoryModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="historyModalBody">
+                <!-- Content generated via JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" onclick="clearDownloadHistory()">Clear All History</button>
+                <button class="btn btn-secondary" onclick="toggleHistoryModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>

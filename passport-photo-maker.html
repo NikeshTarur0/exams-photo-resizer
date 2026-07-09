@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passport Photo Maker Online: Resize to Passport Size Free</title>
+    <meta name="description" content="Create submission-ready passport photos online. Resize photos to official dimensions (2x2 inches, 3.5x4.5 cm) for US Visa, Indian Passport, and online forms.">
+    <link rel="canonical" href="https://photoresizer.examstudio.in/passport-photo-maker.html" />
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Passport Photo Maker Online: Resize to Passport Size Free" />
+    <meta property="og:description" content="Create submission-ready passport photos online. Resize photos to official dimensions (2x2 inches, 3.5x4.5 cm) for US Visa, Indian Passport, and online forms." />
+    <meta property="og:image" content="https://photoresizer.examstudio.in/assets/og-image.jpg" />
+    <meta property="og:type" content="website" />
+
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Schema.org WebApplication Metadata -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Online Passport Photo Maker",
+      "url": "https://photoresizer.examstudio.in/passport-photo-maker.html",
+      "description": "Resize and compress photos to official passport and visa size dimensions online.",
+      "applicationCategory": "ImageApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript. HTML5 Canvas supported browser.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+</head>
+<body data-theme="dark">
+    <!-- Animated Glow Background -->
+    <div class="glow-bg">
+        <div class="glow-sphere sphere-1"></div>
+        <div class="glow-sphere sphere-2"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="app-container">
+        <!-- Global Header -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h1>Exam Studio <span class="badge">Pro Suite</span></h1>
+                    <p class="subtitle">Indian Exam & Government Form Image Utilities</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary btn-icon" id="themeToggleBtn" title="Toggle Theme">
+                    <i class="fa-solid fa-sun"></i>
+                </button>
+                <button class="btn btn-secondary" onclick="toggleHistoryModal()">
+                    <i class="fa-solid fa-clock-rotate-left"></i> History 
+                    <span id="historyBadge" class="history-badge" style="display:none;">0</span>
+                </button>
+                <button class="btn btn-danger" onclick="resetEntireWorkspace()">
+                    <i class="fa-solid fa-trash-can"></i> Clear Workspace
+                </button>
+            </div>
+        </header>
+
+        <!-- Global Suite Utility Navigation Bar -->
+        <nav class="tool-suite-nav">
+            <a href="index.html" class="suite-tab" data-tool="exam-studio">
+                <i class="fa-solid fa-graduation-cap"></i> Exam Resizer Studio
+            </a>
+            <a href="passport-photo-maker.html" class="suite-tab active" data-tool="passport">
+                <i class="fa-solid fa-user-tie"></i> Passport Photo Maker
+            </a>
+            <a href="signature-resizer.html" class="suite-tab" data-tool="signature-resizer">
+                <i class="fa-solid fa-signature"></i> Signature Resizer
+            </a>
+            <a href="bg-remover.html" class="suite-tab" data-tool="bg-remover">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> BG Remover
+            </a>
+            <a href="image-compressor.html" class="suite-tab" data-tool="compressor">
+                <i class="fa-solid fa-bolt"></i> Image Compressor
+            </a>
+            <a href="resize-by-pixels.html" class="suite-tab" data-tool="resizer">
+                <i class="fa-solid fa-up-right-and-down-left-from-center"></i> Resize Images
+            </a>
+            <a href="png-to-jpeg.html" class="suite-tab" data-tool="converter">
+                <i class="fa-solid fa-right-left"></i> PNG ↔ JPG
+            </a>
+            <a href="image-cropper.html" class="suite-tab" data-tool="cropper">
+                <i class="fa-solid fa-crop"></i> Crop Images
+            </a>
+            <a href="pdf-to-image.html" class="suite-tab" data-tool="pdf-to-image">
+                <i class="fa-solid fa-file-pdf"></i> PDF to Image
+            </a>
+            <a href="upscaler.html" class="suite-tab" data-tool="upscaler">
+                <i class="fa-solid fa-expand" style="color: #38bdf8;"></i> 4K Upscaler
+            </a>
+        </nav>
+
+        <!-- TOOL VIEW: PASSPORT PHOTO MAKER -->
+        <div id="view-passport" class="tool-view active">
+            <div class="selection-hero text-center" style="margin-bottom: 25px;">
+                <h2><i class="fa-solid fa-user-tie"></i> Online Passport Photo Maker & Resizer</h2>
+                <p>Crop, rotate, enhance, replace background color, and compress photos to official passport and visa standards instantly.</p>
+            </div>
+
+            <div class="workspace-grid">
+                <!-- Left panel: File Dropzone & Configuration -->
+                <div class="glass-card panel-input">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-image"></i> Source Image</h3>
+                    </div>
+
+                    <!-- Dropzone -->
+                    <div class="dropzone" id="passportDropzone">
+                        <i class="fa-solid fa-cloud-arrow-up drop-icon"></i>
+                        <h4>Drag & Drop Passport Candidate Photo</h4>
+                        <p>Supports JPG, PNG, WEBP formats (Up to 10MB)</p>
+                        <span class="btn btn-primary btn-sm">Select Local File</span>
+                        <input type="file" id="passportFileInput" accept="image/*" style="display:none;" />
+                    </div>
+
+                    <!-- Controls (Hidden initially) -->
+                    <div id="passportControlPanel" style="display: none; margin-top: 20px;">
+                        <div class="divider"></div>
+                        <div class="form-group">
+                            <label for="passportPresetSelect"><i class="fa-solid fa-sliders"></i> Passport / Visa Standard Preset</label>
+                            <select id="passportPresetSelect" class="form-select">
+                                <option value="in-passport" selected>Indian Passport / Visa (3.5 x 4.5 cm / 20-50 KB)</option>
+                                <option value="us-visa">US Passport / Visa (2 x 2 inches / 10-240 KB)</option>
+                                <option value="sch-visa">Schengen Visa Photo (3.5 x 4.5 cm / 10-80 KB)</option>
+                                <option value="custom">Custom Dimensions (Set manually)</option>
+                            </select>
+                        </div>
+
+                        <!-- Custom Dimension Inputs (Shown when 'custom' selected) -->
+                        <div id="passportCustomInputs" class="form-row" style="display: none; margin-top: 15px;">
+                            <div class="form-group col-6">
+                                <label for="passportW">Width (px)</label>
+                                <input type="number" id="passportW" class="form-control" value="350">
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="passportH">Height (px)</label>
+                                <input type="number" id="passportH" class="form-control" value="450">
+                            </div>
+                            <div class="form-group col-6" style="margin-top: 10px;">
+                                <label for="passportMinKb">Min size (KB)</label>
+                                <input type="number" id="passportMinKb" class="form-control" value="10">
+                            </div>
+                            <div class="form-group col-6" style="margin-top: 10px;">
+                                <label for="passportMaxKb">Max size (KB)</label>
+                                <input type="number" id="passportMaxKb" class="form-control" value="50">
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 15px;">
+                            <label for="passportBgSelect"><i class="fa-solid fa-palette"></i> Backdrop replacement color</label>
+                            <select id="passportBgSelect" class="form-select">
+                                <option value="original" selected>Keep original background</option>
+                                <option value="white">Replace with pure White</option>
+                                <option value="light-blue">Replace with Soft Light Blue (Visa)</option>
+                                <option value="light-grey">Replace with Soft Light Grey</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 15px;">
+                            <div class="label-row">
+                                <label for="passportZoomRange"><i class="fa-solid fa-magnifying-glass-plus"></i> Adjust face zoom</label>
+                                <span class="value-display" id="passportZoomVal">1.0x</span>
+                            </div>
+                            <input type="range" id="passportZoomRange" min="0.5" max="2.5" step="0.05" value="1" class="slider" />
+                        </div>
+
+                        <div class="form-group" style="margin-top: 15px;">
+                            <label><i class="fa-solid fa-arrows-rotate"></i> Rotate Image</label>
+                            <div class="btn-group">
+                                <button class="btn btn-secondary btn-icon" onclick="rotateImage('passport', -90)" title="Rotate 90° CCW">
+                                    <i class="fa-solid fa-rotate-left"></i> Rotate Left
+                                </button>
+                                <button class="btn btn-secondary btn-icon" onclick="rotateImage('passport', 90)" title="Rotate 90° CW">
+                                    <i class="fa-solid fa-rotate-right"></i> Rotate Right
+                                </button>
+                                <button class="btn btn-danger btn-icon" onclick="resetControls('passport')" title="Reset Zoom & Rotation">
+                                    <i class="fa-solid fa-arrow-rotate-back"></i> Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right panel: Preview Stage & Output Specs -->
+                <div class="glass-card panel-preview">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-magnifying-glass"></i> Live Preview Stage</h3>
+                        <div class="preview-mode-nav" id="passportPreviewMode">
+                            <span class="pill-sm" data-mode="before" onclick="setPreviewView('passport', 'before')">Before</span>
+                            <span class="pill-sm active" data-mode="after" onclick="setPreviewView('passport', 'after')">After</span>
+                            <span class="pill-sm" data-mode="compare" onclick="setPreviewView('passport', 'compare')">Compare</span>
+                        </div>
+                    </div>
+
+                    <div class="preview-stage" id="passportPreviewStage">
+                        <span class="placeholder-text">
+                            <i class="fa-solid fa-user-tie"></i> Preview of processed passport photo will appear here
+                        </span>
+                    </div>
+
+                    <!-- Compliance Meter -->
+                    <div class="compliance-meter" id="passportComplianceMeter" style="display: none;">
+                        <div class="meter-header">
+                            <div>
+                                <span class="meter-title">Output File Size</span>
+                                <span class="current-size" id="passportCurrentSize">0 KB</span>
+                            </div>
+                            <span id="passportStatusBadge" class="status-badge status-invalid">
+                                <i class="fa-solid fa-circle-question"></i> Calculating
+                            </span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="passportSizeProgress" style="width: 0%"></div>
+                        </div>
+                        <div class="meter-footer">
+                            <span>Target range: <strong id="passportTargetRangeText">20 KB - 50 KB</strong></span>
+                            <span>Format: <strong>JPG / JPEG</strong></span>
+                        </div>
+                    </div>
+
+                    <!-- Action Bar -->
+                    <div class="action-bar" id="passportActionBar" style="display: none;">
+                        <button class="btn btn-success btn-lg flex-grow" onclick="downloadPassportOutput()">
+                            <i class="fa-solid fa-cloud-arrow-down animate-bounce"></i> Download Ready Passport Photo (JPG)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEO Informational & FAQ section -->
+            <section class="seo-guide-section glass-card" style="margin-top: 30px; padding: 25px;">
+                <h2>Official Guidelines for Online Passport and Visa Photos</h2>
+                <p>When applying for national passports or international visas (like the US Visa or Schengen Visa), the background, face composition, and file size restrictions must strictly adhere to the guidelines. Failing to upload a compliant photo will lead to application rejections.</p>
+                
+                <div class="info-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                    <div>
+                        <h4><i class="fa-solid fa-circle-info" style="color:var(--primary);"></i> Backdrop Guidelines</h4>
+                        <p>Most competitive exams and visa applications require a <strong>pure white background</strong>. Yellow backgrounds or patterns are strictly prohibited. Always use our built-in backdrop replacement to set it to white or light blue.</p>
+                    </div>
+                    <div>
+                        <h4><i class="fa-solid fa-circle-info" style="color:var(--primary);"></i> Image Scaling & DPI</h4>
+                        <p>Official passport sizes demand 300 DPI high-quality outputs. Our engine automatically rescales your images to standard dimensions like <strong>350x450 pixels (3.5x4.5 cm)</strong> or <strong>600x600 pixels (2x2 inches)</strong> while keeping quality crisp.</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 25px;">Frequently Asked Questions</h3>
+                <div class="faq-container">
+                    <details class="faq-item" open>
+                        <summary>What is the official size of an Indian Passport photo in pixels?</summary>
+                        <p>The standard size is 35mm x 45mm, which converts to 350x450 pixels when rendered at 300 DPI. The background color must be white, and the face must cover 70-80% of the photo.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>What are the photo dimensions for a US Visa online application?</summary>
+                        <p>A US Visa photo must be square (2 inches x 2 inches or 5.1 cm x 5.1 cm). In digital pixels, it is 600x600 px (minimum) to 1200x1200 px (maximum), with a target file size under 240 KB.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Why does the background color matter?</summary>
+                        <p>Automated facial recognition scanners used by passport offices and immigration portals require consistent light, solid backgrounds to accurately map facial features. Photos with busy backdrops are automatically rejected.</p>
+                    </details>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="app-footer text-center">
+            <p>© 2026 Exam Studio Pro Suite. All processing is executed client-side inside your browser. No files are uploaded to our servers.</p>
+        </footer>
+    </div>
+
+    <!-- Global Download History Modal -->
+    <div id="historyModal" class="modal-backdrop" style="display: none;" onclick="closeHistoryModalOnBackdrop(e)">
+        <div class="glass-card modal-container">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-clock-rotate-left"></i> Download History</h3>
+                <button class="btn btn-secondary btn-icon" onclick="toggleHistoryModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="historyModalBody">
+                <!-- Content generated via JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" onclick="clearDownloadHistory()">Clear All History</button>
+                <button class="btn btn-secondary" onclick="toggleHistoryModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+    <script>
+        // Custom logic to handle showing custom dimension fields
+        document.getElementById('passportPresetSelect').addEventListener('change', function(e) {
+            const customDiv = document.getElementById('passportCustomInputs');
+            customDiv.style.display = e.target.value === 'custom' ? 'flex' : 'none';
+        });
+
+        // Sync inputs with processPassportCanvas if Custom sizes change
+        ['passportW', 'passportH', 'passportMinKb', 'passportMaxKb'].forEach(id => {
+            document.getElementById(id).addEventListener('input', () => {
+                if (state.images.passport.original) processPassportCanvas();
+            });
+        });
+        
+        // Sync zoom range label value
+        document.getElementById('passportZoomRange').addEventListener('input', function(e) {
+            document.getElementById('passportZoomVal').textContent = parseFloat(e.target.value).toFixed(1) + 'x';
+        });
+    </script>
+</body>
+</html>

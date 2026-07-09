@@ -133,6 +133,55 @@ function getFallbackExamsData() {
             ]
         ],
         [
+            "id" => 20, "code" => "gujarat_police", "name" => "Gujarat Police Recruitment", "conducting_body" => "Lokrakshak Recruitment Board (LRB)", "category" => "Defence Exam", "country" => "India", "official_url" => "https://ojas.gujarat.gov.in",
+            "requirements" => [
+                "photo" => ["min_width_px" => 200, "max_width_px" => 200, "min_height_px" => 250, "max_height_px" => 250, "target_width" => 200, "target_height" => 250, "aspect_ratio" => "4:5", "min_kb" => 15, "max_kb" => 50, "bg_color" => "White or light background", "allowed_formats" => "JPG, JPEG", "dpi" => 200, "special_instructions" => "Recent passport size photo. Both ears visible."],
+                "signature" => ["min_width_px" => 140, "max_width_px" => 140, "min_height_px" => 80, "max_height_px" => 80, "target_width" => 140, "target_height" => 80, "aspect_ratio" => "7:4", "min_kb" => 5, "max_kb" => 20, "bg_color" => "White paper with black/blue ink", "allowed_formats" => "JPG, JPEG", "dpi" => 200, "special_instructions" => "Running hand signature."]
+            ]
+        ],
+        [
+            "id" => 21, "code" => "gpssb", "name" => "GPSSB Panchayat Recruitment", "conducting_body" => "Gujarat Panchayat Service Selection Board", "category" => "Government Job", "country" => "India", "official_url" => "https://gpssb.gujarat.gov.in",
+            "requirements" => [
+                "photo" => ["min_width_px" => 130, "max_width_px" => 150, "min_height_px" => 180, "max_height_px" => 200, "target_width" => 130, "target_height" => 180, "aspect_ratio" => "3.6:5.0", "min_kb" => 5, "max_kb" => 15, "bg_color" => "Light background", "allowed_formats" => "JPG, JPEG", "dpi" => 200, "special_instructions" => "OJAS standard photo max 15KB."],
+                "signature" => ["min_width_px" => 275, "max_width_px" => 300, "min_height_px" => 90, "max_height_px" => 100, "target_width" => 275, "target_height" => 90, "aspect_ratio" => "3:1", "min_kb" => 5, "max_kb" => 15, "bg_color" => "White paper with black/blue ink", "allowed_formats" => "JPG, JPEG", "dpi" => 200, "special_instructions" => "OJAS standard signature max 15KB."]
+            ]
+        ],
+        [
+            "id" => 22, "code" => "gpsc", "name" => "GPSC Gujarat Civil Services", "conducting_body" => "Gujarat Public Service Commission", "category" => "Civil Services", "country" => "India", "official_url" => "https://gpsc.gujarat.gov.in",
+            "requirements" => [
+                "photo" => ["min_width_px" => 130, "max_width_px" => 150, "min_height_px" => 180, "max_height_px" => 200, "target_width" => 130, "target_height" => 180, "aspect_ratio" => "3.6:5.0", "min_kb" => 5, "max_kb" => 15, "bg_color" => "Light background", "allowed_formats" => "JPG, JPEG", "dpi" => 200, "special_instructions" => "OJAS standard photo max 15KB."],
+                "signature" => ["min_width_px" => 275, "max_width_px" => 300, "min_height_px" => 90, "max_height_px" => 100, "target_width" => 275, "target_height" => 90, "aspect_ratio" => "3:1", "min_kb" => 5, "max_kb" => 15, "bg_color" => "White paper with black/blue ink", "allowed_formats" => "JPG, JPEG", "dpi" => 200, "special_instructions" => "OJAS standard signature max 15KB."]
+            ]
+        ],
+        [
+            "id" => 23, "code" => "indian_army", "name" => "Indian Army Agnipath Recruitment", "conducting_body" => "Indian Army", "category" => "Defence Exam", "country" => "India", "official_url" => "https://joinindianarmy.nic.in",
+            "requirements" => [
+                "photo" => ["min_width_px" => 350, "max_width_px" => 350, "min_height_px" => 450, "max_height_px" => 450, "target_width" => 350, "target_height" => 450, "aspect_ratio" => "3.5:4.5", "min_kb" => 20, "max_kb" => 50, "bg_color" => "White background", "allowed_formats" => "JPG, JPEG", "dpi" => 200, "special_instructions" => "Recent photo without cap/glasses."],
+                "signature" => ["min_width_px" => 350, "max_width_px" => 350, "min_height_px" => 150, "max_height_px" => 150, "target_width" => 350, "target_height" => 150, "aspect_ratio" => "7:3", "min_kb" => 10, "max_kb" => 20, "bg_color" => "White paper with black/blue ink", "allowed_formats" => "JPG, JPEG", "dpi" => 200, "special_instructions" => "Legible running signature."]
+            ]
+        ],
+        [
+            "id" => 24, "code" => "crpf", "name" => "CRPF Head Constable & GD Recruitment", "conducting_body" => "Central Reserve Police Force", "category" => "Defence Exam", "country" => "India", "official_url" => "https://crpf.gov.in",
+            "requirements" => [
+                "photo" => ["min_width_px" => 350, "max_width_px" => 350, "min_height_px" => 450, "max_height_px" => 450, "target_width" => 350, "target_height" => 450, "aspect_ratio" => "3.5:4.5", "min_kb" => 20, "max_kb" => 50, "bg_color" => "Light background", "allowed_formats" => "JPG, JPEG", "dpi" => 200, "special_instructions" => "Color passport photo, both ears visible."],
+                "signature" => ["min_width_px" => 400, "max_width_px" => 400, "min_height_px" => 200, "max_height_px" => 200, "target_width" => 400, "target_height" => 200, "aspect_ratio" => "2:1", "min_kb" => 10, "max_kb" => 20, "bg_color" => "White paper with black ink", "allowed_formats" => "JPG, JPEG", "dpi" => 200, "special_instructions" => "Signed in running hand."]
+            ]
+        ],
+        [
+            "id" => 25, "code" => "cisf", "name" => "CISF Constable & ASI Recruitment", "conducting_body" => "Central Industrial Security Force", "category" => "Defence Exam", "country" => "India", "official_url" => "https://cisfrectt.cisf.gov.in",
+            "requirements" => [
+                "photo" => ["min_width_px" => 350, "max_width_px" => 350, "min_height_px" => 450, "max_height_px" => 450, "target_width" => 350, "target_height" => 450, "aspect_ratio" => "3.5:4.5", "min_kb" => 20, "max_kb" => 50, "bg_color" => "White background", "allowed_formats" => "JPG, JPEG", "dpi" => 200, "special_instructions" => "Must have name and date of photo printed at bottom."],
+                "signature" => ["min_width_px" => 400, "max_width_px" => 400, "min_height_px" => 200, "max_height_px" => 200, "target_width" => 400, "target_height" => 200, "aspect_ratio" => "2:1", "min_kb" => 10, "max_kb" => 20, "bg_color" => "White paper with black ink", "allowed_formats" => "JPG, JPEG", "dpi" => 200, "special_instructions" => "Running hand signature in black ink."]
+            ]
+        ],
+        [
+            "id" => 26, "code" => "bsf", "name" => "BSF Constable GD & Head Constable", "conducting_body" => "Border Security Force", "category" => "Defence Exam", "country" => "India", "official_url" => "https://rectt.bsf.gov.in",
+            "requirements" => [
+                "photo" => ["min_width_px" => 350, "max_width_px" => 350, "min_height_px" => 450, "max_height_px" => 450, "target_width" => 350, "target_height" => 450, "aspect_ratio" => "3.5:4.5", "min_kb" => 20, "max_kb" => 50, "bg_color" => "White background", "allowed_formats" => "JPG, JPEG", "dpi" => 200, "special_instructions" => "Recent colored passport photo."],
+                "signature" => ["min_width_px" => 400, "max_width_px" => 400, "min_height_px" => 200, "max_height_px" => 200, "target_width" => 400, "target_height" => 200, "aspect_ratio" => "2:1", "min_kb" => 10, "max_kb" => 20, "bg_color" => "White paper with black/blue ink", "allowed_formats" => "JPG, JPEG", "dpi" => 200, "special_instructions" => "Running hand signature."]
+            ]
+        ],
+        [
             "id" => 14, "code" => "nepal_psc", "name" => "Nepal Lok Sewa Aayog (Public Service Commission Nepal)", "conducting_body" => "Lok Sewa Aayog Nepal 🇳🇵", "category" => "Government Job", "country" => "Nepal", "official_url" => "https://psc.gov.np",
             "requirements" => [
                 "photo" => ["min_width_px" => 350, "max_width_px" => 450, "min_height_px" => 450, "max_height_px" => 550, "target_width" => 350, "target_height" => 450, "aspect_ratio" => "3.5:4.5", "min_kb" => 20, "max_kb" => 200, "bg_color" => "Plain white background (PP size)", "allowed_formats" => "JPG, JPEG", "dpi" => 300],

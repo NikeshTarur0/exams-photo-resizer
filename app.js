@@ -584,6 +584,12 @@ function setupGenericToolDropzone(dropzoneId, fileInputId, toolKey, callback) {
     const fileInput = document.getElementById(fileInputId);
     if (!dropzone || !fileInput) return;
 
+    // Trigger file dialog on dropzone click
+    dropzone.addEventListener('click', (e) => {
+        if (e.target === fileInput) return;
+        fileInput.click();
+    });
+
     ['dragenter', 'dragover'].forEach(eventName => {
         dropzone.addEventListener(eventName, (e) => {
             e.preventDefault();

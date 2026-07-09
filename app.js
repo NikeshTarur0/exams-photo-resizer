@@ -546,13 +546,7 @@ function setupUtilityToolDropzones() {
         });
     }
 
-    const passportBg = document.getElementById('passportBgSelect');
-    if (passportBg) {
-        passportBg.addEventListener('change', (e) => {
-            state.images.passport.bg = e.target.value;
-            if (state.images.passport.original) processPassportCanvas();
-        });
-    }
+
 
     const sigResizerZoom = document.getElementById('sigResizerZoomRange');
     if (sigResizerZoom) {
@@ -1420,19 +1414,8 @@ function processPassportCanvas() {
     canvas.height = targetH;
     const ctx = canvas.getContext('2d');
 
-    if (imgObj.bg === 'white') {
-        ctx.fillStyle = '#FFFFFF';
-        ctx.fillRect(0, 0, targetW, targetH);
-    } else if (imgObj.bg === 'light-blue') {
-        ctx.fillStyle = '#e0f2fe';
-        ctx.fillRect(0, 0, targetW, targetH);
-    } else if (imgObj.bg === 'light-grey') {
-        ctx.fillStyle = '#f1f5f9';
-        ctx.fillRect(0, 0, targetW, targetH);
-    } else {
-        ctx.fillStyle = '#FFFFFF';
-        ctx.fillRect(0, 0, targetW, targetH);
-    }
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(0, 0, targetW, targetH);
 
     ctx.save();
     ctx.translate(targetW / 2, targetH / 2);
@@ -1452,98 +1435,6 @@ function processPassportCanvas() {
 
     ctx.drawImage(imgObj.original, -drawW / 2, -drawH / 2, drawW, drawH);
     ctx.restore();
-
-    if (imgObj.bg !== 'original') {
-        const imgData = ctx.getImageData(0, 0, targetW, targetH);
-        const data = imgData.data;
-        const w = targetW;
-        const h = targetH;
-
-        // 1. Calculate Average Background Color from Outer Image Borders
-        let totalR = 0, totalG = 0, totalB = 0, count = 0;
-        for (let x = 0; x < w; x++) {
-            let idx = (0 * w + x) * 4;
-            totalR += data[idx]; totalG += data[idx + 1]; totalB += data[idx + 2]; count++;
-            idx = ((h - 1) * w + x) * 4;
-            totalR += data[idx]; totalG += data[idx + 1]; totalB += data[idx + 2]; count++;
-        }
-        for (let y = 0; y < h; y++) {
-            let idx = (y * w + 0) * 4;
-            totalR += data[idx]; totalG += data[idx + 1]; totalB += data[idx + 2]; count++;
-            idx = (y * w + (w - 1)) * 4;
-            totalR += data[idx]; totalG += data[idx + 1]; totalB += data[idx + 2]; count++;
-        }
-
-        const bgR = Math.round(totalR / count);
-        const bgG = Math.round(totalG / count);
-        const bgB = Math.round(totalB / count);
-
-        // 2. Perform BFS / Flood-Fill starting ONLY from Outer Border Pixels
-        const visited = new Uint8Array(w * h);
-        const queue = [];
-        const threshold = 30; // standard background threshold
-
-        const isBgPixel = (idx) => {
-            const diff = Math.abs(data[idx] - bgR) + Math.abs(data[idx + 1] - bgG) + Math.abs(data[idx + 2] - bgB);
-            return diff < threshold * 2.5;
-        };
-
-        for (let x = 0; x < w; x++) {
-            let iTop = 0 * w + x;
-            if (isBgPixel(iTop * 4)) { visited[iTop] = 1; queue.push(iTop); }
-            let iBtm = (h - 1) * w + x;
-            if (isBgPixel(iBtm * 4)) { visited[iBtm] = 1; queue.push(iBtm); }
-        }
-        for (let y = 0; y < h; y++) {
-            let iLft = y * w + 0;
-            if (!visited[iLft] && isBgPixel(iLft * 4)) { visited[iLft] = 1; queue.push(iLft); }
-            let iRgt = y * w + (w - 1);
-            if (!visited[iRgt] && isBgPixel(iRgt * 4)) { visited[iRgt] = 1; queue.push(iRgt); }
-        }
-
-        let head = 0;
-        while (head < queue.length) {
-            const p = queue[head++];
-            const px = p % w;
-            const py = Math.floor(p / w);
-
-            const neighbors = [
-                py > 0 ? (py - 1) * w + px : -1,
-                py < h - 1 ? (py + 1) * w + px : -1,
-                px > 0 ? py * w + (px - 1) : -1,
-                px < w - 1 ? py * w + (px + 1) : -1
-            ];
-
-            for (let n of neighbors) {
-                if (n >= 0 && !visited[n]) {
-                    if (isBgPixel(n * 4)) {
-                        visited[n] = 1;
-                        queue.push(n);
-                    }
-                }
-            }
-        }
-
-        // Set target replacement background color
-        let repR = 255, repG = 255, repB = 255;
-        if (imgObj.bg === 'light-blue') {
-            repR = 224; repG = 242; repB = 254; // #e0f2fe
-        } else if (imgObj.bg === 'light-grey') {
-            repR = 241; repG = 245; repB = 249; // #f1f5f9
-        }
-
-        for (let i = 0; i < w * h; i++) {
-            if (visited[i]) {
-                const idx = i * 4;
-                data[idx] = repR;
-                data[idx + 1] = repG;
-                data[idx + 2] = repB;
-                data[idx + 3] = 255;
-            }
-        }
-
-        ctx.putImageData(imgData, 0, 0);
-    }
 
     let lowQ = 0.05;
     let highQ = 0.98;

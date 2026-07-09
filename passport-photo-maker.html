@@ -161,15 +161,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group" style="margin-top: 15px;">
-                            <label for="passportBgSelect"><i class="fa-solid fa-palette"></i> Backdrop replacement color</label>
-                            <select id="passportBgSelect" class="form-select">
-                                <option value="original" selected>Keep original background</option>
-                                <option value="white">Replace with pure White</option>
-                                <option value="light-blue">Replace with Soft Light Blue (Visa)</option>
-                                <option value="light-grey">Replace with Soft Light Grey</option>
-                            </select>
-                        </div>
+
 
                         <div class="form-group" style="margin-top: 15px;">
                             <div class="label-row">
@@ -319,11 +311,7 @@
             if (state.images.passport.original) processPassportCanvas();
         });
 
-        // Sync backdrop replacement color
-        document.getElementById('passportBgSelect').addEventListener('change', function(e) {
-            state.images.passport.bg = e.target.value;
-            if (state.images.passport.original) processPassportCanvas();
-        });
+
 
         // Sync inputs with processPassportCanvas if Custom sizes change
         ['passportW', 'passportH', 'passportMinKb', 'passportMaxKb'].forEach(id => {

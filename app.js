@@ -492,15 +492,41 @@ function setupUtilityToolDropzones() {
     }
 
     const resizeW = document.getElementById('resizeW');
-    if (resizeW) {
+    const resizeH = document.getElementById('resizeH');
+    const resizeLock = document.getElementById('resizeLockAspect');
+
+    if (resizeW && resizeH) {
         resizeW.addEventListener('input', (e) => {
-            if (state.images.resize.original) processResizeTool();
+            if (state.images.resize.original) {
+                if (resizeLock && resizeLock.checked) {
+                    const ratio = state.images.resize.original.height / state.images.resize.original.width;
+                    const val = parseInt(e.target.value) || 0;
+                    resizeH.value = Math.round(val * ratio);
+                }
+                processResizeTool();
+            }
+        });
+
+        resizeH.addEventListener('input', (e) => {
+            if (state.images.resize.original) {
+                if (resizeLock && resizeLock.checked) {
+                    const ratio = state.images.resize.original.width / state.images.resize.original.height;
+                    const val = parseInt(e.target.value) || 0;
+                    resizeW.value = Math.round(val * ratio);
+                }
+                processResizeTool();
+            }
         });
     }
-    const resizeH = document.getElementById('resizeH');
-    if (resizeH) {
-        resizeH.addEventListener('input', (e) => {
-            if (state.images.resize.original) processResizeTool();
+
+    if (resizeLock) {
+        resizeLock.addEventListener('change', () => {
+            if (state.images.resize.original && resizeLock.checked && resizeW && resizeH) {
+                const ratio = state.images.resize.original.height / state.images.resize.original.width;
+                const val = parseInt(resizeW.value) || 0;
+                resizeH.value = Math.round(val * ratio);
+                processResizeTool();
+            }
         });
     }
 

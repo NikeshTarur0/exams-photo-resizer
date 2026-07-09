@@ -40,36 +40,34 @@
     </script>
 </head>
 <body data-theme="dark">
-    <!-- Animated Glow Background -->
-    <div class="glow-bg">
-        <div class="glow-sphere sphere-1"></div>
-        <div class="glow-sphere sphere-2"></div>
-    </div>
+    <!-- Background Animated Glow Effects -->
+    <div class="glow-bg glow-1"></div>
+    <div class="glow-bg glow-2"></div>
 
     <!-- Main Container -->
     <div class="app-container">
-        <!-- Global Header -->
-        <header class="app-header">
-            <div class="brand">
-                <div class="logo-icon">
-                    <i class="fa-solid fa-graduation-cap"></i>
-                </div>
-                <div>
-                    <h1>Exam Studio <span class="badge">Pro Suite</span></h1>
-                    <p class="subtitle">Indian Exam & Government Form Image Utilities</p>
+        <!-- Header / Navbar -->
+        <header class="main-header">
+            <div class="logo-area">
+                <img src="logo.svg" alt="Exams Photo Resizer Logo" class="app-logo-img">
+                <div class="logo-text">
+                    <h1>Exams Photo Resizer<span class="badge-india">🇮🇳 Exam & Image Suite</span></h1>
+                    <p class="tagline">All-in-One Image Utility • Resizer • Compressor • BG Remover • PDF to Image</p>
                 </div>
             </div>
             <div class="header-actions">
-                <button class="btn btn-secondary btn-icon" id="themeToggleBtn" title="Toggle Theme">
-                    <i class="fa-solid fa-sun"></i>
+                <button id="themeToggleBtn" class="btn-icon" title="Toggle Light/Dark Theme">
+                    <i class="fa-solid fa-moon"></i>
                 </button>
-                <button class="btn btn-secondary" onclick="toggleHistoryModal()">
-                    <i class="fa-solid fa-clock-rotate-left"></i> History 
-                    <span id="historyBadge" class="history-badge" style="display:none;">0</span>
+                <button id="historyModalBtn" class="btn-icon" title="Local Download History" onclick="toggleHistoryModal()" style="position: relative;">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span id="historyBadge" class="history-badge" style="display: none;">0</span>
                 </button>
-                <button class="btn btn-danger" onclick="resetEntireWorkspace()">
-                    <i class="fa-solid fa-trash-can"></i> Clear Workspace
+                <button class="btn btn-secondary btn-sm" onclick="resetEntireWorkspace()" title="Reset All Images & Inputs">
+                    <i class="fa-solid fa-rotate-right"></i> Reset
                 </button>
+                <a href="reviews.html" class="nav-link"><i class="fa-solid fa-star" style="color: #f59e0b;"></i> Reviews (4.9⭐)</a>
+                <a href="index.html#presets" class="nav-link"><i class="fa-solid fa-list-check"></i> Specs Guide</a>
             </div>
         </header>
 
@@ -222,30 +220,35 @@
         </div>
 
         <!-- Footer -->
-        <footer class="app-footer text-center">
-            <p>© 2026 Exam Studio Pro Suite. All processing is executed client-side inside your browser. No files are uploaded to our servers.</p>
+        <footer class="main-footer text-center" style="margin-top: 40px; padding: 20px 0; border-top: 1px solid var(--card-border); font-size: 13px; color: var(--text-muted);">
+            <p>© 2026 Exams Photo Resizer • <a href="index.html" style="color: var(--accent-primary);">Home</a> | <a
+                    href="about.html" style="color: var(--accent-primary);">About Us</a> | <a href="reviews.html"
+                    style="color: var(--accent-primary);">Reviews</a> | <a href="privacy.html"
+                    style="color: var(--accent-primary);">Privacy Policy</a> | <a href="terms.html"
+                    style="color: var(--accent-primary);">Terms of Service</a> | <a href="contact.html"
+                    style="color: var(--accent-primary);">Contact Us</a></p>
         </footer>
     </div>
 
-    <!-- Global Download History Modal -->
-    <div id="historyModal" class="modal-backdrop" style="display: none;" onclick="closeHistoryModalOnBackdrop(e)">
-        <div class="glass-card modal-container">
+    <!-- Download History Modal -->
+    <div id="historyModal" class="modal-backdrop" style="display: none;" onclick="closeHistoryModalOnBackdrop(event)">
+        <div class="modal-content glass-panel">
             <div class="modal-header">
-                <h3><i class="fa-solid fa-clock-rotate-left"></i> Download History</h3>
-                <button class="btn btn-secondary btn-icon" onclick="toggleHistoryModal()">&times;</button>
+                <h3><i class="fa-solid fa-clock-rotate-left"></i> Download History (Saved Locally)</h3>
+                <button class="btn-close" onclick="toggleHistoryModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="modal-body" id="historyModalBody">
-                <!-- Content generated via JavaScript -->
+                <!-- Dynamically populated by JS -->
             </div>
             <div class="modal-footer">
-                <button class="btn btn-danger" onclick="clearDownloadHistory()">Clear All History</button>
-                <button class="btn btn-secondary" onclick="toggleHistoryModal()">Close</button>
+                <button class="btn btn-secondary btn-sm" onclick="clearDownloadHistory()"><i class="fa-solid fa-trash-can"></i> Clear History</button>
+                <button class="btn btn-primary btn-sm" onclick="toggleHistoryModal()">Close</button>
             </div>
         </div>
     </div>
 
-    <!-- Toast Container -->
-    <div class="toast-container" id="toastContainer"></div>
+    <!-- Notification Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
 
     <!-- Scripts -->
     <script src="app.js"></script>

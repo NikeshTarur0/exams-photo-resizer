@@ -309,10 +309,12 @@
     <!-- Scripts -->
     <script src="app.js"></script>
     <script>
-        // Custom logic to handle showing custom dimension fields
+        // Custom logic to handle showing custom dimension fields & update preset state
         document.getElementById('sigResizerPresetSelect').addEventListener('change', function(e) {
             const customDiv = document.getElementById('sigResizerCustomInputs');
             customDiv.style.display = e.target.value === 'custom' ? 'flex' : 'none';
+            state.images.sigResizer.preset = e.target.value;
+            if (state.images.sigResizer.original) processSigResizerCanvas();
         });
 
         // Sync inputs with processSigResizerCanvas if Custom sizes change
@@ -321,10 +323,19 @@
                 if (state.images.sigResizer.original) processSigResizerCanvas();
             });
         });
+
+        // Sync enhance filter checkbox
+        document.getElementById('sigResizerEnhance').addEventListener('change', function(e) {
+            state.images.sigResizer.enhance = e.target.checked;
+            if (state.images.sigResizer.original) processSigResizerCanvas();
+        });
         
-        // Sync zoom range label value
+        // Sync zoom range label value & update state/canvas
         document.getElementById('sigResizerZoomRange').addEventListener('input', function(e) {
-            document.getElementById('sigResizerZoomVal').textContent = parseFloat(e.target.value).toFixed(1) + 'x';
+            const zoomVal = parseFloat(e.target.value);
+            document.getElementById('sigResizerZoomVal').textContent = zoomVal.toFixed(1) + 'x';
+            state.images.sigResizer.zoom = zoomVal;
+            if (state.images.sigResizer.original) processSigResizerCanvas();
         });
     </script>
 </body>

@@ -311,10 +311,18 @@
     <!-- Scripts -->
     <script src="app.js"></script>
     <script>
-        // Custom logic to handle showing custom dimension fields
+        // Custom logic to handle showing custom dimension fields & update preset state
         document.getElementById('passportPresetSelect').addEventListener('change', function(e) {
             const customDiv = document.getElementById('passportCustomInputs');
             customDiv.style.display = e.target.value === 'custom' ? 'flex' : 'none';
+            state.images.passport.preset = e.target.value;
+            if (state.images.passport.original) processPassportCanvas();
+        });
+
+        // Sync backdrop replacement color
+        document.getElementById('passportBgSelect').addEventListener('change', function(e) {
+            state.images.passport.bg = e.target.value;
+            if (state.images.passport.original) processPassportCanvas();
         });
 
         // Sync inputs with processPassportCanvas if Custom sizes change
@@ -324,9 +332,12 @@
             });
         });
         
-        // Sync zoom range label value
+        // Sync zoom range label value & update state/canvas
         document.getElementById('passportZoomRange').addEventListener('input', function(e) {
-            document.getElementById('passportZoomVal').textContent = parseFloat(e.target.value).toFixed(1) + 'x';
+            const zoomVal = parseFloat(e.target.value);
+            document.getElementById('passportZoomVal').textContent = zoomVal.toFixed(1) + 'x';
+            state.images.passport.zoom = zoomVal;
+            if (state.images.passport.original) processPassportCanvas();
         });
     </script>
 </body>

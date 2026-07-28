@@ -67,6 +67,7 @@
                     <i class="fa-solid fa-rotate-right"></i> Reset
                 </button>
                 <a href="reviews.html" class="nav-link"><i class="fa-solid fa-star" style="color: #f59e0b;"></i> Reviews (4.9⭐)</a>
+                <a href="guides/index.html" class="nav-link"><i class="fa-solid fa-book-bookmark" style="color: var(--accent-primary);"></i> Exam Guides Hub</a>
                 <a href="index.html#presets" class="nav-link"><i class="fa-solid fa-list-check"></i> Specs Guide</a>
             </div>
         </header>
@@ -179,35 +180,77 @@
                 </div>
             </div>
 
-            <!-- SEO Informational & FAQ section -->
-            <section class="seo-guide-section glass-card" style="margin-top: 30px; padding: 25px;">
-                <h2>Online White Background Creator & Document Background Cleaner</h2>
-                <p>When applying for exams or jobs, photo scanner accessibility is rare. Most candidates snap pictures of their passport photos and signatures using phone cameras in low light. This produces shadow gradients and yellow backgrounds. Our online BG remover automatically removes these imperfections to save your application from being rejected.</p>
+            <!-- SEO Informational & Technical Guide section -->
+            <section class="seo-guide-section glass-card" style="margin-top: 35px; padding: 30px; line-height: 1.8;">
+                <h2 style="font-size: 24px; font-weight: 700; color: var(--text-main); margin-bottom: 15px;">
+                    <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent-primary);"></i> Online White Background Creator & Document Cleaner Guide
+                </h2>
+                <p>Official examination portals (UPSC, SSC, NTA NEET, IBPS, Passport Seva Kendra, Visa DS-160) strictly require photographs to feature a clean, solid, light-colored background (preferably pure white). Photographs taken against home curtains, room walls with shadows, or dark rooms are frequently rejected by automated AI application verification filters. Our free Online Background Remover cleans dark background shadows and replaces yellow lighting artifacts with solid white in seconds.</p>
                 
-                <div class="info-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
-                    <div>
-                        <h4><i class="fa-solid fa-shield-halved" style="color:var(--primary);"></i> 100% Client-Side Privacy</h4>
-                        <p>Unlike other background removal portals, we do not upload your sensitive personal photos or signatures to cloud servers. The entire edge-detection algorithm executes inside your browser tab locally.</p>
-                    </div>
-                    <div>
-                        <h4><i class="fa-solid fa-circle-check" style="color:var(--primary);"></i> Smart Contrast Segmentation</h4>
-                        <p>Adjust the sensitivity threshold slider to cleanly isolate clothes, skin tones, and signatures from paper shadows. Clean shadows instantly to fit UPSC, IBPS, and State PSC guidelines.</p>
-                    </div>
+                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent-primary); margin-top: 25px; margin-bottom: 15px;">Background Requirements by Portal Type</h3>
+                
+                <div style="overflow-x: auto; margin-bottom: 25px;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;">
+                        <thead>
+                            <tr style="background: rgba(255,255,255,0.05); border-bottom: 2px solid var(--card-border);">
+                                <th style="padding: 12px 15px;">Portal / Exam Body</th>
+                                <th style="padding: 12px 15px;">Required Background Color</th>
+                                <th style="padding: 12px 15px;">Shadow Tolerance</th>
+                                <th style="padding: 12px 15px;">Allowed Formats</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid var(--card-border);">
+                                <td style="padding: 12px 15px;"><strong>Passport Seva Kendra (India)</strong></td>
+                                <td style="padding: 12px 15px;">Solid Plain White strictly</td>
+                                <td style="padding: 12px 15px; color: #ef4444;">Zero Shadow Allowed</td>
+                                <td style="padding: 12px 15px;">JPG / JPEG</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--card-border);">
+                                <td style="padding: 12px 15px;"><strong>UPSC Civil Services (OTR)</strong></td>
+                                <td style="padding: 12px 15px;">Plain White or Light Grey</td>
+                                <td style="padding: 12px 15px; color: #ef4444;">Zero Facial Shadows</td>
+                                <td style="padding: 12px 15px;">JPG / JPEG</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--card-border);">
+                                <td style="padding: 12px 15px;"><strong>Staff Selection Commission (SSC)</strong></td>
+                                <td style="padding: 12px 15px;">Light / Off-white background</td>
+                                <td style="padding: 12px 15px;">Minimal shadow tolerance</td>
+                                <td style="padding: 12px 15px;">JPG / JPEG</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--card-border);">
+                                <td style="padding: 12px 15px;"><strong>NTA NEET UG / JEE Main</strong></td>
+                                <td style="padding: 12px 15px;">Pure White background</td>
+                                <td style="padding: 12px 15px; color: #ef4444;">Zero Shadow Allowed</td>
+                                <td style="padding: 12px 15px;">JPG / JPEG</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
-                <h3 style="margin-top: 25px;">Frequently Asked Questions</h3>
+                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent-primary); margin-top: 25px; margin-bottom: 15px;">How Client-Side Background Segmentation Works</h3>
+                <p>Unlike third-party portals that upload your sensitive personal face photos or signature scans to external server clouds, our Background Remover engine executes 100% locally inside your browser using HTML5 Canvas pixel manipulation. It analyzes edge color frequencies, isolates human face silhouettes and signature ink strokes from background noise, and applies pure solid white fills without sending data across the internet.</p>
+
+                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent-primary); margin-top: 25px; margin-bottom: 15px;">Related Exam Guides</h3>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 25px;">
+                    <a href="guides/upsc-photo-signature-resizer-guide.html" class="btn btn-secondary btn-sm"><i class="fa-solid fa-book"></i> UPSC Background Rules</a>
+                    <a href="guides/neet-passport-postcard-photo-size-guide.html" class="btn btn-secondary btn-sm"><i class="fa-solid fa-book"></i> NEET White Background Specs</a>
+                    <a href="guides/index.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-book-bookmark"></i> Knowledge Hub</a>
+                </div>
+
+                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent-primary); margin-top: 25px; margin-bottom: 15px;">Frequently Asked Questions</h3>
                 <div class="faq-container">
-                    <details class="faq-item" open>
-                        <summary>How can I remove phone shadow from my photo background?</summary>
-                        <p>Simply upload your image into the dropzone. Our script scans pixels from the border edge coordinates, determines the backdrop shade, and replaces grey/yellow shadows with solid white (#FFFFFF).</p>
+                    <details class="faq-item" open style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--card-border);">
+                        <summary style="font-weight: 600; cursor: pointer; color: var(--text-main);">How can I remove phone shadow from my photo background?</summary>
+                        <p style="margin-top: 10px; font-size: 14px; color: var(--text-muted);">Simply upload your image into the dropzone. Our script scans border edge pixel coordinates, isolates backdrop shade gradients, and replaces grey/yellow shadows with solid white (#FFFFFF).</p>
                     </details>
-                    <details class="faq-item">
-                        <summary>Is this background remover completely free?</summary>
-                        <p>Yes! It is 100% free with no watermark. It handles high-resolution pictures locally, saving your internet bandwidth.</p>
+                    <details class="faq-item" style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--card-border);">
+                        <summary style="font-weight: 600; cursor: pointer; color: var(--text-main);">Is this background remover completely free and private?</summary>
+                        <p style="margin-top: 10px; font-size: 14px; color: var(--text-muted);">Yes! It is 100% free with zero watermark. It processes high-resolution pictures locally inside your web browser, ensuring complete data privacy.</p>
                     </details>
-                    <details class="faq-item">
-                        <summary>What background type should I use for exam forms?</summary>
-                        <p>Always select the "Pure White (#FFFFFF)" option, as most exam boards strictly specify a white background and reject transparent PNG files.</p>
+                    <details class="faq-item" style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--card-border);">
+                        <summary style="font-weight: 600; cursor: pointer; color: var(--text-main);">What background type should I use for exam forms?</summary>
+                        <p style="margin-top: 10px; font-size: 14px; color: var(--text-muted);">Always select the "Pure White (#FFFFFF)" option, as almost all exam boards strictly specify a white background and reject transparent PNG files.</p>
                     </details>
                 </div>
             </section>
@@ -215,12 +258,7 @@
 
         <!-- Footer -->
         <footer class="main-footer text-center" style="margin-top: 40px; padding: 20px 0; border-top: 1px solid var(--card-border); font-size: 13px; color: var(--text-muted);">
-            <p>© 2026 Exams Photo Resizer • <a href="index.html" style="color: var(--accent-primary);">Home</a> | <a
-                    href="about.html" style="color: var(--accent-primary);">About Us</a> | <a href="reviews.html"
-                    style="color: var(--accent-primary);">Reviews</a> | <a href="privacy.html"
-                    style="color: var(--accent-primary);">Privacy Policy</a> | <a href="terms.html"
-                    style="color: var(--accent-primary);">Terms of Service</a> | <a href="contact.html"
-                    style="color: var(--accent-primary);">Contact Us</a></p>
+            <p>© 2026 Exams Photo Resizer • <a href="index.html" style="color: var(--accent-primary);">Home</a> | <a href="guides/index.html" style="color: var(--accent-primary);">Knowledge Hub</a> | <a href="about.html" style="color: var(--accent-primary);">About Us</a> | <a href="reviews.html" style="color: var(--accent-primary);">Reviews</a> | <a href="privacy.html" style="color: var(--accent-primary);">Privacy Policy</a> | <a href="terms.html" style="color: var(--accent-primary);">Terms of Service</a> | <a href="contact.html" style="color: var(--accent-primary);">Contact Us</a></p>
         </footer>
     </div>
 

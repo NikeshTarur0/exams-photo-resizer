@@ -67,6 +67,7 @@
                     <i class="fa-solid fa-rotate-right"></i> Reset
                 </button>
                 <a href="reviews.html" class="nav-link"><i class="fa-solid fa-star" style="color: #f59e0b;"></i> Reviews (4.9⭐)</a>
+                <a href="guides/index.html" class="nav-link"><i class="fa-solid fa-book-bookmark" style="color: var(--accent-primary);"></i> Exam Guides Hub</a>
                 <a href="index.html#presets" class="nav-link"><i class="fa-solid fa-list-check"></i> Specs Guide</a>
             </div>
         </header>
@@ -179,35 +180,72 @@
                 </div>
             </div>
 
-            <!-- SEO Informational & FAQ section -->
-            <section class="seo-guide-section glass-card" style="margin-top: 30px; padding: 25px;">
-                <h2>Image Resizing Guidelines & Calculation Standards</h2>
-                <p>Digital application portals rely on rigid aspect ratios to maintain standard document layouts. If you upload a photo with mismatched dimensions, the rendering engine might squish or stretch your facial features. Maintaining standard height and width limits is critical.</p>
+            <!-- SEO Informational & Technical Guide section -->
+            <section class="seo-guide-section glass-card" style="margin-top: 35px; padding: 30px; line-height: 1.8;">
+                <h2 style="font-size: 24px; font-weight: 700; color: var(--text-main); margin-bottom: 15px;">
+                    <i class="fa-solid fa-up-right-and-down-left-from-center" style="color: var(--accent-primary);"></i> Master Guide to Resizing Images by Pixels & Centimeters
+                </h2>
+                <p>Digital recruitment portals and visa portals rely on rigid aspect ratios to maintain standard document layouts. If you upload a photo with mismatched pixel dimensions, automated web portals might stretch or compress facial features. Maintaining standard height and width limits in exact pixels (e.g. 350x450px, 140x60px, 600x600px) is mandatory for smooth application processing.</p>
                 
-                <div class="info-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
-                    <div>
-                        <h4><i class="fa-solid fa-link" style="color:var(--primary);"></i> Locking Aspect Ratio</h4>
-                        <p>Keep the "Lock Aspect Ratio" box checked to prevent structural distortion. Changing width will automatically calculate and scale height proportionally to prevent stretched images.</p>
-                    </div>
-                    <div>
-                        <h4><i class="fa-solid fa-calculator" style="color:var(--primary);"></i> Pixels to cm / mm conversion</h4>
-                        <p>If your instruction sheet specifies dimensions in centimeters (e.g. 3.5 x 4.5 cm), convert it at 300 DPI: <strong>Width = 3.5 cm * 118 px/cm = 413 px</strong>, and <strong>Height = 4.5 cm * 118 px/cm = 531 px</strong>.</p>
-                    </div>
+                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent-primary); margin-top: 25px; margin-bottom: 15px;">Centimeter to Pixel Conversion Table (at 300 DPI Standard)</h3>
+                
+                <div style="overflow-x: auto; margin-bottom: 25px;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;">
+                        <thead>
+                            <tr style="background: rgba(255,255,255,0.05); border-bottom: 2px solid var(--card-border);">
+                                <th style="padding: 12px 15px;">Dimensions in Centimeters (cm)</th>
+                                <th style="padding: 12px 15px;">Equivalent Pixels (at 300 DPI)</th>
+                                <th style="padding: 12px 15px;">Typical Application Standard</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid var(--card-border);">
+                                <td style="padding: 12px 15px;">3.5 cm × 4.5 cm</td>
+                                <td style="padding: 12px 15px; color: #10b981;">350 × 450 px</td>
+                                <td style="padding: 12px 15px;">Indian Passport, SSC CGL, UPSC, State PSC</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--card-border);">
+                                <td style="padding: 12px 15px;">5.1 cm × 5.1 cm (2 × 2 inches)</td>
+                                <td style="padding: 12px 15px; color: #10b981;">600 × 600 px</td>
+                                <td style="padding: 12px 15px;">US Visa, OCI Card, Overseas Passport</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--card-border);">
+                                <td style="padding: 12px 15px;">10 cm × 15 cm (4 × 6 inches)</td>
+                                <td style="padding: 12px 15px; color: #10b981;">1200 × 1800 px</td>
+                                <td style="padding: 12px 15px;">NTA NEET 4x6 Postcard Photograph</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--card-border);">
+                                <td style="padding: 12px 15px;">2.5 cm × 3.5 cm</td>
+                                <td style="padding: 12px 15px; color: #10b981;">213 × 213 px / 295 × 413 px</td>
+                                <td style="padding: 12px 15px;">PAN Card (NSDL/UTIITSL)</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
-                <h3 style="margin-top: 25px;">Frequently Asked Questions</h3>
+                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent-primary); margin-top: 25px; margin-bottom: 15px;">Why Locking Aspect Ratio Prevents Distortion</h3>
+                <p>When you check the "Lock Aspect Ratio" box in our pixel resizer, updating width automatically calculates height proportionally. Unchecking the lock allows you to force non-proportional custom sizes specified by rigid portals (such as 140×60px for signatures or 350×350px for UPSC square crops).</p>
+
+                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent-primary); margin-top: 25px; margin-bottom: 15px;">Related Exam Dimension Guides</h3>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 25px;">
+                    <a href="guides/ssc-cgl-photo-signature-requirements.html" class="btn btn-secondary btn-sm"><i class="fa-solid fa-book"></i> SSC Pixel Specs</a>
+                    <a href="guides/gate-exam-photo-signature-specifications.html" class="btn btn-secondary btn-sm"><i class="fa-solid fa-book"></i> GATE GOAPS Pixel Standards</a>
+                    <a href="guides/index.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-book-bookmark"></i> Knowledge Hub</a>
+                </div>
+
+                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent-primary); margin-top: 25px; margin-bottom: 15px;">Frequently Asked Questions</h3>
                 <div class="faq-container">
-                    <details class="faq-item" open>
-                        <summary>What is the best pixel size for standard photo uploads?</summary>
-                        <p>A safe standard for general profile pictures and web applications is 800 x 800 pixels (aspect ratio 1:1) or 600 x 800 pixels (aspect ratio 3:4).</p>
+                    <details class="faq-item" open style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--card-border);">
+                        <summary style="font-weight: 600; cursor: pointer; color: var(--text-main);">What is the best pixel size for standard photo uploads?</summary>
+                        <p style="margin-top: 10px; font-size: 14px; color: var(--text-muted);">A safe standard for general profile pictures and web application forms is 350x450 pixels (aspect ratio 3:4) or 600x600 pixels (aspect ratio 1:1).</p>
                     </details>
-                    <details class="faq-item">
-                        <summary>How can I resize by centimeters (cm) online?</summary>
-                        <p>First, calculate the pixels based on standard 300 DPI resolution, and then input those pixel counts directly in the Width and Height input fields above.</p>
+                    <details class="faq-item" style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--card-border);">
+                        <summary style="font-weight: 600; cursor: pointer; color: var(--text-main);">Will resizing pixel dimensions reduce file size in KB?</summary>
+                        <p style="margin-top: 10px; font-size: 14px; color: var(--text-muted);">Yes! Shrinking pixel dimensions (e.g. from 4000px down to 350px) reduces the number of image pixels, compressing file size in KB dramatically.</p>
                     </details>
-                    <details class="faq-item">
-                        <summary>Will resizing my photo reduce its file size (KB)?</summary>
-                        <p>Yes. Shrinking pixel dimensions (e.g., from 4000px down to 800px) reduces the amount of source image data, compressing file size in KB dramatically.</p>
+                    <details class="faq-item" style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--card-border);">
+                        <summary style="font-weight: 600; cursor: pointer; color: var(--text-main);">Is this pixel resizer tool completely free and private?</summary>
+                        <p style="margin-top: 10px; font-size: 14px; color: var(--text-muted);">Yes. All operations run in your local web browser tab without uploading files to remote servers.</p>
                     </details>
                 </div>
             </section>
@@ -215,12 +253,7 @@
 
         <!-- Footer -->
         <footer class="main-footer text-center" style="margin-top: 40px; padding: 20px 0; border-top: 1px solid var(--card-border); font-size: 13px; color: var(--text-muted);">
-            <p>© 2026 Exams Photo Resizer • <a href="index.html" style="color: var(--accent-primary);">Home</a> | <a
-                    href="about.html" style="color: var(--accent-primary);">About Us</a> | <a href="reviews.html"
-                    style="color: var(--accent-primary);">Reviews</a> | <a href="privacy.html"
-                    style="color: var(--accent-primary);">Privacy Policy</a> | <a href="terms.html"
-                    style="color: var(--accent-primary);">Terms of Service</a> | <a href="contact.html"
-                    style="color: var(--accent-primary);">Contact Us</a></p>
+            <p>© 2026 Exams Photo Resizer • <a href="index.html" style="color: var(--accent-primary);">Home</a> | <a href="guides/index.html" style="color: var(--accent-primary);">Knowledge Hub</a> | <a href="about.html" style="color: var(--accent-primary);">About Us</a> | <a href="reviews.html" style="color: var(--accent-primary);">Reviews</a> | <a href="privacy.html" style="color: var(--accent-primary);">Privacy Policy</a> | <a href="terms.html" style="color: var(--accent-primary);">Terms of Service</a> | <a href="contact.html" style="color: var(--accent-primary);">Contact Us</a></p>
         </footer>
     </div>
 

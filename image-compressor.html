@@ -67,6 +67,7 @@
                     <i class="fa-solid fa-rotate-right"></i> Reset
                 </button>
                 <a href="reviews.html" class="nav-link"><i class="fa-solid fa-star" style="color: #f59e0b;"></i> Reviews (4.9⭐)</a>
+                <a href="guides/index.html" class="nav-link"><i class="fa-solid fa-book-bookmark" style="color: var(--accent-primary);"></i> Exam Guides Hub</a>
                 <a href="index.html#presets" class="nav-link"><i class="fa-solid fa-list-check"></i> Specs Guide</a>
             </div>
         </header>
@@ -185,35 +186,77 @@
                 </div>
             </div>
 
-            <!-- SEO Informational & FAQ section -->
-            <section class="seo-guide-section glass-card" style="margin-top: 30px; padding: 25px;">
-                <h2>Image Compression to Exact Sizes (20KB, 50KB, 100KB, 200KB)</h2>
-                <p>Exam platforms like UPSC, SSC, IBPS, and state recruitments have automated validation rules that discard files exceeding standard sizes (usually 20 KB for signatures and 50 KB for photos). Simply adjusting the quality quality factor manually in Photoshop is difficult. Our binary compression algorithms automate this in milliseconds.</p>
+            <!-- SEO Informational & Technical Guide section -->
+            <section class="seo-guide-section glass-card" style="margin-top: 35px; padding: 30px; line-height: 1.8;">
+                <h2 style="font-size: 24px; font-weight: 700; color: var(--text-main); margin-bottom: 15px;">
+                    <i class="fa-solid fa-bolt" style="color: var(--accent-primary);"></i> Comprehensive Guide to Online Image Compression in KB & Pixels
+                </h2>
+                <p>When submitting documents to government recruitment platforms, bank job portals, or entrance exam sites, uploaded images must strictly meet KB size restrictions (e.g. 20 KB, 50 KB, 100 KB, or 200 KB). Large smartphone camera photos (2 MB – 10 MB) cannot be uploaded directly. Our online Image Compressor uses browser-side binary quantization algorithms to shrink file sizes to exact KB limits without introducing visual pixelation.</p>
                 
-                <div class="info-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
-                    <div>
-                        <h4><i class="fa-solid fa-brain" style="color:var(--primary);"></i> Smart Quality Search</h4>
-                        <p>Our compressor uses an iterative binary search algorithm to detect the exact JPEG quality index. This maximizes the image crispness while staying strictly below your designated target size.</p>
-                    </div>
-                    <div>
-                        <h4><i class="fa-solid fa-bolt" style="color:var(--primary);"></i> Offline Compress</h4>
-                        <p>All compression operations are handled within your local browser memory space. No images are sent over the network, ensuring instant speeds even on slow 3G mobile connections.</p>
-                    </div>
+                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent-primary); margin-top: 25px; margin-bottom: 15px;">Target KB File Size Reference for Major Examinations</h3>
+                
+                <div style="overflow-x: auto; margin-bottom: 25px;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;">
+                        <thead>
+                            <tr style="background: rgba(255,255,255,0.05); border-bottom: 2px solid var(--card-border);">
+                                <th style="padding: 12px 15px;">Exam Body / Application Type</th>
+                                <th style="padding: 12px 15px;">Target Photograph Size</th>
+                                <th style="padding: 12px 15px;">Target Signature Size</th>
+                                <th style="padding: 12px 15px;">Thumb / Declaration Size</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid var(--card-border);">
+                                <td style="padding: 12px 15px;"><strong>Staff Selection Commission (SSC)</strong></td>
+                                <td style="padding: 12px 15px; color: #10b981;">20 KB – 50 KB</td>
+                                <td style="padding: 12px 15px; color: #10b981;">10 KB – 20 KB</td>
+                                <td style="padding: 12px 15px;">N/A</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--card-border);">
+                                <td style="padding: 12px 15px;"><strong>UPSC Civil Services (OTR)</strong></td>
+                                <td style="padding: 12px 15px; color: #10b981;">20 KB – 300 KB</td>
+                                <td style="padding: 12px 15px; color: #10b981;">20 KB – 300 KB</td>
+                                <td style="padding: 12px 15px;">20 KB – 300 KB</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--card-border);">
+                                <td style="padding: 12px 15px;"><strong>IBPS / SBI Bank Recruitment</strong></td>
+                                <td style="padding: 12px 15px; color: #10b981;">20 KB – 50 KB</td>
+                                <td style="padding: 12px 15px; color: #10b981;">10 KB – 20 KB</td>
+                                <td style="padding: 12px 15px; color: #10b981;">50 KB – 100 KB</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--card-border);">
+                                <td style="padding: 12px 15px;"><strong>NTA NEET UG / JEE Main</strong></td>
+                                <td style="padding: 12px 15px; color: #10b981;">10 KB – 200 KB</td>
+                                <td style="padding: 12px 15px; color: #10b981;">4 KB – 30 KB</td>
+                                <td style="padding: 12px 15px; color: #10b981;">10 KB – 200 KB</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
-                <h3 style="margin-top: 25px;">Frequently Asked Questions</h3>
+                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent-primary); margin-top: 25px; margin-bottom: 15px;">How Binary Search Compression Works</h3>
+                <p>Standard graphic software requires users to manually guess JPEG quality percentages (e.g. 75%, 60%, 42%) repeatedly until the resulting file falls under a target KB limit. Our algorithm uses an intelligent binary search tree across the JPEG quality factor spectrum (0.0 to 1.0) on HTML5 Canvas. Within 5 milliseconds, it locates the exact quality index that maximizes image sharpness while guaranteeing the file size stays strictly inside your specified KB boundaries.</p>
+
+                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent-primary); margin-top: 25px; margin-bottom: 15px;">In-Depth Compression & Exam Guides</h3>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 25px;">
+                    <a href="guides/how-to-resize-photo-to-20kb-50kb-online.html" class="btn btn-secondary btn-sm"><i class="fa-solid fa-book"></i> Step-by-Step 20KB-50KB Tutorial</a>
+                    <a href="guides/ibps-po-clerk-photo-signature-handwritten-declaration-guide.html" class="btn btn-secondary btn-sm"><i class="fa-solid fa-book"></i> IBPS Declaration Compression</a>
+                    <a href="guides/index.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-book-bookmark"></i> Knowledge Hub</a>
+                </div>
+
+                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent-primary); margin-top: 25px; margin-bottom: 15px;">Frequently Asked Questions</h3>
                 <div class="faq-container">
-                    <details class="faq-item" open>
-                        <summary>How can I compress my signature to less than 20 KB?</summary>
-                        <p>Upload your signature scan, set the "Target Max File Size" field to 20 KB (or click the quick "20 KB" pill), and our engine will find the perfect quality scale to keep it under 20 KB instantly.</p>
+                    <details class="faq-item" open style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--card-border);">
+                        <summary style="font-weight: 600; cursor: pointer; color: var(--text-main);">How can I compress my signature to less than 20 KB?</summary>
+                        <p style="margin-top: 10px; font-size: 14px; color: var(--text-muted);">Upload your signature scan, set the "Target Max File Size" field to 20 KB (or click the quick "20 KB" preset pill), and our engine will find the perfect quality scale to keep it under 20 KB instantly.</p>
                     </details>
-                    <details class="faq-item">
-                        <summary>Will my image quality drop during compression?</summary>
-                        <p>We preserve pixel dimensions. Only the high-frequency color artifacts that are invisible to the human eye are compressed. This guarantees that text strokes and faces remain clear and eligible.</p>
+                    <details class="faq-item" style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--card-border);">
+                        <summary style="font-weight: 600; cursor: pointer; color: var(--text-main);">Will my image quality drop during compression?</summary>
+                        <p style="margin-top: 10px; font-size: 14px; color: var(--text-muted);">We preserve pixel dimensions. Only high-frequency color noise invisible to human eyes is compressed. This guarantees that text strokes, facial contours, and signatures remain sharp and clear.</p>
                     </details>
-                    <details class="faq-item">
-                        <summary>Can I compress PDF documents here?</summary>
-                        <p>This tool is optimized for photos (JPG, PNG, WEBP). To extract pages from a PDF to JPG, use our dedicated "PDF to Image" tab in the suite navigation.</p>
+                    <details class="faq-item" style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--card-border);">
+                        <summary style="font-weight: 600; cursor: pointer; color: var(--text-main);">Is this compression tool completely free and private?</summary>
+                        <p style="margin-top: 10px; font-size: 14px; color: var(--text-muted);">Yes. All operations occur in your local web browser using client-side HTML5 APIs. No pictures are transmitted over the internet or saved to remote databases.</p>
                     </details>
                 </div>
             </section>
@@ -221,12 +264,7 @@
 
         <!-- Footer -->
         <footer class="main-footer text-center" style="margin-top: 40px; padding: 20px 0; border-top: 1px solid var(--card-border); font-size: 13px; color: var(--text-muted);">
-            <p>© 2026 Exams Photo Resizer • <a href="index.html" style="color: var(--accent-primary);">Home</a> | <a
-                    href="about.html" style="color: var(--accent-primary);">About Us</a> | <a href="reviews.html"
-                    style="color: var(--accent-primary);">Reviews</a> | <a href="privacy.html"
-                    style="color: var(--accent-primary);">Privacy Policy</a> | <a href="terms.html"
-                    style="color: var(--accent-primary);">Terms of Service</a> | <a href="contact.html"
-                    style="color: var(--accent-primary);">Contact Us</a></p>
+            <p>© 2026 Exams Photo Resizer • <a href="index.html" style="color: var(--accent-primary);">Home</a> | <a href="guides/index.html" style="color: var(--accent-primary);">Knowledge Hub</a> | <a href="about.html" style="color: var(--accent-primary);">About Us</a> | <a href="reviews.html" style="color: var(--accent-primary);">Reviews</a> | <a href="privacy.html" style="color: var(--accent-primary);">Privacy Policy</a> | <a href="terms.html" style="color: var(--accent-primary);">Terms of Service</a> | <a href="contact.html" style="color: var(--accent-primary);">Contact Us</a></p>
         </footer>
     </div>
 

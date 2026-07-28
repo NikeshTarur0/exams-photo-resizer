@@ -70,6 +70,7 @@
                     <i class="fa-solid fa-rotate-right"></i> Reset
                 </button>
                 <a href="reviews.html" class="nav-link"><i class="fa-solid fa-star" style="color: #f59e0b;"></i> Reviews (4.9⭐)</a>
+                <a href="guides/index.html" class="nav-link"><i class="fa-solid fa-book-bookmark" style="color: var(--accent-primary);"></i> Exam Guides Hub</a>
                 <a href="index.html#presets" class="nav-link"><i class="fa-solid fa-list-check"></i> Specs Guide</a>
             </div>
         </header>
@@ -146,31 +147,71 @@
                 </div>
             </div>
 
-            <!-- SEO Informational & FAQ section -->
-            <section class="seo-guide-section glass-card" style="margin-top: 30px; padding: 25px;">
-                <h2>Guidelines for Converting PDF Pages to JPG/PNG</h2>
-                <p>Some portals require supporting certificates (educational transcripts, work experience documents, ID proofs) to be uploaded as JPG files rather than multi-page PDFs. Our PDF-to-image tool renders each page on an HTML5 canvas to guarantee high resolution outputs.</p>
+            <!-- SEO Informational & Technical Guide section -->
+            <section class="seo-guide-section glass-card" style="margin-top: 35px; padding: 30px; line-height: 1.8;">
+                <h2 style="font-size: 24px; font-weight: 700; color: var(--text-main); margin-bottom: 15px;">
+                    <i class="fa-solid fa-file-pdf" style="color: var(--accent-primary);"></i> Comprehensive Guide to Converting PDF Documents to JPG & PNG Images
+                </h2>
+                <p>When applying for government jobs, educational admissions, or state recruitment drives, candidates are frequently instructed to upload supporting certificates (such as 10th/12th marksheets, graduation degrees, caste certificates, or category certificates) as single-page high-resolution JPG or PNG images rather than PDF files. Our free PDF to Image Converter renders PDF pages into high-definition image files locally in your browser.</p>
                 
-                <div class="info-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
-                    <div>
-                        <h4><i class="fa-solid fa-bolt" style="color:var(--primary);"></i> In-Browser Extraction</h4>
-                        <p>We use pdf.js compiled scripts to execute PDF rendering locally. Your confidential certificates and documents are never exposed to remote web servers.</p>
-                    </div>
-                    <div>
-                        <h4><i class="fa-solid fa-file-image" style="color:var(--primary);"></i> Page-By-Page JPG Generation</h4>
-                        <p>Each page is extracted as a separate high-resolution image file. You can preview all pages side-by-side and choose which ones to download.</p>
-                    </div>
+                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent-primary); margin-top: 25px; margin-bottom: 15px;">PDF vs Image Upload Standards</h3>
+                
+                <div style="overflow-x: auto; margin-bottom: 25px;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;">
+                        <thead>
+                            <tr style="background: rgba(255,255,255,0.05); border-bottom: 2px solid var(--card-border);">
+                                <th style="padding: 12px 15px;">Document Category</th>
+                                <th style="padding: 12px 15px;">Acceptable Upload Format</th>
+                                <th style="padding: 12px 15px;">DPI Resolution</th>
+                                <th style="padding: 12px 15px;">Typical File Size Limits</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid var(--card-border);">
+                                <td style="padding: 12px 15px;"><strong>Passport Photo & Signature</strong></td>
+                                <td style="padding: 12px 15px; color: #10b981;">JPG / JPEG strictly</td>
+                                <td style="padding: 12px 15px;">300 DPI</td>
+                                <td style="padding: 12px 15px;">10 KB – 50 KB / 200 KB</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--card-border);">
+                                <td style="padding: 12px 15px;"><strong>Marksheets & Certificates</strong></td>
+                                <td style="padding: 12px 15px;">JPG / PNG / PDF depending on portal</td>
+                                <td style="padding: 12px 15px;">200 – 300 DPI</td>
+                                <td style="padding: 12px 15px;">100 KB – 500 KB</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--card-border);">
+                                <td style="padding: 12px 15px;"><strong>IBPS Handwritten Declaration</strong></td>
+                                <td style="padding: 12px 15px; color: #10b981;">JPG / JPEG strictly</td>
+                                <td style="padding: 12px 15px;">300 DPI</td>
+                                <td style="padding: 12px 15px;">50 KB – 100 KB</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
-                <h3 style="margin-top: 25px;">Frequently Asked Questions</h3>
+                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent-primary); margin-top: 25px; margin-bottom: 15px;">Client-Side PDF Rendering Security</h3>
+                <p>We utilize browser-based PDF parsing scripts to extract document vector objects into rasterized HTML5 Canvas elements. Because the conversion executes inside your web browser's isolated sandbox, sensitive marksheets, Aadhar cards, and private certificates are never sent to external servers or remote cloud APIs.</p>
+
+                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent-primary); margin-top: 25px; margin-bottom: 15px;">Related Exam Document Guides</h3>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 25px;">
+                    <a href="guides/ibps-po-clerk-photo-signature-handwritten-declaration-guide.html" class="btn btn-secondary btn-sm"><i class="fa-solid fa-book"></i> IBPS Document Specifications</a>
+                    <a href="guides/upsc-photo-signature-resizer-guide.html" class="btn btn-secondary btn-sm"><i class="fa-solid fa-book"></i> UPSC Document Rules</a>
+                    <a href="guides/index.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-book-bookmark"></i> Knowledge Hub</a>
+                </div>
+
+                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent-primary); margin-top: 25px; margin-bottom: 15px;">Frequently Asked Questions</h3>
                 <div class="faq-container">
-                    <details class="faq-item" open>
-                        <summary>Is there a page limit for PDF extraction?</summary>
-                        <p>No. Our local JS parser can render PDFs of any page count, limited only by your device's available RAM.</p>
+                    <details class="faq-item" open style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--card-border);">
+                        <summary style="font-weight: 600; cursor: pointer; color: var(--text-main);">Is there a page limit for PDF extraction?</summary>
+                        <p style="margin-top: 10px; font-size: 14px; color: var(--text-muted);">No. Our local JS parser renders PDFs of any page count, limited only by your device's available RAM.</p>
                     </details>
-                    <details class="faq-item">
-                        <summary>Will the extracted images look blur?</summary>
-                        <p>No. We render the PDF pages at a high zoom scale ratio (typically 2.0x scale) to ensure all text characters remain sharp and readable.</p>
+                    <details class="faq-item" style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--card-border);">
+                        <summary style="font-weight: 600; cursor: pointer; color: var(--text-main);">Will the extracted images look blurry?</summary>
+                        <p style="margin-top: 10px; font-size: 14px; color: var(--text-muted);">No. We render the PDF pages at a high 2.0x scale ratio to ensure all small text characters and seal stamps remain sharp and clear.</p>
+                    </details>
+                    <details class="faq-item" style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--card-border);">
+                        <summary style="font-weight: 600; cursor: pointer; color: var(--text-main);">Is this PDF to Image converter safe for private documents?</summary>
+                        <p style="margin-top: 10px; font-size: 14px; color: var(--text-muted);">Yes, 100% private. All rendering operates locally inside your browser tab without transmitting files to remote cloud servers.</p>
                     </details>
                 </div>
             </section>
@@ -178,12 +219,7 @@
 
         <!-- Footer -->
         <footer class="main-footer text-center" style="margin-top: 40px; padding: 20px 0; border-top: 1px solid var(--card-border); font-size: 13px; color: var(--text-muted);">
-            <p>© 2026 Exams Photo Resizer • <a href="index.html" style="color: var(--accent-primary);">Home</a> | <a
-                    href="about.html" style="color: var(--accent-primary);">About Us</a> | <a href="reviews.html"
-                    style="color: var(--accent-primary);">Reviews</a> | <a href="privacy.html"
-                    style="color: var(--accent-primary);">Privacy Policy</a> | <a href="terms.html"
-                    style="color: var(--accent-primary);">Terms of Service</a> | <a href="contact.html"
-                    style="color: var(--accent-primary);">Contact Us</a></p>
+            <p>© 2026 Exams Photo Resizer • <a href="index.html" style="color: var(--accent-primary);">Home</a> | <a href="guides/index.html" style="color: var(--accent-primary);">Knowledge Hub</a> | <a href="about.html" style="color: var(--accent-primary);">About Us</a> | <a href="reviews.html" style="color: var(--accent-primary);">Reviews</a> | <a href="privacy.html" style="color: var(--accent-primary);">Privacy Policy</a> | <a href="terms.html" style="color: var(--accent-primary);">Terms of Service</a> | <a href="contact.html" style="color: var(--accent-primary);">Contact Us</a></p>
         </footer>
     </div>
 

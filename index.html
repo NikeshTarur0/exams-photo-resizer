@@ -166,15 +166,19 @@
                 <button id="themeToggleBtn" class="btn-icon" title="Toggle Light/Dark Theme">
                     <i class="fa-solid fa-moon"></i>
                 </button>
-                <button id="historyModalBtn" class="btn-icon" title="Local Download History" onclick="toggleHistoryModal()" style="position: relative;">
+                <button id="historyModalBtn" class="btn-icon" title="Local Download History"
+                    onclick="toggleHistoryModal()" style="position: relative;">
                     <i class="fa-solid fa-clock-rotate-left"></i>
                     <span id="historyBadge" class="history-badge" style="display: none;">0</span>
                 </button>
-                <button class="btn btn-secondary btn-sm" onclick="resetEntireWorkspace()" title="Reset All Images & Inputs">
+                <button class="btn btn-secondary btn-sm" onclick="resetEntireWorkspace()"
+                    title="Reset All Images & Inputs">
                     <i class="fa-solid fa-rotate-right"></i> Reset
                 </button>
-                <a href="reviews.html" class="nav-link"><i class="fa-solid fa-star" style="color: #f59e0b;"></i> Reviews (4.9⭐)</a>
-                <a href="guides/index.html" class="nav-link"><i class="fa-solid fa-book-bookmark" style="color: var(--accent-primary);"></i> Exam Guides Hub</a>
+                <a href="reviews.html" class="nav-link"><i class="fa-solid fa-star" style="color: #f59e0b;"></i> Reviews
+                    (4.9⭐)</a>
+                <a href="guides/index.html" class="nav-link"><i class="fa-solid fa-book-bookmark"
+                        style="color: var(--accent-primary);"></i> Exam Guides Hub</a>
                 <a href="#presets" class="nav-link"><i class="fa-solid fa-list-check"></i> Specs Guide</a>
             </div>
         </header>
@@ -374,9 +378,15 @@
                             <div class="preview-card-header">
                                 <h3><i class="fa-solid fa-sliders"></i> Real-Time Resized Preview</h3>
                                 <div class="preview-mode-pills" id="photoPreviewMode">
-                                    <button class="pill-sm active" data-mode="after" onclick="setPreviewView('photo', 'after')"><i class="fa-solid fa-wand-magic-sparkles"></i> After</button>
-                                    <button class="pill-sm" data-mode="before" onclick="setPreviewView('photo', 'before')"><i class="fa-solid fa-image"></i> Before</button>
-                                    <button class="pill-sm" data-mode="compare" onclick="setPreviewView('photo', 'compare')"><i class="fa-solid fa-table-columns"></i> Compare</button>
+                                    <button class="pill-sm active" data-mode="after"
+                                        onclick="setPreviewView('photo', 'after')"><i
+                                            class="fa-solid fa-wand-magic-sparkles"></i> After</button>
+                                    <button class="pill-sm" data-mode="before"
+                                        onclick="setPreviewView('photo', 'before')"><i class="fa-solid fa-image"></i>
+                                        Before</button>
+                                    <button class="pill-sm" data-mode="compare"
+                                        onclick="setPreviewView('photo', 'compare')"><i
+                                            class="fa-solid fa-table-columns"></i> Compare</button>
                                 </div>
                             </div>
                             <div class="canvas-wrapper">
@@ -451,9 +461,15 @@
                             <div class="preview-card-header">
                                 <h3><i class="fa-solid fa-sliders"></i> Resized Signature Preview</h3>
                                 <div class="preview-mode-pills" id="sigPreviewMode">
-                                    <button class="pill-sm active" data-mode="after" onclick="setPreviewView('signature', 'after')"><i class="fa-solid fa-wand-magic-sparkles"></i> After</button>
-                                    <button class="pill-sm" data-mode="before" onclick="setPreviewView('signature', 'before')"><i class="fa-solid fa-image"></i> Before</button>
-                                    <button class="pill-sm" data-mode="compare" onclick="setPreviewView('signature', 'compare')"><i class="fa-solid fa-table-columns"></i> Compare</button>
+                                    <button class="pill-sm active" data-mode="after"
+                                        onclick="setPreviewView('signature', 'after')"><i
+                                            class="fa-solid fa-wand-magic-sparkles"></i> After</button>
+                                    <button class="pill-sm" data-mode="before"
+                                        onclick="setPreviewView('signature', 'before')"><i
+                                            class="fa-solid fa-image"></i> Before</button>
+                                    <button class="pill-sm" data-mode="compare"
+                                        onclick="setPreviewView('signature', 'compare')"><i
+                                            class="fa-solid fa-table-columns"></i> Compare</button>
                                 </div>
                             </div>
                             <div class="canvas-wrapper sig-canvas-wrapper">
@@ -531,9 +547,13 @@
                         <div class="preview-card-header">
                             <h3>Result Preview</h3>
                             <div class="preview-mode-pills" id="bgPreviewMode">
-                                <button class="pill-sm active" data-mode="after" onclick="setPreviewView('bg', 'after')"><i class="fa-solid fa-wand-magic-sparkles"></i> After</button>
-                                <button class="pill-sm" data-mode="before" onclick="setPreviewView('bg', 'before')"><i class="fa-solid fa-image"></i> Before</button>
-                                <button class="pill-sm" data-mode="compare" onclick="setPreviewView('bg', 'compare')"><i class="fa-solid fa-table-columns"></i> Compare</button>
+                                <button class="pill-sm active" data-mode="after"
+                                    onclick="setPreviewView('bg', 'after')"><i
+                                        class="fa-solid fa-wand-magic-sparkles"></i> After</button>
+                                <button class="pill-sm" data-mode="before" onclick="setPreviewView('bg', 'before')"><i
+                                        class="fa-solid fa-image"></i> Before</button>
+                                <button class="pill-sm" data-mode="compare" onclick="setPreviewView('bg', 'compare')"><i
+                                        class="fa-solid fa-table-columns"></i> Compare</button>
                             </div>
                         </div>
                         <div class="canvas-wrapper">
@@ -544,7 +564,8 @@
                         </div>
                         <div class="action-bar" id="bgActionBar" style="display:none;">
                             <button id="downloadBgBtn" class="btn btn-primary btn-glow"
-                                onclick="downloadToolOutput('bg')"><i class="fa-solid fa-download"></i> Download Cleaned Image</button>
+                                onclick="downloadToolOutput('bg')"><i class="fa-solid fa-download"></i> Download Cleaned
+                                Image</button>
                         </div>
                     </div>
                 </div>
@@ -588,9 +609,14 @@
                         <div class="preview-card-header">
                             <h3>Compressed Result</h3>
                             <div class="preview-mode-pills" id="compPreviewMode">
-                                <button class="pill-sm active" data-mode="after" onclick="setPreviewView('comp', 'after')"><i class="fa-solid fa-wand-magic-sparkles"></i> After</button>
-                                <button class="pill-sm" data-mode="before" onclick="setPreviewView('comp', 'before')"><i class="fa-solid fa-image"></i> Before</button>
-                                <button class="pill-sm" data-mode="compare" onclick="setPreviewView('comp', 'compare')"><i class="fa-solid fa-table-columns"></i> Compare</button>
+                                <button class="pill-sm active" data-mode="after"
+                                    onclick="setPreviewView('comp', 'after')"><i
+                                        class="fa-solid fa-wand-magic-sparkles"></i> After</button>
+                                <button class="pill-sm" data-mode="before" onclick="setPreviewView('comp', 'before')"><i
+                                        class="fa-solid fa-image"></i> Before</button>
+                                <button class="pill-sm" data-mode="compare"
+                                    onclick="setPreviewView('comp', 'compare')"><i
+                                        class="fa-solid fa-table-columns"></i> Compare</button>
                             </div>
                         </div>
                         <div class="canvas-wrapper">
@@ -609,7 +635,8 @@
                         </div>
                         <div class="action-bar" id="compActionBar" style="display:none;">
                             <button id="downloadCompBtn" class="btn btn-primary btn-glow"
-                                onclick="downloadToolOutput('comp')"><i class="fa-solid fa-download"></i> Download Compressed Image</button>
+                                onclick="downloadToolOutput('comp')"><i class="fa-solid fa-download"></i> Download
+                                Compressed Image</button>
                         </div>
                     </div>
                 </div>
@@ -656,9 +683,15 @@
                         <div class="preview-card-header">
                             <h3>Resized Preview</h3>
                             <div class="preview-mode-pills" id="resizePreviewMode">
-                                <button class="pill-sm active" data-mode="after" onclick="setPreviewView('resize', 'after')"><i class="fa-solid fa-wand-magic-sparkles"></i> After</button>
-                                <button class="pill-sm" data-mode="before" onclick="setPreviewView('resize', 'before')"><i class="fa-solid fa-image"></i> Before</button>
-                                <button class="pill-sm" data-mode="compare" onclick="setPreviewView('resize', 'compare')"><i class="fa-solid fa-table-columns"></i> Compare</button>
+                                <button class="pill-sm active" data-mode="after"
+                                    onclick="setPreviewView('resize', 'after')"><i
+                                        class="fa-solid fa-wand-magic-sparkles"></i> After</button>
+                                <button class="pill-sm" data-mode="before"
+                                    onclick="setPreviewView('resize', 'before')"><i class="fa-solid fa-image"></i>
+                                    Before</button>
+                                <button class="pill-sm" data-mode="compare"
+                                    onclick="setPreviewView('resize', 'compare')"><i
+                                        class="fa-solid fa-table-columns"></i> Compare</button>
                             </div>
                         </div>
                         <div class="canvas-wrapper">
@@ -669,7 +702,8 @@
                         </div>
                         <div class="action-bar" id="resizeActionBar" style="display:none;">
                             <button id="downloadResizeBtn" class="btn btn-primary btn-glow"
-                                onclick="downloadToolOutput('resize')"><i class="fa-solid fa-download"></i> Download Resized Image</button>
+                                onclick="downloadToolOutput('resize')"><i class="fa-solid fa-download"></i> Download
+                                Resized Image</button>
                         </div>
                     </div>
                 </div>
@@ -704,7 +738,7 @@
                                 </select>
                             </div>
                             <button class="btn btn-primary btn-block" onclick="processFormatConversion()"><i
-                                     class="fa-solid fa-rotate"></i> Convert Format</button>
+                                    class="fa-solid fa-rotate"></i> Convert Format</button>
                         </div>
                     </div>
 
@@ -712,9 +746,14 @@
                         <div class="preview-card-header">
                             <h3>Converted Result</h3>
                             <div class="preview-mode-pills" id="convPreviewMode">
-                                <button class="pill-sm active" data-mode="after" onclick="setPreviewView('conv', 'after')"><i class="fa-solid fa-wand-magic-sparkles"></i> After</button>
-                                <button class="pill-sm" data-mode="before" onclick="setPreviewView('conv', 'before')"><i class="fa-solid fa-image"></i> Before</button>
-                                <button class="pill-sm" data-mode="compare" onclick="setPreviewView('conv', 'compare')"><i class="fa-solid fa-table-columns"></i> Compare</button>
+                                <button class="pill-sm active" data-mode="after"
+                                    onclick="setPreviewView('conv', 'after')"><i
+                                        class="fa-solid fa-wand-magic-sparkles"></i> After</button>
+                                <button class="pill-sm" data-mode="before" onclick="setPreviewView('conv', 'before')"><i
+                                        class="fa-solid fa-image"></i> Before</button>
+                                <button class="pill-sm" data-mode="compare"
+                                    onclick="setPreviewView('conv', 'compare')"><i
+                                        class="fa-solid fa-table-columns"></i> Compare</button>
                             </div>
                         </div>
                         <div class="canvas-wrapper">
@@ -725,7 +764,8 @@
                         </div>
                         <div class="action-bar" id="convActionBar" style="display:none;">
                             <button id="downloadConvBtn" class="btn btn-primary btn-glow"
-                                onclick="downloadToolOutput('conv')"><i class="fa-solid fa-download"></i> Download Converted File</button>
+                                onclick="downloadToolOutput('conv')"><i class="fa-solid fa-download"></i> Download
+                                Converted File</button>
                         </div>
                     </div>
                 </div>
@@ -769,9 +809,14 @@
                         <div class="preview-card-header">
                             <h3>Cropped Result</h3>
                             <div class="preview-mode-pills" id="cropPreviewMode">
-                                <button class="pill-sm active" data-mode="after" onclick="setPreviewView('crop', 'after')"><i class="fa-solid fa-wand-magic-sparkles"></i> After</button>
-                                <button class="pill-sm" data-mode="before" onclick="setPreviewView('crop', 'before')"><i class="fa-solid fa-image"></i> Before</button>
-                                <button class="pill-sm" data-mode="compare" onclick="setPreviewView('crop', 'compare')"><i class="fa-solid fa-table-columns"></i> Compare</button>
+                                <button class="pill-sm active" data-mode="after"
+                                    onclick="setPreviewView('crop', 'after')"><i
+                                        class="fa-solid fa-wand-magic-sparkles"></i> After</button>
+                                <button class="pill-sm" data-mode="before" onclick="setPreviewView('crop', 'before')"><i
+                                        class="fa-solid fa-image"></i> Before</button>
+                                <button class="pill-sm" data-mode="compare"
+                                    onclick="setPreviewView('crop', 'compare')"><i
+                                        class="fa-solid fa-table-columns"></i> Compare</button>
                             </div>
                         </div>
                         <div class="canvas-wrapper">
@@ -782,7 +827,8 @@
                         </div>
                         <div class="action-bar" id="cropActionBar" style="display:none;">
                             <button id="downloadCropBtn" class="btn btn-primary btn-glow"
-                                onclick="downloadToolOutput('crop')"><i class="fa-solid fa-download"></i> Download Cropped Image</button>
+                                onclick="downloadToolOutput('crop')"><i class="fa-solid fa-download"></i> Download
+                                Cropped Image</button>
                         </div>
                     </div>
                 </div>
@@ -864,9 +910,15 @@
                         <div class="preview-card-header">
                             <h3>4K Upscaled Preview</h3>
                             <div class="preview-mode-pills" id="upscalePreviewMode">
-                                <button class="pill-sm active" data-mode="after" onclick="setPreviewView('upscale', 'after')"><i class="fa-solid fa-wand-magic-sparkles"></i> After</button>
-                                <button class="pill-sm" data-mode="before" onclick="setPreviewView('upscale', 'before')"><i class="fa-solid fa-image"></i> Before</button>
-                                <button class="pill-sm" data-mode="compare" onclick="setPreviewView('upscale', 'compare')"><i class="fa-solid fa-table-columns"></i> Compare</button>
+                                <button class="pill-sm active" data-mode="after"
+                                    onclick="setPreviewView('upscale', 'after')"><i
+                                        class="fa-solid fa-wand-magic-sparkles"></i> After</button>
+                                <button class="pill-sm" data-mode="before"
+                                    onclick="setPreviewView('upscale', 'before')"><i class="fa-solid fa-image"></i>
+                                    Before</button>
+                                <button class="pill-sm" data-mode="compare"
+                                    onclick="setPreviewView('upscale', 'compare')"><i
+                                        class="fa-solid fa-table-columns"></i> Compare</button>
                             </div>
                         </div>
                         <div class="canvas-wrapper">
@@ -885,7 +937,8 @@
                         </div>
                         <div class="action-bar" id="upscaleActionBar" style="display:none;">
                             <button id="downloadUpscaleBtn" class="btn btn-primary btn-glow"
-                                onclick="downloadToolOutput('upscale')"><i class="fa-solid fa-download"></i> Download 4K Ultra HD Image</button>
+                                onclick="downloadToolOutput('upscale')"><i class="fa-solid fa-download"></i> Download 4K
+                                Ultra HD Image</button>
                         </div>
                     </div>
                 </div>
@@ -920,92 +973,144 @@
         <!-- Exam Photo & Signature Knowledge Hub Showcase Section -->
         <section class="table-section glass-panel" style="margin-top: 30px;">
             <div class="table-header">
-                <h2><i class="fa-solid fa-book-bookmark" style="color: var(--accent-primary);"></i> Indian Competitive Exam Guides & Official Specifications (Knowledge Hub)</h2>
-                <p>Read in-depth official photo, signature, thumb impression and document rules for top Indian recruitment & entrance exams.</p>
+                <h2><i class="fa-solid fa-book-bookmark" style="color: var(--accent-primary);"></i> Indian Competitive
+                    Exam Guides & Official Specifications (Knowledge Hub)</h2>
+                <p>Read in-depth official photo, signature, thumb impression and document rules for top Indian
+                    recruitment & entrance exams.</p>
             </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 20px;">
-                <a href="guides/upsc-photo-signature-resizer-guide.html" style="text-decoration: none;" class="glass-card">
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 20px;">
+                <a href="guides/upsc-photo-signature-resizer-guide.html" style="text-decoration: none;"
+                    class="glass-card">
                     <div style="padding: 16px;">
-                        <h4 style="color: var(--text-main); font-size: 15px; margin-bottom: 6px;"><i class="fa-solid fa-building-columns" style="color:#3b82f6;"></i> UPSC Civil Services Guide</h4>
-                        <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Photo (20-300KB), Name/Date stamp rules & signature dimensions for UPSC OTR portal.</p>
+                        <h4 style="color: var(--text-main); font-size: 15px; margin-bottom: 6px;"><i
+                                class="fa-solid fa-building-columns" style="color:#3b82f6;"></i> UPSC Civil Services
+                            Guide</h4>
+                        <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Photo (20-300KB), Name/Date
+                            stamp rules & signature dimensions for UPSC OTR portal.</p>
                     </div>
                 </a>
-                <a href="guides/ssc-cgl-photo-signature-requirements.html" style="text-decoration: none;" class="glass-card">
+                <a href="guides/ssc-cgl-photo-signature-requirements.html" style="text-decoration: none;"
+                    class="glass-card">
                     <div style="padding: 16px;">
-                        <h4 style="color: var(--text-main); font-size: 15px; margin-bottom: 6px;"><i class="fa-solid fa-user-check" style="color:#10b981;"></i> SSC CGL / CHSL / MTS Guide</h4>
-                        <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Passport photo 20-50KB, Signature 10-20KB (140x60px) & live photo capture rules.</p>
+                        <h4 style="color: var(--text-main); font-size: 15px; margin-bottom: 6px;"><i
+                                class="fa-solid fa-user-check" style="color:#10b981;"></i> SSC CGL / CHSL / MTS Guide
+                        </h4>
+                        <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Passport photo 20-50KB,
+                            Signature 10-20KB (140x60px) & live photo capture rules.</p>
                     </div>
                 </a>
-                <a href="guides/neet-passport-postcard-photo-size-guide.html" style="text-decoration: none;" class="glass-card">
+                <a href="guides/neet-passport-postcard-photo-size-guide.html" style="text-decoration: none;"
+                    class="glass-card">
                     <div style="padding: 16px;">
-                        <h4 style="color: var(--text-main); font-size: 15px; margin-bottom: 6px;"><i class="fa-solid fa-user-doctor" style="color:#ec4899;"></i> NTA NEET UG Photo Guide</h4>
-                        <p style="font-size: 13px; color: var(--text-muted); margin: 0;">4x6 Postcard photo vs Passport photo specs (10-200KB) & thumb impression rules.</p>
+                        <h4 style="color: var(--text-main); font-size: 15px; margin-bottom: 6px;"><i
+                                class="fa-solid fa-user-doctor" style="color:#ec4899;"></i> NTA NEET UG Photo Guide</h4>
+                        <p style="font-size: 13px; color: var(--text-muted); margin: 0;">4x6 Postcard photo vs Passport
+                            photo specs (10-200KB) & thumb impression rules.</p>
                     </div>
                 </a>
-                <a href="guides/ibps-po-clerk-photo-signature-handwritten-declaration-guide.html" style="text-decoration: none;" class="glass-card">
+                <a href="guides/ibps-po-clerk-photo-signature-handwritten-declaration-guide.html"
+                    style="text-decoration: none;" class="glass-card">
                     <div style="padding: 16px;">
-                        <h4 style="color: var(--text-main); font-size: 15px; margin-bottom: 6px;"><i class="fa-solid fa-piggy-bank" style="color:#f59e0b;"></i> IBPS PO & Clerk Specs</h4>
-                        <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Photo, Signature, Thumb Impression & Handwritten Declaration upload limits.</p>
+                        <h4 style="color: var(--text-main); font-size: 15px; margin-bottom: 6px;"><i
+                                class="fa-solid fa-piggy-bank" style="color:#f59e0b;"></i> IBPS PO & Clerk Specs</h4>
+                        <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Photo, Signature, Thumb
+                            Impression & Handwritten Declaration upload limits.</p>
                     </div>
                 </a>
                 <a href="guides/sbi-po-photo-resizer-guide.html" style="text-decoration: none;" class="glass-card">
                     <div style="padding: 16px;">
-                        <h4 style="color: var(--text-main); font-size: 15px; margin-bottom: 6px;"><i class="fa-solid fa-landmark" style="color:#8b5cf6;"></i> SBI PO & Clerk Guide</h4>
-                        <p style="font-size: 13px; color: var(--text-muted); margin: 0;">State Bank of India passport photo sizing & digital signature parameters.</p>
+                        <h4 style="color: var(--text-main); font-size: 15px; margin-bottom: 6px;"><i
+                                class="fa-solid fa-landmark" style="color:#8b5cf6;"></i> SBI PO & Clerk Guide</h4>
+                        <p style="font-size: 13px; color: var(--text-muted); margin: 0;">State Bank of India passport
+                            photo sizing & digital signature parameters.</p>
                     </div>
                 </a>
                 <a href="guides/rrb-ntpc-photo-resizer-guide.html" style="text-decoration: none;" class="glass-card">
                     <div style="padding: 16px;">
-                        <h4 style="color: var(--text-main); font-size: 15px; margin-bottom: 6px;"><i class="fa-solid fa-train" style="color:#ef4444;"></i> RRB NTPC Railway Specs</h4>
-                        <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Railway Recruitment Board color photo (20-50KB) & signature guidelines.</p>
+                        <h4 style="color: var(--text-main); font-size: 15px; margin-bottom: 6px;"><i
+                                class="fa-solid fa-train" style="color:#ef4444;"></i> RRB NTPC Railway Specs</h4>
+                        <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Railway Recruitment Board color
+                            photo (20-50KB) & signature guidelines.</p>
                     </div>
                 </a>
-                <a href="guides/gate-exam-photo-signature-specifications.html" style="text-decoration: none;" class="glass-card">
+                <a href="guides/gate-exam-photo-signature-specifications.html" style="text-decoration: none;"
+                    class="glass-card">
                     <div style="padding: 16px;">
-                        <h4 style="color: var(--text-main); font-size: 15px; margin-bottom: 6px;"><i class="fa-solid fa-gears" style="color:#06b6d4;"></i> GATE (GOAPS) Specs Guide</h4>
-                        <p style="font-size: 13px; color: var(--text-muted); margin: 0;">IIT GOAPS portal aspect ratio guidelines & 5-200KB upload limits.</p>
+                        <h4 style="color: var(--text-main); font-size: 15px; margin-bottom: 6px;"><i
+                                class="fa-solid fa-gears" style="color:#06b6d4;"></i> GATE (GOAPS) Specs Guide</h4>
+                        <p style="font-size: 13px; color: var(--text-muted); margin: 0;">IIT GOAPS portal aspect ratio
+                            guidelines & 5-200KB upload limits.</p>
                     </div>
                 </a>
-                <a href="guides/how-to-resize-photo-to-20kb-50kb-online.html" style="text-decoration: none;" class="glass-card">
+                <a href="guides/how-to-resize-photo-to-20kb-50kb-online.html" style="text-decoration: none;"
+                    class="glass-card">
                     <div style="padding: 16px;">
-                        <h4 style="color: var(--text-main); font-size: 15px; margin-bottom: 6px;"><i class="fa-solid fa-sliders" style="color:#14b8a6;"></i> 20KB - 50KB Resizing Tutorial</h4>
-                        <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Master tutorial on JPEG binary quantization algorithms & quality optimization.</p>
+                        <h4 style="color: var(--text-main); font-size: 15px; margin-bottom: 6px;"><i
+                                class="fa-solid fa-sliders" style="color:#14b8a6;"></i> 20KB - 50KB Resizing Tutorial
+                        </h4>
+                        <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Master tutorial on JPEG binary
+                            quantization algorithms & quality optimization.</p>
                     </div>
                 </a>
             </div>
             <div style="text-align: center; margin-top: 20px;">
-                <a href="guides/index.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-book-bookmark"></i> Access Complete Knowledge Hub Library</a>
+                <a href="guides/index.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-book-bookmark"></i>
+                    Access Complete Knowledge Hub Library</a>
             </div>
         </section>
 
         <!-- Comprehensive Exam Photo Resizing Guide & FAQ Section -->
         <section class="seo-guide-section glass-panel" style="margin-top: 30px; line-height: 1.8; padding: 30px;">
-            <h2 style="font-family: var(--font-heading); color: var(--accent-primary); font-size: 22px; margin-bottom: 15px;">
+            <h2
+                style="font-family: var(--font-heading); color: var(--accent-primary); font-size: 22px; margin-bottom: 15px;">
                 <i class="fa-solid fa-circle-question"></i> Frequently Asked Questions & Exam Photo Guidelines
             </h2>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 14px; color: var(--text-secondary);">
+            <div
+                style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 14px; color: var(--text-secondary);">
                 <div>
-                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">How do I resize a photo to 20 KB - 50 KB for SSC CGL / CHSL?</h3>
-                    <p style="margin-bottom: 14px;">Select <strong>SSC CGL / CHSL</strong> from the dropdown menu, drag and drop your photo into the passport workspace, adjust zoom if necessary, and click download. Our engine automatically adjusts JPEG compression quality to keep the final file between 20 KB and 50 KB.</p>
+                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">How do I resize a photo
+                        to 20 KB - 50 KB for SSC CGL / CHSL?</h3>
+                    <p style="margin-bottom: 14px;">Select <strong>SSC CGL / CHSL</strong> from the dropdown menu, drag
+                        and drop your photo into the passport workspace, adjust zoom if necessary, and click download.
+                        Our engine automatically adjusts JPEG compression quality to keep the final file between 20 KB
+                        and 50 KB.</p>
 
-                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">What are the photo requirements for UPSC Civil Services IAS?</h3>
-                    <p style="margin-bottom: 14px;">UPSC requires passport photos to be between <strong>20 KB and 300 KB</strong> with minimum 350x350 pixel dimensions. The photo must be clear with a light or white background, displaying the candidate's name and date of photo taking printed at the bottom.</p>
+                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">What are the photo
+                        requirements for UPSC Civil Services IAS?</h3>
+                    <p style="margin-bottom: 14px;">UPSC requires passport photos to be between <strong>20 KB and 300
+                            KB</strong> with minimum 350x350 pixel dimensions. The photo must be clear with a light or
+                        white background, displaying the candidate's name and date of photo taking printed at the
+                        bottom.</p>
                 </div>
 
                 <div>
-                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">Is my photo stored on any external server?</h3>
-                    <p style="margin-bottom: 14px;">No. Your privacy is 100% guaranteed. All image cropping, scaling, background removal, and file compression take place locally on your own device browser using modern HTML5 Canvas technology.</p>
+                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">Is my photo stored on
+                        any external server?</h3>
+                    <p style="margin-bottom: 14px;">No. Your privacy is 100% guaranteed. All image cropping, scaling,
+                        background removal, and file compression take place locally on your own device browser using
+                        modern HTML5 Canvas technology.</p>
 
-                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">Why do online exam portals reject uploaded photos?</h3>
-                    <p style="margin-bottom: 14px;">Most rejections occur due to incorrect aspect ratio (distorted faces), dark background shadows, signatures written in capital letters, or exceeding strict file size bounds. Our real-time compliance meter alerts you before downloading.</p>
+                    <h3 style="color: var(--text-primary); font-size: 16px; margin-bottom: 6px;">Why do online exam
+                        portals reject uploaded photos?</h3>
+                    <p style="margin-bottom: 14px;">Most rejections occur due to incorrect aspect ratio (distorted
+                        faces), dark background shadows, signatures written in capital letters, or exceeding strict file
+                        size bounds. Our real-time compliance meter alerts you before downloading.</p>
                 </div>
             </div>
         </section>
 
         <!-- Footer -->
-        <footer class="main-footer text-center" style="margin-top: 40px; padding: 20px 0; border-top: 1px solid var(--card-border); font-size: 13px; color: var(--text-muted);">
-            <p>© 2026 Exams Photo Resizer • <a href="index.html" style="color: var(--accent-primary);">Home</a> | <a href="guides/index.html" style="color: var(--accent-primary);">Knowledge Hub</a> | <a href="about.html" style="color: var(--accent-primary);">About Us</a> | <a href="reviews.html" style="color: var(--accent-primary);">Reviews</a> | <a href="privacy.html" style="color: var(--accent-primary);">Privacy Policy</a> | <a href="terms.html" style="color: var(--accent-primary);">Terms of Service</a> | <a href="contact.html" style="color: var(--accent-primary);">Contact Us</a></p>
+        <footer class="main-footer text-center"
+            style="margin-top: 40px; padding: 20px 0; border-top: 1px solid var(--card-border); font-size: 13px; color: var(--text-muted);">
+            <p>© 2026 Exams Photo Resizer • <a href="index.html" style="color: var(--accent-primary);">Home</a> | <a
+                    href="guides/index.html" style="color: var(--accent-primary);">Knowledge Hub</a> | <a
+                    href="about.html" style="color: var(--accent-primary);">About Us</a> | <a href="reviews.html"
+                    style="color: var(--accent-primary);">Reviews</a> | <a href="privacy.html"
+                    style="color: var(--accent-primary);">Privacy Policy</a> | <a href="terms.html"
+                    style="color: var(--accent-primary);">Terms of Service</a> | <a href="contact.html"
+                    style="color: var(--accent-primary);">Contact Us</a></p>
         </footer>
     </div>
 
@@ -1022,7 +1127,8 @@
                 <!-- Dynamically populated by JS -->
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary btn-sm" onclick="clearDownloadHistory()"><i class="fa-solid fa-trash-can"></i> Clear History</button>
+                <button class="btn btn-secondary btn-sm" onclick="clearDownloadHistory()"><i
+                        class="fa-solid fa-trash-can"></i> Clear History</button>
                 <button class="btn btn-primary btn-sm" onclick="toggleHistoryModal()">Close</button>
             </div>
         </div>

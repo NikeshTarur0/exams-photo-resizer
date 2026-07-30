@@ -1573,3 +1573,13 @@ button.pill-sm.active {
     font-size: 11px;
     color: var(--text-muted);
 }
+
+/* AdSense Display Unit Container */
+.adsense-unit-container {
+    margin: 24px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    min-height: 90px;
+}

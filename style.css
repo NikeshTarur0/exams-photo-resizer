@@ -99,7 +99,15 @@ body {
     display: flex;
     align-items: center;
     gap: 16px;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
 }
+
+.logo-area:hover {
+    opacity: 0.92;
+}
+
 
 .logo-icon,
 .app-logo-img {
